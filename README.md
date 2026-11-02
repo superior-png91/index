@@ -1,2 +1,2 @@
 # Les-Fous-d-Etrechy
-Club d'échec les Fous d'Etréchy
+Club d'échecs les Fous d'Etréchy
