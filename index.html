@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les Fous d'Étréchy</title>
+<meta name="robots" content="noindex,follow">
+<style>
+  html,body{margin:0;height:100%;background:#120D0A;color:#C2AA88;font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+  body{display:grid;place-items:center;text-align:center}
+  a{color:#ECC97F}
+</style>
+<script>
+/* Aiguilleur : à chaque visite, envoie vers l'une des pages ci-dessous.
+   - PAGES : les fichiers à faire tourner (mêmes noms exacts que sur GitHub, majuscules comprises).
+   - MODE  : "alterne" = chacune son tour ; "hasard" = tirage équilibré (chaque page une fois par tour, ordre mélangé). */
+var PAGES = ["Tableaurenaissance.html", "Tableautempete.html"];
+var MODE = "alterne";
+
+(function(){
+  var next = 0;
+  try {
+    if (MODE === "alterne") {
+      var last = parseInt(localStorage.getItem("fousAccueil"), 10);
+      next = isNaN(last) ? Math.floor(Math.random() * PAGES.length) : (last + 1) % PAGES.length;
+    } else {
+      var sac = JSON.parse(localStorage.getItem("fousAccueilSac") || "[]").filter(function(n){ return n < PAGES.length; });
+      if (!sac.length) {
+        for (var i = 0; i < PAGES.length; i++) sac.push(i);
+        for (var j = sac.length - 1; j > 0; j--) { var k = Math.floor(Math.random() * (j + 1)), x = sac[j]; sac[j] = sac[k]; sac[k] = x; }
+        var prev = parseInt(localStorage.getItem("fousAccueil"), 10);
+        if (sac.length > 1 && sac[0] === prev) { var y = sac[0]; sac[0] = sac[1]; sac[1] = y; }
+      }
+      next = sac.shift();
+      localStorage.setItem("fousAccueilSac", JSON.stringify(sac));
+    }
+    localStorage.setItem("fousAccueil", String(next));
+  } catch (e) {
+    next = Math.floor(Math.random() * PAGES.length);   /* navigation privée stricte : simple tirage au sort */
+  }
+  /* replace : la page d'aiguillage ne reste pas dans l'historique (le bouton « Précédent » ne ramène pas ici) */
+  location.replace(PAGES[next] + location.search + location.hash);
+})();
+</script>
+</head>
+<body>
+  <noscript><p>Les Fous d'Étréchy · <a href="Tableautempete.html">Entrer</a></p></noscript>
+</body>
+</html>
