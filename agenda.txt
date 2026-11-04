@@ -23,4 +23,4 @@ AGENDA_CLUB = `
 14/11/2026 ; ouvert ; 14 h – 18 h ; Porte ouverte, venez nombreux, séance libre
 28/11/2026 ; ouvert ; 14 h – 18 h ; 
 26/12/2026 ; ouvert ; 14 h – 18 h ;
-`;
+
