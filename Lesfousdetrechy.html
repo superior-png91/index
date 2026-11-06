@@ -87,6 +87,14 @@
 .sc-vid .sc-txt{z-index:1;background:linear-gradient(0deg,rgba(18,13,10,.85),rgba(18,13,10,0) 55%);pointer-events:none}
 .sc-vid .vid-sound{z-index:2}
 @media (max-width:1040px){.sc-card{top:calc(78px + var(--i)*12px)}}
+/* tablette à l'horizontale : l'image ne prend jamais plus de 44 % de la largeur, le grand numéro suit la hauteur de l'écran */
+@media (min-width:761px) and (min-aspect-ratio:1/1){.sc-card:not(.sc-vid) .sc-media{max-width:44vw}}
+.sc-big{font-size:clamp(3rem,min(10vw,17vh),9rem)}
+@media (min-aspect-ratio:1/1) and (max-height:620px){
+  .sc-txt{padding:clamp(16px,3vw,32px);gap:8px}
+  .sc-txt h3{font-size:clamp(1.4rem,3vw,2.2rem)}
+  .sc-txt p{font-size:.92rem}
+}
 @media (max-width:760px),(max-aspect-ratio:1/1){
   .sc-card{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;height:min(74vh,660px);height:min(74svh,660px);border-radius:18px}
   .sc-media{aspect-ratio:auto;height:auto;min-height:0}
@@ -1514,6 +1522,14 @@ window.FOUS_TITRE = function(ch, host){
   if(window.ResizeObserver)new ResizeObserver(size).observe(hero);
   hero.addEventListener("pointermove",function(e){var r=hero.getBoundingClientRect();hx=e.clientX-r.left;hy=e.clientY-r.top;});
   hero.addEventListener("pointerleave",function(){hx=-999;hy=-999;});
+  // tablette et téléphone : pas de souris ; le doigt éclaire les cases quand il touche le haut de la page,
+  // et sinon la lumière se promène toute seule sur l'échiquier
+  var touchT=0;
+  function onTouch(e){var tt=e.touches&&e.touches[0];if(!tt)return;var r=hero.getBoundingClientRect();hx=tt.clientX-r.left;hy=tt.clientY-r.top;touchT=performance.now();}
+  hero.addEventListener("touchstart",onTouch,{passive:true});
+  hero.addEventListener("touchmove",onTouch,{passive:true});
+  hero.addEventListener("touchend",function(){setTimeout(function(){if(performance.now()-touchT>1400){hx=-999;hy=-999;}},1500);},{passive:true});
+  var noHover=matchMedia("(hover: none)").matches;
   if("IntersectionObserver" in window)new IntersectionObserver(function(en){vis=en[0].isIntersecting;}).observe(hero);
   // cinq pièces, comme dans la démo : le cavalier doré, puis fou, tour, dame et pion en filigrane
   var FL=[{g:"\u265E",x:.80,y:.30,s:150,d:.06,r:-.18},{g:"\u265D",x:.12,y:.20,s:96,d:.03,r:.2},{g:"\u265C",x:.62,y:.78,s:84,d:.045,r:.1},{g:"\u265B",x:.92,y:.72,s:70,d:.025,r:-.12},{g:"\u265F",x:.36,y:.12,s:58,d:.02,r:.05}];
@@ -1521,15 +1537,16 @@ window.FOUS_TITRE = function(ch, host){
     now=now||0;
     if(vis&&W){
       var rx=W*.72,ry=H*.42;
+      if(noHover&&!reduce){rx=W*(.5+.34*Math.sin(now/3200));ry=H*(.42+.26*Math.sin(now/2300+1));}
       if(sx<-900){sx=rx;sy=ry;}
-      if(hx<-900||reduce&&hx<-900){sx+=(rx-sx)*.02;sy+=(ry-sy)*.02;}
+      if(hx<-900){sx+=(rx-sx)*(noHover?.05:.02);sy+=(ry-sy)*(noHover?.05:.02);}
       else{sx+=(hx-sx)*(reduce?1:.12);sy+=(hy-sy)*(reduce?1:.12);}
       ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
       var sq=W<640?44:72,cols=Math.ceil(W/sq)+1,rows=Math.ceil(H/sq)+1,R=Math.max(220,W*.28);
       for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
         if((r+c)%2)continue;
         var x=c*sq,y=r*sq,dx=x+sq/2-sx,dy=y+sq/2-sy;
-        var f=Math.max(0,1-Math.sqrt(dx*dx+dy*dy)/R),a=.03+f*f*.26,k=1-f*.25;
+        var f=Math.max(0,1-Math.sqrt(dx*dx+dy*dy)/R),a=(W<640?.05:.03)+f*f*(W<640?.32:.26),k=1-f*.25;
         ctx.fillStyle="rgba(234,215,177,"+a.toFixed(3)+")";
         ctx.fillRect(x+sq*(1-k)/2,y+sq*(1-k)/2,sq*k,sq*k);
       }
