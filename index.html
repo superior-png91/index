@@ -116,7 +116,7 @@
 .actu-copy .acts{display:flex;flex-wrap:wrap;gap:12px}
 .actu-side{display:flex;flex-direction:column;gap:20px;min-width:0}
 .cal{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:6px 22px;padding-bottom:20px;border-bottom:1px solid var(--line)}
-.cal .d{grid-row:span 3;font-family:var(--display);font-weight:500;font-size:clamp(5.5rem,11vw,8.5rem);line-height:.8;color:var(--or-pale);font-variant-numeric:lining-nums}
+.cal .d{grid-row:span 3;font-family:var(--display);font-weight:600;font-variation-settings:"opsz" 28;font-size:clamp(5.5rem,11vw,8.5rem);line-height:.8;color:var(--or-pale);font-variant-numeric:lining-nums}
 .cal .w{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
 .cal .m{font-family:var(--display);font-style:italic;font-size:clamp(1.6rem,2.6vw,2.2rem);line-height:1}
 .cal .h{font-family:var(--mono);font-size:.95rem;color:var(--sepia)}
@@ -199,6 +199,12 @@
 #ouverture.live{position:relative;height:400vh;background:var(--ebene);display:block;padding:0;min-height:0;overflow:visible}
 .live .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse 80% 70% at 50% 55%,#2a1a11 0%,var(--ebene) 72%)}
 .live canvas#gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+/* la ligne « a1 · Club d'échecs de loisirs », centrée à la hauteur du bouton « Passer au club » */
+.op-eyebrow{position:absolute;left:0;right:0;top:calc(var(--nav-h,64px) + 20px + env(safe-area-inset-top,0px));height:42px;z-index:6;margin:0;padding-inline:16px;pointer-events:none;
+  display:flex;justify-content:center;align-items:center;gap:12px;font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+.op-eyebrow .g{display:inline-grid;place-items:center;min-width:34px;height:34px;padding-inline:4px;border:1px solid var(--or);background:var(--palissandre);color:var(--ivoire);letter-spacing:0;text-transform:none}
+@media (max-width:1100px){.op-eyebrow{padding-right:220px;padding-left:16px}}
+@media (max-width:760px){.op-eyebrow{padding-inline:16px;font-size:.62rem;letter-spacing:.1em;height:auto}}
 /* poussière d'or derrière les films */
 .live canvas#dust{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 .live .tz-head{position:absolute;top:calc(var(--nav-h,64px) + 4vh);left:0;right:0;padding-inline:16px;pointer-events:none;will-change:transform,opacity}
@@ -289,8 +295,8 @@
       <canvas id="dust" aria-hidden="true"></canvas>
       <canvas id="gl" aria-hidden="true"></canvas>
       <a class="fi-skip" href="#dates">Passer au club ↓</a>
+      <p class="num op-eyebrow"><span class="g">a1</span>Club d'échecs de loisirs · Étréchy (91580)</p>
       <div class="tz-head" id="head3d">
-        <p class="num"><span class="g">a1</span>Club d'échecs de loisirs · Étréchy (91580)</p>
         <h1 class="tz-title" aria-label="Les Fous d'Étréchy"><span class="l1" aria-hidden="true" data-split="0.1">Les Fous</span><span class="l2" aria-hidden="true" data-split="0.1">d'Étréchy</span></h1>
       </div>
       <div class="flat">
