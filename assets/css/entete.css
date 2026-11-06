@@ -82,3 +82,15 @@
 .sf-links a:hover{color:var(--sn-or-pale)}
 .sf-diag{width:100%;text-align:right;font-family:var(--sn-mono);font-size:.8rem;color:var(--sn-or)}
 @media (prefers-reduced-motion:reduce){.site-nav *,.site-menu,.site-menu *{transition:none!important}}
+
+/* menu des petits écrans : une rubrique par onglet, qui se déplie au toucher */
+.sm-list>li.sm-sec{border-bottom:1px solid var(--sn-line)}
+.sm-grp-btn{display:flex;align-items:center;gap:10px;width:100%;padding:14px 2px;background:none;border:0;color:var(--sn-ivoire);font:500 1.3rem/1.2 var(--sn-display);text-align:left;cursor:pointer}
+.sm-grp-btn .sm-n{font-family:var(--sn-mono);font-size:.62rem;color:var(--sn-ebene);background:var(--sn-or);border-radius:4px;padding:1px 6px;letter-spacing:0}
+.sm-grp-btn .sn-chev{margin-left:auto;width:12px;height:12px;color:var(--sn-or)}
+.sm-sec.open .sm-grp-btn{color:var(--sn-or-pale)}
+.sm-sec.open .sm-grp-btn .sn-chev{transform:rotate(180deg)}
+.sm-fold{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .3s ease,visibility 0s .3s}
+.sm-sec.open .sm-fold{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .3s ease}
+.sm-sub{list-style:none;margin:0;padding:0 0 8px 6px;overflow:hidden;min-height:0}
+.sm-sub li{border-top:1px solid var(--sn-line);border-bottom:0}
