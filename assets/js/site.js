@@ -148,8 +148,10 @@ var CLUB = {
     menu.className = "site-menu"; menu.id = "siteMenu"; menu.setAttribute("role", "dialog"); menu.setAttribute("aria-label", "Menu");
     menu.innerHTML = '<div class="sm-top"><a class="sn-brand" href="index.html"><span class="sn-logo" aria-hidden="true"></span><span>Les Fous d\'Étréchy</span></a>' +
       '<button class="sm-close" type="button" aria-label="Fermer le menu">×</button></div><ol class="sm-list">' +
-      MENU.map(function(g){
-        return '<li class="sm-grp" aria-hidden="true">' + esc(g[0]) + '</li>' + g[1].map(function(it){ return '<li>' + item(it) + '</li>'; }).join("");
+      MENU.map(function(g, gi){                        // un onglet par rubrique, qui se déplie au toucher
+        return '<li class="sm-sec"><button class="sm-grp-btn" type="button" aria-expanded="false" aria-controls="smg' + gi + '">' + esc(g[0]) +
+          ' <span class="sm-n">' + g[1].length + '</span>' + CHEV + '</button>' +
+          '<div class="sm-fold" id="smg' + gi + '"><ol class="sm-sub">' + g[1].map(function(it){ return '<li>' + item(it) + '</li>'; }).join("") + '</ol></div></li>';
       }).join("") + '</ol>' +
       '<div class="sm-acts"><a class="sn-cta" href="' + CLUB.rejoindre + '">Nous rejoindre <span aria-hidden="true">→</span></a>' +
       '<a class="sn-fb" href="' + CLUB.facebook + '" target="_blank" rel="noopener">' + FB + '<span class="sn-fb-t">Facebook</span></a></div>';
@@ -159,6 +161,15 @@ var CLUB = {
     burger.addEventListener("click", function(){ setMenu(true); });
     closeB.addEventListener("click", function(){ setMenu(false); });
     menu.addEventListener("click", function(e){ if (e.target.closest("a")) menu.classList.remove("open"); });
+    // les onglets du menu : un seul ouvert à la fois ; celui de la page en cours est ouvert d'office
+    var secs = $$(".sm-sec", menu);
+    function openSec(sec, o){
+      secs.forEach(function(s){ var on = s === sec && o; s.classList.toggle("open", on); $(".sm-grp-btn", s).setAttribute("aria-expanded", on); });
+    }
+    secs.forEach(function(s){
+      $(".sm-grp-btn", s).addEventListener("click", function(){ openSec(s, !s.classList.contains("open")); });
+      if ($("[aria-current='page']", s)) openSec(s, true);
+    });
     addEventListener("keydown", function(e){ if (e.key === "Escape") { if (menu.classList.contains("open")) setMenu(false); closeAll(); } });
   }
 
