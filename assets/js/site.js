@@ -7,6 +7,7 @@
    ===================================================================== */
 var MENU = [
   ["Le club", [
+    ["a1", "Les Fous d'Étréchy", "La page du club, depuis le début",  "Lesfousdetrechy.html"],
     ["b2", "Le Fou",        "Pourquoi « les Fous » ?",              "Lesfousdetrechy.html#fou"],
     ["c3", "Le club",       "Une association à taille humaine",     "Lesfousdetrechy.html#club"],
     ["c3", "En images",     "Affiches, forum et vidéo du club",     "Lesfousdetrechy.html#galerie"],
