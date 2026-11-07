@@ -23,8 +23,7 @@ var MENU = [
   ["Infos pratiques", [
     ["g7", "À vous de jouer",       "Saison, lieu, séances et contact", "Lesfousdetrechy.html#rejoindre"],
     ["g8", "Agenda",                "Tous les samedis, 14 h – 18 h",    "Lesfousdetrechy.html#agenda"],
-    ["h7", "Cotisation",            "Le montant pour la saison",        "Tarifs.html"],
-    ["h8", "Les documents du club", "Bulletin, statuts, règlement",     "Lesfousdetrechy.html#documents"],
+    ["h7", "Adhérer",               "Cotisation, bulletin, statuts",    "Tarifs.html"],
     ["§",  "Informations légales",  "Mentions et données personnelles", "Lesfousdetrechy.html#mentions"]
   ]],
   ["Les films", [
