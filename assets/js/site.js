@@ -18,7 +18,7 @@ var MENU = [
     ["d4", "Activités",     "Une séance, cinq façons d'y jouer",    "Lesfousdetrechy.html#activites"],
     ["e5", "Apprendre",     "Les bases en trois leçons",            "Lesfousdetrechy.html#apprendre"],
     ["f6", "Applications",  "Dix outils pour s'entraîner",          "Lesfousdetrechy.html#applications"],
-    ["e4", "Le matériel",   "Échiquiers, pendule, échiquier mural", "Materiel.html"]
+    ["e4", "Le local & le matériel", "Nos deux salles, échiquiers, pendule", "Materiel.html"]
   ]],
   ["Infos pratiques", [
     ["g7", "À vous de jouer",       "Saison, lieu, séances et contact", "Lesfousdetrechy.html#rejoindre"],
@@ -179,7 +179,7 @@ var CLUB = {
     footEl.innerHTML = '<div class="sf-wrap">' +
       '<div class="sf-id"><span class="sn-logo" aria-hidden="true"></span><div><b>Les Fous d\'Étréchy</b><br>Club d\'échecs de loisirs · Association · Étréchy (91580), Essonne</div></div>' +
       '<nav class="sf-links" aria-label="Liens utiles"><a href="index.html">Accueil</a><a href="' + CLUB.rejoindre + '">Nous rejoindre</a><a href="' + CLUB.agenda + '">Agenda</a>' +
-      '<a href="Lesbasesdesechecs.html">Les bases des échecs</a><a href="Materiel.html">Le matériel</a>' +
+      '<a href="Lesbasesdesechecs.html">Les bases des échecs</a><a href="Materiel.html">Le local et le matériel</a>' +
       '<a href="Lesfousdetrechy.html#documents">Documents du club</a><a href="Lesfousdetrechy.html#mentions">Mentions légales</a><a href="' + CLUB.facebook + '" target="_blank" rel="noopener">Groupe Facebook ↗</a></nav>' +
       '<span class="sf-diag">a1 → h8 · la grande diagonale</span></div>';
   }

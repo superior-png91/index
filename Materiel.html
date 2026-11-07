@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Le matériel du club · Les Fous d'Étréchy</title>
+<title>Le local et le matériel · Les Fous d'Étréchy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
@@ -58,7 +58,7 @@ a{color:inherit}
 #heroTitle .ch,#heroTitle .chi{display:inline-block}
 /* animations au défilement (reprises de la page du club) */
 .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:30;background:linear-gradient(90deg,var(--or),var(--or-pale));transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
-.fiche h2 .w,.atouts h2 .w{display:inline-block}
+.fiche h2 .w,.atouts h2 .w,.chapitre h2 .w{display:inline-block}
 .hero .lead{margin-top:18px;max-width:40em;color:var(--sepia);font-size:clamp(1.02rem,1.4vw,1.14rem)}
 
 /* le jeu */
@@ -97,6 +97,25 @@ a{color:inherit}
 @media (max-width:860px){.pendule .jeu-grid{grid-template-columns:1fr}.pendule .plateau{order:-1}}
 .mural{border-top:1px solid var(--line)}
 .mural .plateau .photo{max-width:460px;margin-inline:auto}
+
+/* le local */
+.sommaire{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:26px}
+.sommaire a{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--or-pale);padding:8px 14px;border:1px solid color-mix(in srgb,var(--or) 40%,transparent);border-radius:999px;transition:background .25s,color .25s}
+.sommaire a:hover{background:var(--or);color:var(--ebene)}
+.lieu-actions{display:flex;flex-wrap:wrap;gap:10px}
+.plateau video.photo{aspect-ratio:16/9;object-fit:cover;background:var(--ebene)}
+.vues.photos img{aspect-ratio:4/3;object-fit:cover;background:var(--ebene)}
+.vues.photos.deux{grid-template-columns:repeat(2,minmax(0,1fr))}
+.vues.photos.un{grid-template-columns:minmax(0,1fr);max-width:560px;margin-inline:auto}
+@media (max-width:620px){.vues.photos.deux{grid-template-columns:1fr}}
+.salle{border-top:1px solid var(--line)}
+.salle.alt{background:color-mix(in srgb,var(--ebene) 55%,var(--noyer))}
+@media (max-width:860px){.salle .plateau{order:-1}}
+.chapitre{background:var(--acajou);padding-block:clamp(48px,7vw,90px)}
+.chapitre h2{font-size:clamp(1.9rem,4vw,3.2rem);margin-top:16px}
+.chapitre h2 em{color:var(--or-pale)}
+.chapitre p.lead{margin-top:16px;max-width:42em;color:var(--sepia)}
+[id]{scroll-margin-top:84px}
 
 /* atouts */
 .atouts{background:var(--acajou);padding-block:clamp(56px,8vw,110px)}
@@ -172,9 +191,80 @@ footer nav a:hover{color:var(--or-pale)}
 <main>
   <section class="hero">
     <div class="wrap">
-      <p class="eyebrow"><span class="sq">♙</span>Les Fous d'Étréchy · Matériel</p>
-      <h1 id="heroTitle" aria-label="Le matériel du club"><span class="l1">Le matériel</span> <em class="l2">du club</em></h1>
-      <p class="lead">Chaque semaine, on joue sur des échiquiers homologués FIDE, avec une pendule de compétition. Pour les explications, un grand échiquier mural permet à tous de suivre la partie. Débutant ou joueur confirmé, vous jouez au club dans les mêmes conditions qu'en compétition.</p>
+      <p class="eyebrow"><span class="sq">♙</span>Les Fous d'Étréchy · Le local et le matériel</p>
+      <h1 id="heroTitle" aria-label="Le local et le matériel"><span class="l1">Le local</span> <em class="l2">et le matériel</em></h1>
+      <p class="lead">Tous les samedis après-midi, le club vous accueille dans ses deux salles de la Maison des Associations, l'ancien Corps de garde d'Étréchy. On y joue sur des échiquiers homologués FIDE, avec une pendule de compétition. Débutant ou joueur confirmé, vous jouez au club dans les mêmes conditions qu'en compétition.</p>
+      <nav class="sommaire" aria-label="Sur cette page"><a href="#local">Le local</a><a href="#salle1">Salle 1</a><a href="#salle2">Salle 2</a><a href="#materiel">Le matériel</a></nav>
+    </div>
+  </section>
+
+
+  <section class="jeu salle" id="local" aria-labelledby="local-titre">
+    <div class="wrap jeu-grid">
+      <figure class="plateau">
+        <img class="photo" src="assets/img/maison-associations.webp" alt="La Maison des Associations d'Étréchy, ancien Corps de garde, avec ses deux portes rouges en arc" width="543" height="386" loading="lazy">
+        <figcaption>La Maison des Associations, rue du 11 Novembre</figcaption>
+      </figure>
+      <div class="fiche">
+        <p class="eyebrow"><span class="sq">⌂</span>Le local</p>
+        <h2 id="local-titre">La Maison des Associations, <em>l'ancien Corps de garde</em></h2>
+        <p>Le club se retrouve au cœur d'Étréchy, à deux pas de la mairie, dans l'ancien Corps de garde devenu Maison des Associations. Il y dispose de deux salles lumineuses, chacune avec sa grande porte vitrée. Poussez la porte : vous êtes les bienvenus.</p>
+        <dl class="specs">
+          <dt>Adresse</dt><dd>Maison des Associations (ancien Corps de garde), près de la mairie<br>1, rue du 11 Novembre 1918, 91580 Étréchy</dd>
+          <dt>Séances</dt><dd>Tous les samedis, de 14 h à 18 h</dd>
+          <dt>Salles</dt><dd>Deux salles : la salle 1 et la salle 2</dd>
+        </dl>
+        <div class="lieu-actions">
+          <a class="btn solid small" href="https://maps.app.goo.gl/rw8D1tvo6kMzvtvw6" target="_blank" rel="noopener">Voir sur Google Maps <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="btn ghost small" href="https://www.google.com/maps/dir/?api=1&amp;destination=48.493038%2C2.1903811&amp;travelmode=driving" target="_blank" rel="noopener">Itinéraire <span class="arr" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jeu salle alt" id="salle1" aria-labelledby="salle1-titre">
+    <div class="wrap jeu-grid">
+      <div class="fiche">
+        <p class="eyebrow"><span class="sq">1</span>Salle 1</p>
+        <h2 id="salle1-titre">La salle 1, <em>derrière la porte en arc</em></h2>
+        <p>On entre par la grande porte rouge en arc. Les tables sont prêtes, les échiquiers déroulés, et le tableau blanc sert aux explications. Au mur, le panneau d'affichage donne les nouvelles du club et des associations.</p>
+        <dl class="specs">
+          <dt>Entrée</dt><dd>Grande porte vitrée en arc, sur la rue</dd>
+          <dt>Équipement</dt><dd>Tables et chaises, tableau blanc, panneau d'affichage</dd>
+        </dl>
+      </div>
+      <figure class="plateau">
+        <video class="photo" src="assets/video/salle1.mp4" poster="assets/img/salle1-poster.webp" autoplay muted loop playsinline preload="metadata" width="854" height="480" aria-label="Visite de la salle 1 en vidéo : la porte rouge, le panneau d'affichage, les tables et le tableau blanc"></video>
+        <figcaption>Visite de la salle 1, en 18 secondes</figcaption>
+      </figure>
+    </div>
+    <div class="wrap"><ul class="vues photos deux" aria-label="La salle 1 en photos"><li><img src="assets/img/salle1-vide.webp" alt="La salle 1 avant la séance : une table avec un échiquier installé, le tableau blanc au mur" loading="lazy" width="1100" height="828"><span>Avant la séance</span></li><li><img src="assets/img/salle1-partie.webp" alt="Deux joueurs devant la porte rouge en arc de la salle 1" loading="lazy" width="1100" height="828"><span>Une partie devant la porte</span></li></ul></div>
+  </section>
+
+  <section class="jeu salle" id="salle2" aria-labelledby="salle2-titre">
+    <div class="wrap jeu-grid">
+      <figure class="plateau">
+        <img class="photo" src="assets/img/salle2.webp" alt="La salle 2 : deux échiquiers et leurs pendules sur de longues tables blanches, devant la grande porte rouge vitrée" width="1400" height="788" loading="lazy">
+        <figcaption>La salle 2, prête pour la séance</figcaption>
+      </figure>
+      <div class="fiche">
+        <p class="eyebrow"><span class="sq">2</span>Salle 2</p>
+        <h2 id="salle2-titre">La salle 2, <em>baignée de lumière</em></h2>
+        <p>La grande porte vitrée laisse entrer la lumière du jour sur les longues tables. Les échiquiers y sont installés côte à côte, chacun avec sa pendule.</p>
+        <dl class="specs">
+          <dt>Entrée</dt><dd>Grande porte rouge vitrée, sur la rue</dd>
+          <dt>Équipement</dt><dd>Longues tables, chaises, tableau blanc</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="wrap"><ul class="vues photos un" aria-label="La salle 2 en photo"><li><img src="assets/img/salle2-partie.webp" alt="Une partie en cours vue de dessus, avec la pendule" loading="lazy" width="1100" height="828"><span>Partie en cours</span></li></ul></div>
+  </section>
+
+  <section class="chapitre" id="materiel" aria-labelledby="materiel-titre">
+    <div class="wrap">
+      <p class="eyebrow"><span class="sq">♙</span>Le matériel</p>
+      <h2 id="materiel-titre">Le matériel <em>du club</em></h2>
+      <p class="lead">Chaque semaine, on joue sur des échiquiers homologués FIDE, avec une pendule de compétition. Pour les explications, un grand échiquier mural permet à tous de suivre la partie.</p>
     </div>
   </section>
 
@@ -531,7 +621,7 @@ window.FOUS_TITRE = function(ch, host){
     gsap.to(".progress", { scaleX:1, ease:"none", scrollTrigger:{ start:0, end:"max", scrub:.3 } });
 
     /* 2 · titres des sections : les mots montent un à un */
-    document.querySelectorAll(".fiche h2, .atouts h2").forEach(function(h){
+    document.querySelectorAll(".fiche h2, .atouts h2, .chapitre h2").forEach(function(h){
       gsap.from(mots(h), { yPercent:80, rotate:5, opacity:.15, duration:1, ease:"expo.out", stagger:.06,
         scrollTrigger:{ trigger:h, start:"top 85%", toggleActions:"play none none reverse" } });
     });
@@ -561,9 +651,11 @@ window.FOUS_TITRE = function(ch, host){
 
     /* 6 · vignettes du jeu et cartes « Pourquoi ce matériel » : elles montent en décalé */
     [".vues li", ".cards .card"].forEach(function(sel){
-      var els = document.querySelectorAll(sel); if (!els.length) return;
+      document.querySelectorAll(sel.split(" ")[0]).forEach(function(box){
+      var els = box.querySelectorAll(sel.split(" ")[1]); if (!els.length) return;
       gsap.from(els, { y:50, opacity:0, duration:.9, ease:"power3.out", stagger:.12,
-        scrollTrigger:{ trigger:els[0].parentNode, start:"top 88%" } });
+        scrollTrigger:{ trigger:box, start:"top 88%" } });
+      });
     });
   });
 })();
