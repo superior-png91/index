@@ -51,8 +51,11 @@
 @keyframes cavalier{0%,24%{transform:none}36%{transform:translate(0,-34px) rotate(-8deg)}46%{transform:translate(-18px,-30px) rotate(-3deg)}56%,78%{transform:translate(-18px,-24px)}92%,100%{transform:none}}
 /* le fou glisse en diagonale */
 @keyframes fou{0%,26%{transform:none}46%,74%{transform:translate(-22px,-22px) rotate(-6deg)}94%,100%{transform:none}}
-/* la tour file en ligne droite */
-@keyframes tour{0%,26%{transform:none}44%,74%{transform:translateX(-30px)}94%,100%{transform:none}}
+/* la tour file en ligne droite : à gauche, puis vers le haut, et revient en se posant */
+@keyframes tour{0%,14%{transform:none}
+  26%{transform:translateX(-58px) skewX(8deg)}31%{transform:translateX(-52px) skewX(-3deg)}36%,46%{transform:translateX(-54px)}
+  56%{transform:translate(-54px,-46px) scaleY(1.05)}61%{transform:translate(-54px,-40px) scaleY(.98)}65%,74%{transform:translate(-54px,-42px)}
+  88%{transform:translate(4px,2px) skewX(-4deg)}94%{transform:translate(-2px,0)}100%{transform:none}}
 .tarif .case{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
 .tarif h2{margin-top:10px;font-size:clamp(1.6rem,2.3vw,2rem)}
 .tarif .age{color:var(--sepia);font-size:.95rem}
