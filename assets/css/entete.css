@@ -91,6 +91,7 @@
 .sm-sec.open .sm-grp-btn{color:var(--sn-or-pale)}
 .sm-sec.open .sm-grp-btn .sn-chev{transform:rotate(180deg)}
 .sm-fold{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .3s ease,visibility 0s .3s}
-.sm-sec.open .sm-fold{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .3s ease}
+.sm-sec.open .sm-fold{grid-template-rows:1fr;transition:grid-template-rows .3s ease}
+.site-menu.open .sm-sec.open .sm-fold{visibility:visible}  /* visible seulement quand le menu est ouvert : sinon ses liens invisibles restaient cliquables par-dessus la page */
 .sm-sub{list-style:none;margin:0;padding:0 0 8px 6px;overflow:hidden;min-height:0}
 .sm-sub li{border-top:1px solid var(--sn-line);border-bottom:0}
