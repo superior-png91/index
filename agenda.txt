@@ -20,7 +20,7 @@ AGENDA_CLUB = `
 =====================================================================
 
 07/11/2026 ; ouvert ; 14 h – 18 h ; Assemblée Générale
-14/11/2026 ; ouvert ; 14 h – 18 h ; Porte ouverte, venez nombreux, séance libre
+14/11/2026 ; ouvert ; 14 h – 18 h ; Journée portes ouvertes, venez nombreux, séance libre
 28/11/2026 ; ouvert  ; 14 h – 18 h ; 
 26/12/2026 ; ouvert ; 14 h – 18 h ;
 

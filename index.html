@@ -123,6 +123,16 @@
 .actu-side .pendule-hint{margin-top:6px}
 .actu-side .face .n{font-size:clamp(1.35rem,2.2vw,1.85rem)}
 
+/* ---------- ACTUALITÉ : l'affiche de la journée portes ouvertes, en fond et en vignette ---------- */
+#actu{position:relative;isolation:isolate;overflow:hidden}
+#actu::before{content:"";position:absolute;inset:-40px;z-index:-1;background:url(assets/img/affiche-portes-ouvertes-fond.webp) center 55%/cover no-repeat;filter:blur(14px) brightness(.55) saturate(1.15);transform:scale(1.05)}
+#actu::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(18,13,10,.35),rgba(18,13,10,.15) 40%,rgba(18,13,10,.55))}
+#actu .actu-card{background:linear-gradient(160deg,rgba(255,236,204,.09),rgba(255,236,204,.02) 55%),rgba(18,13,10,.78);backdrop-filter:blur(3px)}
+.affiche{display:block;width:min(340px,100%);margin-inline:auto;border-radius:10px;overflow:hidden;border:1px solid rgba(211,162,74,.55);box-shadow:0 30px 60px -24px rgba(0,0,0,.85),0 0 46px -10px rgba(255,140,40,.45);transform:rotate(-1.5deg);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s}
+.affiche:hover,.affiche:focus-visible{transform:rotate(0) scale(1.02);box-shadow:0 34px 70px -24px rgba(0,0,0,.9),0 0 60px -6px rgba(255,140,40,.6)}
+.affiche img{display:block;width:100%;height:auto}
+@media (prefers-reduced-motion:reduce){.affiche,.affiche:hover{transform:none;transition:none}}
+
 /* ---------- ACTUALITÉ : l'assemblée générale ---------- */
 .actu-list{display:flex;flex-direction:column;gap:clamp(18px,2.4vw,28px)}
 .actu-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
@@ -324,13 +334,13 @@
       <div class="ticker" data-ticker role="region"><div class="ticker-track" aria-hidden="true"></div></div>
     </section>
     </div>
-  <!-- =============== ACTUALITÉS : AG (7/11) et PORTE OUVERTE (14/11) — chaque bloc disparaît seul après sa date =============== -->
+  <!-- =============== ACTUALITÉS : AG (7/11) et JOURNÉE PORTES OUVERTES (14/11) — chaque bloc disparaît seul après sa date =============== -->
   <section id="actu" aria-label="Actualités du club" data-until="2026-11-14T18:00:00+01:00">
     <div class="wrap actu-list">
       <div class="actu-card">
         <div class="actu-copy">
           <p class="eyebrow"><span class="sq">!</span>Actualité du club</p>
-          <h2 data-reveal-lines id="actu-t">Porte <em>ouverte</em></h2>
+          <h2 data-reveal-lines id="actu-t">Journée <em>portes ouvertes</em></h2>
           <p class="lead">Le samedi 14 novembre, le club ouvre grand ses portes. Séance libre : venez nombreux jouer une partie, découvrir le club et rencontrer ses membres, que vous débutiez ou que vous jouiez depuis toujours.</p>
           <dl class="specs">
             <dt>Date</dt><dd>Samedi 14 novembre 2026</dd>
@@ -344,17 +354,14 @@
           </div>
         </div>
         <div class="actu-side">
-          <div class="cal" aria-hidden="true">
-            <span class="d">14</span>
-            <span class="w">Samedi</span>
-            <span class="m">novembre 2026</span>
-            <span class="h">14:00 → 18:00</span>
-          </div>
+          <a class="affiche" href="assets/img/affiche-portes-ouvertes.webp" target="_blank" rel="noopener" aria-label="Voir l'affiche de la journée portes ouvertes en grand">
+            <img src="assets/img/affiche-portes-ouvertes.webp" alt="Affiche de la journée portes ouvertes du club d'échecs Les Fous d'Étréchy : un cavalier de feu bondit au-dessus d'un échiquier. Samedi 14 novembre 2026, de 14 h à 18 h, Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus." width="896" height="1200" loading="lazy">
+          </a>
           <div>
-            <button class="pendule" type="button" data-pendule data-date="14/11/2026" data-label="Porte ouverte dans" aria-label="Pendule d'échecs : temps restant avant la porte ouverte et heure à Étréchy. Appuyez pour changer de côté.">
+            <button class="pendule" type="button" data-pendule data-date="14/11/2026" data-label="Portes ouvertes dans" aria-label="Pendule d'échecs : temps restant avant la journée portes ouvertes et heure à Étréchy. Appuyez pour changer de côté.">
               <span class="knobs"><span class="knob down"></span><span class="knob"></span></span>
               <span class="case">
-                <span class="face run"><span class="l" data-p="cdl">Porte ouverte dans</span><span class="n" data-p="cd">--:--</span><span class="s" data-p="cds"></span></span>
+                <span class="face run"><span class="l" data-p="cdl">Portes ouvertes dans</span><span class="n" data-p="cd">--:--</span><span class="s" data-p="cds"></span></span>
                 <span class="face"><span class="l">À Étréchy, il est</span><span class="n" data-p="now">--:--:--</span><span class="s" data-p="nows"></span></span>
               </span>
             </button>
