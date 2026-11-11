@@ -76,16 +76,16 @@
 .b-item b{display:block;color:var(--or-pale)}
 .b-item span{font-size:.85rem;color:var(--sepia)}
 .b-item.non b{color:#E59B7E}
-.b-stylo{transform-box:fill-box;animation:bStylo 2.4s ease-in-out infinite}
-@keyframes bStylo{0%,100%{transform:translate(0,0)}50%{transform:translate(14px,0)}}
-.b-trait{stroke-dasharray:20;stroke-dashoffset:20;animation:bTrait 2.4s ease-in-out infinite}
-@keyframes bTrait{0%{stroke-dashoffset:20;opacity:1}50%,80%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
-.b-fleche1{animation:bF1 1.8s ease-in-out infinite}.b-fleche2{animation:bF2 1.8s ease-in-out infinite}
-@keyframes bF1{0%,100%{transform:translateX(-3px)}50%{transform:translateX(4px)}}
-@keyframes bF2{0%,100%{transform:translateX(3px)}50%{transform:translateX(-4px)}}
-.b-barre{transform-box:fill-box;transform-origin:center;animation:bBarre 2.6s ease-in-out infinite}
-@keyframes bBarre{0%,15%{transform:scaleX(0)}45%,100%{transform:scaleX(1)}}
-@media (prefers-reduced-motion:reduce){.b-stylo,.b-trait,.b-fleche1,.b-fleche2,.b-barre{animation:none}.b-trait{stroke-dashoffset:0}}
+.b-item{position:relative;padding-right:30px}
+.b-item svg.b-marque{position:absolute;top:8px;right:8px;width:18px;height:18px}
+.b-marque path{stroke-dasharray:24;stroke-dashoffset:24}
+.t-pay.vu .b-marque path{animation:bTrace .5s ease-out forwards}
+.t-pay.vu .b-item:nth-child(1) .b-marque path{animation-delay:.2s}
+.t-pay.vu .b-item:nth-child(2) .b-marque path{animation-delay:.55s}
+.t-pay.vu .b-item:nth-child(3) .b-marque path{animation-delay:.9s}
+.t-pay.vu .b-item:nth-child(3) .b-marque path+path{animation-delay:1.1s}
+@keyframes bTrace{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.b-marque path{stroke-dashoffset:0}.t-pay.vu .b-marque path{animation:none}}
 
 /* ---------- comment adhérer ---------- */
 .adherer{padding-block:clamp(64px,8vw,120px) clamp(72px,9vw,130px)}
@@ -158,9 +158,9 @@
       <div class="t-pay" role="note">
         <span class="t-pay-k">Règlement de la cotisation</span>
         <div class="b-pay">
-          <div class="b-item"><svg viewBox="0 0 46 46" aria-hidden="true"><rect x="3" y="11" width="40" height="24" rx="3" fill="#F6EEDC" stroke="#D3A24A"/><line x1="8" y1="19" x2="30" y2="19" stroke="#CDBBA0" stroke-dasharray="2 2"/><path class="b-trait" d="M8 28 L28 28" stroke="#1D3A6E" stroke-width="2" stroke-linecap="round"/><g class="b-stylo"><path d="M10 27 l3 -12 l3 1 l-3 12 z" fill="#1D140F"/></g></svg><div><b>Chèque</b><span>à remettre au Bureau</span></div></div>
-          <div class="b-item"><svg viewBox="0 0 46 46" aria-hidden="true"><g class="b-fleche1" fill="none" stroke="#ECC97F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 17 H34"/><path d="M28 11 L34 17 L28 23"/></g><g class="b-fleche2" fill="none" stroke="#D3A24A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M38 29 H12"/><path d="M18 23 L12 29 L18 35"/></g></svg><div><b>Virement</b><span>sur le compte du club</span></div></div>
-          <div class="b-item non"><svg viewBox="0 0 46 46" aria-hidden="true"><rect x="5" y="13" width="36" height="20" rx="3" fill="#3A5A3A" stroke="#7FB37A"/><circle cx="23" cy="23" r="5" fill="none" stroke="#9FD39A"/><rect class="b-barre" x="2" y="21.5" width="42" height="3.5" rx="1.5" fill="#E59B7E" transform="rotate(-28 23 23)"/></svg><div><b>Espèces</b><span>non acceptées</span></div></div>
+          <div class="b-item"><svg viewBox="0 0 46 46" aria-hidden="true"><rect x="3" y="11" width="40" height="24" rx="3" fill="#F6EEDC" stroke="#D3A24A"/><line x1="8" y1="19" x2="30" y2="19" stroke="#CDBBA0" stroke-dasharray="2 2"/><path d="M8 28 L28 28" stroke="#1D3A6E" stroke-width="2" stroke-linecap="round"/><g><path d="M10 27 l3 -12 l3 1 l-3 12 z" fill="#1D140F"/></g></svg><div><b>Chèque</b><span>à remettre au Bureau</span></div><svg class="b-marque" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#7FB37A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="b-item"><svg viewBox="0 0 46 46" aria-hidden="true"><g fill="none" stroke="#ECC97F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 17 H34"/><path d="M28 11 L34 17 L28 23"/></g><g fill="none" stroke="#D3A24A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M38 29 H12"/><path d="M18 23 L12 29 L18 35"/></g></svg><div><b>Virement</b><span>sur le compte du club</span></div><svg class="b-marque" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#7FB37A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="b-item non"><svg viewBox="0 0 46 46" aria-hidden="true"><rect x="5" y="13" width="36" height="20" rx="3" fill="#3A5A3A" stroke="#7FB37A"/><circle cx="23" cy="23" r="5" fill="none" stroke="#9FD39A"/><rect x="2" y="21.5" width="42" height="3.5" rx="1.5" fill="#E59B7E" transform="rotate(-28 23 23)"/></svg><div><b>Espèces</b><span>non acceptées</span></div><svg class="b-marque" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10" fill="none" stroke="#E59B7E" stroke-width="2.6" stroke-linecap="round"/><path d="M15 5L5 15" fill="none" stroke="#E59B7E" stroke-width="2.6" stroke-linecap="round"/></svg></div>
         </div>
       </div>
     </div>
@@ -229,5 +229,6 @@
   }
 })();
 </script>
+<script>!function(){var t=document.querySelector(".t-pay");if(!t)return;if(!("IntersectionObserver"in window)){t.classList.add("vu");return}var o=new IntersectionObserver(function(e){e[0].isIntersecting&&(t.classList.add("vu"),o.disconnect())},{threshold:.5});o.observe(t)}();</script>
 </body>
 </html>
