@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cotisation annuelle · Les Fous d'Étréchy</title>
+<meta name="description" content="Cotisation annuelle du club d'échecs Les Fous d'Étréchy : 45 € enfants, 50 € adolescents, 55 € étudiants, 60 € adultes.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&family=Noto+Sans+Symbols+2&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/entete.css">
+<style>
+/* ---------- TARIFS : quatre fiches, une par pièce ---------- */
+.t-hero{padding-block:clamp(56px,8vw,110px) clamp(32px,4vw,56px);background:radial-gradient(ellipse 70% 90% at 15% 0%,#2e1d13 0%,var(--noyer) 70%)}
+.t-hero h1{margin-top:22px;font-size:clamp(2.6rem,6.4vw,5.4rem);letter-spacing:-.02em}
+.t-hero h1 em{color:var(--or-pale)}
+.t-hero .lead{margin-top:22px;max-width:60ch;color:var(--sepia)}
+
+/* EFFET 3D : chaque carte s'incline vers le pointeur (ordinateur) ou selon sa place
+   à l'écran pendant le défilement (téléphone). Le script règle --rx, --ry (inclinaison),
+   --mx, --my (position du pointeur, de -1 à 1) et --px, --py (reflet doré). */
+.tarifs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.8vw,24px);perspective:1100px}
+.tarif{--rx:0deg;--ry:0deg;--mx:0;--my:0;--px:50%;--py:0%;--lift:0px;
+  position:relative;display:flex;flex-direction:column;gap:6px;padding:28px 24px 26px;border:1px solid var(--line);border-radius:18px;overflow:hidden;isolation:isolate;
+  background:linear-gradient(170deg,var(--noyer-2) 0%,var(--noyer) 70%);
+  transform:translateY(var(--lift)) rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;will-change:transform;
+  box-shadow:calc(var(--mx) * -14px) calc(18px - var(--my) * 10px) 40px -18px rgba(0,0,0,.75);
+  transition:border-color .3s,transform .6s var(--ease),box-shadow .6s var(--ease);
+  opacity:0;translate:0 28px;animation:monte .8s var(--ease) forwards}
+.tarif.suit{transition:border-color .3s,transform .12s linear,box-shadow .12s linear}
+.tarif:nth-child(2){animation-delay:.1s}.tarif:nth-child(3){animation-delay:.2s}.tarif:nth-child(4){animation-delay:.3s}
+@keyframes monte{to{opacity:1;translate:0 0}}
+.tarif:hover,.tarif.actif{--lift:-6px;border-color:var(--or)}
+/* reflet doré qui suit le pointeur */
+.tarif::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .4s;
+  background:radial-gradient(circle at var(--px) var(--py),rgba(236,201,127,.22),rgba(236,201,127,0) 55%)}
+.tarif:hover::after,.tarif.actif::after{opacity:1}
+
+/* PIÈCES ANIMÉES : chacune bouge comme aux échecs, et glisse à l'opposé du pointeur (profondeur) */
+.tarif .piece{position:absolute;right:-6px;bottom:-30px;z-index:-1;font-family:var(--glyph);font-size:9rem;line-height:1;color:var(--or);opacity:.13;
+  transform:translate(calc(var(--mx) * -16px),calc(var(--my) * -12px));transition:opacity .4s,transform .6s var(--ease)}
+.tarif.suit .piece{transition:opacity .4s,transform .12s linear}
+.tarif:hover .piece,.tarif.actif .piece{opacity:.3}
+.tarif .pg{display:block;transform-origin:50% 90%;animation:var(--coup) 4.8s var(--ease) infinite;animation-delay:calc(var(--i) * -1.2s)}
+.tarif:hover .pg,.tarif.actif .pg{animation-duration:2.4s}
+/* le pion avance d'un pas */
+@keyframes pion{0%,30%{transform:none}42%{transform:translateY(-22px) scale(1.03)}50%,78%{transform:translateY(-18px)}90%,100%{transform:none}}
+/* le cavalier saute en L : deux en haut, un de côté */
+@keyframes cavalier{0%,24%{transform:none}36%{transform:translate(0,-34px) rotate(-8deg)}46%{transform:translate(-18px,-30px) rotate(-3deg)}56%,78%{transform:translate(-18px,-24px)}92%,100%{transform:none}}
+/* le fou glisse en diagonale */
+@keyframes fou{0%,26%{transform:none}46%,74%{transform:translate(-22px,-22px) rotate(-6deg)}94%,100%{transform:none}}
+/* la tour file en ligne droite : à gauche, puis vers le haut, et revient en se posant */
+@keyframes tour{0%,14%{transform:none}
+  26%{transform:translateX(-58px) skewX(8deg)}31%{transform:translateX(-52px) skewX(-3deg)}36%,46%{transform:translateX(-54px)}
+  56%{transform:translate(-54px,-46px) scaleY(1.05)}61%{transform:translate(-54px,-40px) scaleY(.98)}65%,74%{transform:translate(-54px,-42px)}
+  88%{transform:translate(4px,2px) skewX(-4deg)}94%{transform:translate(-2px,0)}100%{transform:none}}
+.tarif .case{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+.tarif h2{margin-top:10px;font-size:clamp(1.6rem,2.3vw,2rem)}
+.tarif .age{color:var(--sepia);font-size:.95rem}
+.tarif .prix{margin-top:auto;padding-top:26px;display:flex;align-items:baseline;gap:6px;font-family:var(--display);color:var(--or-pale)}
+.tarif .prix b{font-weight:500;font-size:clamp(3.2rem,5vw,4.2rem);line-height:1;letter-spacing:-.02em}
+.tarif .prix span{font-size:1.6rem}
+.tarif .an{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;color:var(--sepia)}
+
+.t-note{margin-top:22px;color:var(--sepia);font-size:.92rem;max-width:72ch}
+
+/* ---------- comment adhérer ---------- */
+.adherer{padding-block:clamp(64px,8vw,120px) clamp(72px,9vw,130px)}
+.adherer h2{margin-top:20px;font-size:clamp(1.9rem,3.8vw,3rem)}
+.adherer h2 em{color:var(--or-pale)}
+.etapes{list-style:none;margin:clamp(30px,4vw,48px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,28px);counter-reset:e}
+.etapes li{counter-increment:e;padding-top:22px;border-top:1px solid color-mix(in srgb,var(--or) 45%,transparent)}
+.etapes li::before{content:"0" counter(e);display:block;font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;color:var(--or);margin-bottom:10px}
+.etapes h3{font-size:1.45rem}
+.etapes p{margin-top:8px;color:var(--sepia)}
+.t-cta{margin-top:clamp(32px,4vw,48px);display:flex;flex-wrap:wrap;gap:14px}
+
+@media (max-width:980px){.tarifs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.etapes{grid-template-columns:1fr}}
+@media (max-width:460px){.tarifs{grid-template-columns:1fr}.tarif .prix{padding-top:16px}}
+@media (prefers-reduced-motion:reduce){.tarif{animation:none;opacity:1;translate:none}.tarif,.tarif .piece{transition:none}.tarif .pg{animation:none}}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav data-site="nav"></nav>
+
+<main>
+  <section class="t-hero">
+    <div class="wrap">
+      <p class="eyebrow"><span class="sq">h7</span>Les Fous d'Étréchy · Adhésion</p>
+      <h1>Cotisation <em>annuelle</em></h1>
+      <p class="lead">Une seule cotisation pour toute la saison, selon votre âge. Elle vous ouvre toutes les séances du club, chaque samedi de 14 h à 18 h à la Maison des Associations.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="grille-titre">
+    <div class="wrap">
+      <h2 id="grille-titre" class="eyebrow" style="font-family:var(--mono);font-weight:400">Saison 2026-2027 · selon l'âge</h2>
+      <ul class="tarifs" style="margin-top:26px">
+        <li class="tarif">
+          <span class="piece" aria-hidden="true" style="--coup:pion;--i:0"><span class="pg">♟&#xFE0E;</span></span>
+          <span class="case">Pion</span>
+          <h2>Enfants</h2>
+          <p class="age">De 7 à 12 ans</p>
+          <p class="prix"><b>45</b><span>€</span></p>
+          <span class="an">par saison</span>
+        </li>
+        <li class="tarif">
+          <span class="piece" aria-hidden="true" style="--coup:cavalier;--i:1"><span class="pg">♞&#xFE0E;</span></span>
+          <span class="case">Cavalier</span>
+          <h2>Adolescents</h2>
+          <p class="age">De 13 à 17 ans</p>
+          <p class="prix"><b>50</b><span>€</span></p>
+          <span class="an">par saison</span>
+        </li>
+        <li class="tarif">
+          <span class="piece" aria-hidden="true" style="--coup:fou;--i:2"><span class="pg">♝&#xFE0E;</span></span>
+          <span class="case">Fou</span>
+          <h2>Étudiants</h2>
+          <p class="age">18 ans et plus</p>
+          <p class="prix"><b>55</b><span>€</span></p>
+          <span class="an">par saison</span>
+        </li>
+        <li class="tarif">
+          <span class="piece" aria-hidden="true" style="--coup:tour;--i:3"><span class="pg">♜&#xFE0E;</span></span>
+          <span class="case">Tour</span>
+          <h2>Adultes</h2>
+          <p class="age">18 ans et plus</p>
+          <p class="prix"><b>60</b><span>€</span></p>
+          <span class="an">par saison</span>
+        </li>
+      </ul>
+      <p class="t-note">Montants fixés par le Bureau pour la saison en cours, conformément à l'annexe du règlement intérieur.</p>
+    </div>
+  </section>
+
+  <section class="adherer" aria-labelledby="adherer-titre">
+    <div class="wrap">
+      <p class="eyebrow"><span class="sq">h8</span>Pour adhérer</p>
+      <h2 id="adherer-titre">Trois coups <em>pour nous rejoindre</em>.</h2>
+      <ol class="etapes">
+        <li><h3>Téléchargez le bulletin</h3><p>Le bulletin d'inscription de la saison 2026-2027, à imprimer.</p></li>
+        <li><h3>Remplissez-le</h3><p>Une seule page, à compléter avant de venir au club.</p></li>
+        <li><h3>Remettez-le au Bureau</h3><p>Avec votre cotisation, à un membre du Bureau lors d'une séance.</p></li>
+      </ol>
+      <div class="t-cta">
+        <a class="btn solid" href="Bulletin_inscription_2026-2027.pdf" download="Bulletin_inscription_2026-2027.pdf" target="_blank" rel="noopener">Télécharger le bulletin <span class="arr">↓</span></a>
+        <a class="btn ghost" href="Lesfousdetrechy.html#documents">Les documents du club <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer data-site="foot"></footer>
+<script src="agenda.txt"></script>
+<script src="assets/js/site.js"></script>
+<script>
+/* Effet 3D des cartes d'adhésion */
+(function(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var cartes = [].slice.call(document.querySelectorAll(".tarif")), MAX = 10;
+  function regle(c, x, y){                 // x, y de -1 à 1
+    c.style.setProperty("--ry", (x * MAX).toFixed(2) + "deg");
+    c.style.setProperty("--rx", (-y * MAX).toFixed(2) + "deg");
+    c.style.setProperty("--mx", x.toFixed(3));
+    c.style.setProperty("--my", y.toFixed(3));
+    c.style.setProperty("--px", ((x + 1) * 50).toFixed(1) + "%");
+    c.style.setProperty("--py", ((y + 1) * 50).toFixed(1) + "%");
+  }
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    // ordinateur : la carte suit la souris
+    cartes.forEach(function(c){
+      c.addEventListener("pointerenter", function(){ c.classList.add("suit"); });
+      c.addEventListener("pointermove", function(e){
+        var r = c.getBoundingClientRect();
+        regle(c, ((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
+      });
+      c.addEventListener("pointerleave", function(){ c.classList.remove("suit"); regle(c, 0, 0); });
+    });
+  } else {
+    // téléphone : les cartes basculent doucement au fil du défilement,
+    // et celle qui passe au milieu de l'écran s'allume
+    var attente = false;
+    function defile(){
+      attente = false;
+      var h = innerHeight;
+      cartes.forEach(function(c, i){
+        var r = c.getBoundingClientRect(), y = ((r.top + r.height / 2) / h) * 2 - 1;
+        y = Math.max(-1, Math.min(1, y));
+        regle(c, (i % 2 ? .35 : -.35) * (1 - Math.abs(y)), y * .8);
+        c.classList.toggle("actif", Math.abs(y) < .3);
+      });
+    }
+    addEventListener("scroll", function(){ if (!attente) { attente = true; requestAnimationFrame(defile); } }, {passive:true});
+    addEventListener("resize", defile);
+    defile();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Espace membres · Les Fous d'Étréchy</title>
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{--ebene:#120D0A;--noyer:#1D140F;--noyer-2:#291C14;--palissandre:#6E4630;--or:#D3A24A;--or-pale:#ECC97F;--ivoire:#F5EBD8;--sepia:#C2AA88;--line:#43301F;--rouge:#E08A6A;
+--display:"Bodoni Moda",Georgia,serif;--body:Karla,system-ui,sans-serif;--mono:"DM Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px 16px;background:var(--ebene);color:var(--ivoire);font-family:var(--body);
+background-image:radial-gradient(ellipse at 50% 0%,rgba(211,162,74,.13),transparent 60%),repeating-conic-gradient(rgba(255,255,255,.018) 0 25%,transparent 0 50%);background-size:auto,96px 96px}
+.carte{position:relative;width:100%;max-width:440px;padding:clamp(30px,6vw,46px) clamp(22px,6vw,42px) 30px;border-radius:22px;border:1px solid var(--line);
+background:linear-gradient(180deg,color-mix(in srgb,var(--noyer-2) 92%,transparent),color-mix(in srgb,var(--noyer) 96%,transparent));box-shadow:0 30px 70px rgba(0,0,0,.55),inset 0 1px 0 rgba(236,201,127,.08);text-align:center}
+.carte::before{content:"";position:absolute;inset:8px;border-radius:16px;border:1px solid rgba(211,162,74,.16);pointer-events:none}
+.logo{display:block;margin:0 auto;width:80px;height:80px;object-fit:cover;border-radius:50%;border:2px solid var(--or);background:#fff;filter:drop-shadow(0 8px 10px rgba(0,0,0,.5))}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin:18px 0 0;font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--or)}
+.eyebrow .sq{display:inline-grid;place-items:center;width:28px;height:28px;border:1px solid var(--or);border-radius:4px;font-size:.7rem;letter-spacing:0;text-transform:none;color:var(--or-pale)}
+h1{margin:14px 0 0;font-family:var(--display);font-weight:500;font-size:clamp(2rem,7vw,2.6rem);line-height:1.05}
+h1 em{color:var(--or);font-style:italic}
+.intro{margin:14px auto 0;max-width:30em;color:var(--sepia);font-size:1rem;line-height:1.55}
+form{margin-top:26px;display:grid;gap:12px;text-align:left}
+label{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sepia)}
+.champ{position:relative}
+input{width:100%;padding:15px 52px 15px 18px;border-radius:12px;border:1px solid var(--line);background:var(--ebene);color:var(--ivoire);font:500 1.05rem var(--body);outline:none;transition:border-color .25s,box-shadow .25s}
+input:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(211,162,74,.22)}
+.voir{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:38px;height:38px;border:0;border-radius:8px;background:transparent;color:var(--sepia);cursor:pointer;display:grid;place-items:center}
+.voir:hover,.voir:focus-visible{color:var(--or-pale);outline:none}
+.voir svg{width:20px;height:20px}
+.btn{margin-top:6px;display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;border:1px solid var(--or);background:var(--or);color:var(--ebene);font:700 .98rem var(--body);cursor:pointer;transition:background .25s,transform .2s}
+.btn:hover{background:var(--or-pale)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.7;cursor:wait}
+.msg{min-height:1.4em;margin:2px 0 0;font-size:.9rem;text-align:center;color:var(--rouge)}
+.msg.ok{color:var(--or-pale)}
+.carte.secoue{animation:secoue .45s}
+@keyframes secoue{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.note{margin:20px 0 0;color:color-mix(in srgb,var(--sepia) 80%,transparent);font-size:.84rem;line-height:1.5}
+.retour{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);text-decoration:none}
+.retour:hover{color:var(--or-pale)}
+@media (prefers-reduced-motion:reduce){.carte.secoue{animation:none}}
+</style>
+</head>
+<body>
+<main class="carte" id="carte">
+  <img class="logo" src="../assets/img/logo.webp" alt="Logo des Fous d'Étréchy">
+  <p class="eyebrow"><span class="sq">f6</span>Espace membres</p>
+  <h1>La salle <em>d'entraînement</em></h1>
+  <p class="intro">Les dix applications du club, réservées aux membres. Saisissez le mot de passe communiqué au club.</p>
+  <form id="f" autocomplete="off">
+    <label for="mdp">Mot de passe</label>
+    <div class="champ">
+      <input id="mdp" type="password" autocomplete="current-password" required autofocus>
+      <button class="voir" type="button" id="voir" aria-label="Afficher le mot de passe" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
+    <button class="btn" id="go" type="submit">Entrer <span aria-hidden="true">→</span></button>
+    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+  </form>
+  <p class="note">Le mot de passe change chaque trimestre. Il est retenu sur cet appareil pendant 30 jours.</p>
+  <a class="retour" href="../Lesfousdetrechy.html#applications">← Retour au site</a>
+</main>
+<script>
+(function () {
+  var SEL = "WkjY+d/goNuPpHJPxKCoNA==", ITER = 600000, CONTROLE = "2XT/bagwpOftPObIGT4cmTvJTcq/MEXkhSMs5/NKsNYrZ0I=", DUREE = 30 * 864e5;
+  var q = new URLSearchParams(location.search), cible = q.get("retour") || "portail.html";
+  if (!/^[a-z-]+\.html$/.test(cible)) cible = "portail.html";
+  cible += location.hash;
+  function u8(b) { var s = atob(b), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
+  try {
+    var a = JSON.parse(localStorage.getItem("lfde-acces") || "null");
+    if (a && a.s === SEL && Date.now() - a.t < DUREE) { location.replace(cible); return; }
+  } catch (e) {}
+  var f = document.getElementById("f"), mdp = document.getElementById("mdp"), msg = document.getElementById("msg"),
+      go = document.getElementById("go"), carte = document.getElementById("carte"), voir = document.getElementById("voir");
+  voir.onclick = function () {
+    var v = mdp.type === "password"; mdp.type = v ? "text" : "password";
+    voir.setAttribute("aria-pressed", v); voir.setAttribute("aria-label", v ? "Masquer le mot de passe" : "Afficher le mot de passe"); mdp.focus();
+  };
+  if (!window.crypto || !crypto.subtle || !window.DecompressionStream) {
+    msg.textContent = "Ce navigateur est trop ancien : mettez-le à jour pour accéder aux applications."; go.disabled = true; return;
+  }
+  f.onsubmit = async function (ev) {
+    ev.preventDefault();
+    var p = mdp.value; if (!p) return;
+    go.disabled = true; msg.className = "msg ok"; msg.textContent = "Vérification…";
+    try {
+      var base = await crypto.subtle.importKey("raw", new TextEncoder().encode(p), "PBKDF2", false, ["deriveKey"]);
+      var cle = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: u8(SEL), iterations: ITER, hash: "SHA-256" }, base,
+        { name: "AES-GCM", length: 256 }, true, ["decrypt"]);
+      var c = u8(CONTROLE);
+      await crypto.subtle.decrypt({ name: "AES-GCM", iv: c.subarray(0, 12) }, cle, c.subarray(12));
+      var raw = new Uint8Array(await crypto.subtle.exportKey("raw", cle)), s = "";
+      for (var i = 0; i < raw.length; i++) s += String.fromCharCode(raw[i]);
+      try { localStorage.setItem("lfde-acces", JSON.stringify({ k: btoa(s), s: SEL, t: Date.now() })); } catch (e) {}
+      msg.textContent = "Bienvenue !";
+      location.replace(cible);
+    } catch (e) {
+      go.disabled = false; msg.className = "msg"; msg.textContent = "Mot de passe incorrect.";
+      carte.classList.remove("secoue"); void carte.offsetWidth; carte.classList.add("secoue");
+      mdp.select();
+    }
+  };
+})();
+</script>
+</body>
+</html>
