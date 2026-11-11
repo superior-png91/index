@@ -65,28 +65,33 @@
 .tarif .an{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;color:var(--sepia)}
 
 .t-note{margin-top:22px;color:var(--sepia);font-size:.92rem;max-width:72ch}
-.t-pay{margin-top:14px;max-width:72ch;padding:14px 18px;border-radius:10px;border:1px solid color-mix(in srgb,var(--or) 45%,transparent);position:relative;padding-left:24px;background:color-mix(in srgb,var(--or) 8%,transparent);color:var(--ivoire);font-size:.98rem;line-height:1.5}
-.t-pay::before{content:"";position:absolute;left:8px;top:14px;bottom:14px;width:3px;border-radius:3px;background:var(--or)}
+.t-pay{margin:22px auto 0;max-width:72ch;padding:14px 18px;border-radius:10px;border:1px solid color-mix(in srgb,var(--or) 45%,transparent);position:relative;text-align:center;background:color-mix(in srgb,var(--or) 8%,transparent);color:var(--ivoire);font-size:.98rem;line-height:1.5}
 .t-pay-k{display:block;margin-bottom:4px;font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
 .t-pay strong{color:var(--or-pale);font-weight:700}
 .t-pay p{margin:0}
 .b-pay{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px}
 @media (max-width:640px){.b-pay{grid-template-columns:1fr}}
-.b-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;background:rgba(18,13,10,.45);border:1px solid var(--line)}
+.b-item{display:flex;align-items:center;gap:12px;text-align:left;padding:10px 12px;border-radius:8px;background:rgba(18,13,10,.45);border:1px solid var(--line)}
 .b-item svg{width:46px;height:46px;flex:none}
 .b-item b{display:block;color:var(--or-pale)}
 .b-item span{font-size:.85rem;color:var(--sepia)}
 .b-item.non b{color:#E59B7E}
 .b-item{position:relative;padding-right:30px}
+.b-pay{perspective:900px}
+.t-pay .b-item{opacity:0;transform:rotateY(-90deg);transform-origin:center;backface-visibility:hidden}
+.t-pay.vu .b-item{animation:bPivote .7s cubic-bezier(.25,.8,.3,1) forwards}
+.t-pay.vu .b-item:nth-child(2){animation-delay:.18s}
+.t-pay.vu .b-item:nth-child(3){animation-delay:.36s}
+@keyframes bPivote{0%{opacity:0;transform:rotateY(-90deg)}40%{opacity:1}100%{opacity:1;transform:rotateY(0)}}
 .b-item svg.b-marque{position:absolute;top:8px;right:8px;width:18px;height:18px}
 .b-marque path{stroke-dasharray:24;stroke-dashoffset:24}
 .t-pay.vu .b-marque path{animation:bTrace .5s ease-out forwards}
-.t-pay.vu .b-item:nth-child(1) .b-marque path{animation-delay:.2s}
-.t-pay.vu .b-item:nth-child(2) .b-marque path{animation-delay:.55s}
-.t-pay.vu .b-item:nth-child(3) .b-marque path{animation-delay:.9s}
-.t-pay.vu .b-item:nth-child(3) .b-marque path+path{animation-delay:1.1s}
+.t-pay.vu .b-item:nth-child(1) .b-marque path{animation-delay:.75s}
+.t-pay.vu .b-item:nth-child(2) .b-marque path{animation-delay:1.05s}
+.t-pay.vu .b-item:nth-child(3) .b-marque path{animation-delay:1.35s}
+.t-pay.vu .b-item:nth-child(3) .b-marque path+path{animation-delay:1.55s}
 @keyframes bTrace{to{stroke-dashoffset:0}}
-@media (prefers-reduced-motion:reduce){.b-marque path{stroke-dashoffset:0}.t-pay.vu .b-marque path{animation:none}}
+@media (prefers-reduced-motion:reduce){.b-marque path{stroke-dashoffset:0}.t-pay.vu .b-marque path{animation:none}.t-pay .b-item{opacity:1;transform:none}.t-pay.vu .b-item{animation:none}}
 
 /* ---------- comment adhérer ---------- */
 .adherer{padding-block:clamp(64px,8vw,120px) clamp(72px,9vw,130px)}
