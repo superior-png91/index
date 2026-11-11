@@ -659,7 +659,7 @@
     <div class="docs-copy">
       <p class="eyebrow"><span class="sq">h8</span>À télécharger</p>
       <h2 id="docs-title" class="rise-words">Les documents <em>du club</em>.</h2>
-      <p>Tout ce qu'il faut pour adhérer : le bulletin à remplir, les statuts de l'association et le règlement intérieur, à télécharger et à imprimer.</p>
+      <p>Tout ce qu'il faut pour adhérer : le bulletin à remplir, l'autorisation de déplacement des mineurs et la charte de déontologie à lire, les statuts de l'association et le règlement intérieur.</p>
       <div class="cta"><a class="btn ghost" href="Tarifs.html">Cotisation annuelle <span class="arr">→</span></a> <a class="btn ghost" href="#rejoindre">Infos pratiques de la saison <span class="arr">↑</span></a></div>
     </div>
     <ul class="doc-list">
@@ -668,6 +668,18 @@
         <div class="doc-actions">
           <button class="doc-btn" type="button" data-doc-view>Afficher <span aria-hidden="true">◱</span></button>
           <a class="doc-btn alt" id="bulletinDl" href="Bulletin_inscription_2026-2027.pdf" download="Bulletin_inscription_2026-2027.pdf" target="_blank" rel="noopener">Télécharger <span aria-hidden="true">↓</span></a>
+        </div>
+      </li>
+      <li class="doc-row" data-doc="adp">
+        <div class="doc-main"><span class="doc-kicker">Adhérents mineurs</span><h3>Autorisation parentale de déplacements (ADP)</h3><p>Pour les enfants qui viennent au club et en repartent seuls : ce que le représentant légal autorise, et les limites de la responsabilité du club.</p><span class="doc-meta mono">À lire · 1 page</span></div>
+        <div class="doc-actions">
+          <button class="doc-btn" type="button" data-lire="adp" aria-haspopup="dialog">Lire <span aria-hidden="true">◱</span></button>
+        </div>
+      </li>
+      <li class="doc-row" data-doc="charte">
+        <div class="doc-main"><span class="doc-kicker">Fair-play</span><h3>Charte de déontologie du joueur</h3><p>Respect, intégrité et esprit communautaire : les principes que chaque adhérent s'engage à respecter au club.</p><span class="doc-meta mono">À lire · 1 page</span></div>
+        <div class="doc-actions">
+          <button class="doc-btn" type="button" data-lire="charte" aria-haspopup="dialog">Lire <span aria-hidden="true">◱</span></button>
         </div>
       </li>
       <li class="doc-row" data-doc="statuts" data-href="">
@@ -844,6 +856,68 @@
 
 
 
+
+<!-- =============== Lecture : ADP et Charte de déontologie =============== -->
+<style>
+.lecture .pdf-scroll{padding:18px 12px 32px}
+.feuille{width:min(760px,100%);margin:0 auto;padding:clamp(26px,5vw,52px) clamp(20px,5vw,56px);background:#FBF8F3;color:#2A211B;border-radius:6px;box-shadow:0 18px 50px rgba(0,0,0,.55);font-family:var(--body);font-size:1rem;line-height:1.6}
+.feuille h2{margin:0 0 6px;font-family:var(--display);font-weight:600;font-size:clamp(1.5rem,4vw,2rem);line-height:1.15;color:#1D140F}
+.feuille .sous{margin:0 0 22px;color:#6E4630;font-style:italic}
+.feuille h3{margin:24px 0 8px;font-family:var(--display);font-weight:600;font-size:1.2rem;color:#1D140F;padding-bottom:4px;border-bottom:1px solid #E3D6C3}
+.feuille p{margin:0 0 10px}
+.feuille ul,.feuille ol{margin:0 0 10px;padding-left:1.3em}
+.feuille li{margin:0 0 8px}
+.feuille strong{color:#1D140F}
+.feuille .fin{margin-top:22px;padding-top:12px;border-top:1px solid #E3D6C3;font-size:.92rem;color:#5A4A3E}
+</style>
+<div class="pdf-view lecture" id="lectureView" role="dialog" aria-modal="true" aria-labelledby="lectureTitre" hidden>
+  <div class="pdf-bar">
+    <h3 id="lectureTitre">Document</h3>
+    <button class="pdf-x" type="button" id="lectureClose" aria-label="Fermer">✕</button>
+  </div>
+  <div class="pdf-scroll"><article class="feuille" id="lectureTexte"></article></div>
+</div>
+<template id="lire-adp" data-titre="Autorisation parentale de déplacements">
+  <h2>Autorisation parentale de déplacements</h2>
+  <p class="sous">Pour les adhérents mineurs non accompagnés</p>
+  <h3>1. Autorisation et décharge</h3>
+  <p>Le représentant légal de l'enfant mineur <strong>autorise son enfant à se rendre et à repartir seul(e)</strong>, sans accompagnement par un adulte responsable, au Club d'Échecs « <strong>Les Fous d'Étréchy</strong> » pour les activités habituelles et les événements organisés sur place.</p>
+  <h3>2. Conditions et responsabilités</h3>
+  <p>Le représentant légal reconnaît que :</p>
+  <ol>
+    <li>le Club et ses bénévoles sont <strong>dégagés de toute responsabilité</strong> en cas de problème survenant à l'enfant <strong>en dehors des heures et du lieu de l'activité encadrée</strong> ;</li>
+    <li>le Club <strong>ne pourra être tenu responsable</strong> de tout incident survenant sur le <strong>trajet</strong> d'arrivée ou de départ de l'enfant mineur.</li>
+  </ol>
+</template>
+<template id="lire-charte" data-titre="Charte de déontologie du joueur">
+  <h2>Charte de déontologie du joueur d'Échecs</h2>
+  <p>L'objectif de cette Charte est de garantir un environnement de jeu respectueux, sain et convenable pour tous les membres du Club. En y adhérant, chaque joueur et chaque joueuse s'engage à respecter les principes suivants :</p>
+  <h3>1. Respect et fair-play</h3>
+  <ul>
+    <li><strong>Respect de l'adversaire :</strong> saluez votre adversaire d'une poignée de main avant la partie et restez courtois, que vous gagniez ou perdiez.</li>
+    <li><strong>Maîtrise de soi :</strong> gardez votre calme en toutes circonstances. Évitez les commentaires désobligeants, les gestes de frustration ou toute forme d'agressivité.</li>
+    <li><strong>Respect des règles :</strong> connaissez et appliquez les règles du jeu scrupuleusement. La triche est strictement interdite.</li>
+    <li><strong>Reconnaissance de la défaite :</strong> si la victoire de votre adversaire est inévitable, concédez la partie avec dignité sans la faire traîner inutilement.</li>
+  </ul>
+  <h3>2. Intégrité et courtoisie</h3>
+  <ul>
+    <li><strong>Indépendance du jeu :</strong> ne commentez pas les parties des autres et ne donnez pas de conseils aux joueurs. Chacun doit pouvoir jouer sa partie en toute indépendance.</li>
+    <li><strong>Soin du matériel :</strong> manipulez les pièces et le matériel avec soin. Ne faites pas de bruits inutiles qui pourraient déranger les autres joueurs. Dans la mesure du possible, assurez-vous que votre téléphone soit éteint ou en mode silencieux. <strong>Cependant, s'il doit rester allumé en permanence, merci de le signaler au responsable du Club et de quitter rapidement la salle de jeu en cas d'appel.</strong></li>
+  </ul>
+  <h3>3. Esprit communautaire</h3>
+  <ul>
+    <li><strong>Bienveillance :</strong> accueillez les nouveaux membres et les joueurs moins expérimentés avec patience et gentillesse. Le partage des connaissances fait progresser tout le monde.</li>
+    <li><strong>Communication :</strong> en cas de désaccord sur une règle, discutez-en calmement. Si le problème persiste, faites appel à un responsable du Club.</li>
+  </ul>
+  <p>En adhérant au Club, chaque joueur s'engage à être un ambassadeur des valeurs de fair-play et de respect, et contribue à faire de notre Club un lieu de convivialité où la passion des échecs est primordiale.</p>
+  <p class="fin">Cette Charte est annexée au Règlement intérieur et peut être modifiée par le Bureau.</p>
+</template>
+<script>!function(){var v=document.getElementById("lectureView"),t=document.getElementById("lectureTexte"),h=document.getElementById("lectureTitre"),x=document.getElementById("lectureClose"),r=null;if(!v)return;
+function o(id){var tp=document.getElementById("lire-"+id);if(!tp)return;r=document.activeElement;t.innerHTML=tp.innerHTML;h.textContent=tp.dataset.titre||"";v.hidden=!1;v.querySelector(".pdf-scroll").scrollTop=0;document.documentElement.style.overflow="hidden";x.focus()}
+function f(){v.hidden=!0;document.documentElement.style.overflow="";r&&r.focus&&r.focus()}
+document.querySelectorAll("[data-lire]").forEach(function(b){b.addEventListener("click",function(){o(b.dataset.lire)})});
+x.addEventListener("click",f);v.addEventListener("click",function(e){(e.target===v||e.target.classList.contains("pdf-scroll"))&&f()});
+document.addEventListener("keydown",function(e){"Escape"!==e.key||v.hidden||f()})}();</script>
 <!-- =============== Aperçu du bulletin =============== -->
 <div class="pdf-view" id="pdfView" role="dialog" aria-modal="true" aria-labelledby="pdfViewTitle" hidden>
   <div class="pdf-bar">
