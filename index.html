@@ -131,6 +131,15 @@
 .affiche{display:block;width:min(290px,100%);margin:0 auto 8px;border-radius:10px;overflow:hidden;border:1px solid rgba(211,162,74,.55);box-shadow:0 30px 60px -24px rgba(0,0,0,.85),0 0 46px -10px rgba(255,140,40,.45);transform:rotate(-1.5deg);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s}
 .affiche:hover,.affiche:focus-visible{transform:rotate(0) scale(1.02);box-shadow:0 34px 70px -24px rgba(0,0,0,.9),0 0 60px -6px rgba(255,140,40,.6)}
 .affiche img{display:block;width:100%;height:auto}
+.affiche{cursor:zoom-in}
+.affiche-zoom{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:clamp(12px,3vw,40px);background:rgba(10,7,5,.9);backdrop-filter:blur(6px);cursor:zoom-out;opacity:0;transition:opacity .3s}
+.affiche-zoom[hidden]{display:none}
+.affiche-zoom.on{opacity:1}
+.affiche-zoom img{max-width:min(92vw,100%);max-height:92vh;max-height:92dvh;width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.8),0 0 80px -10px rgba(255,140,40,.45);transform:scale(.94);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.affiche-zoom.on img{transform:none}
+.affiche-zoom button{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid var(--or);background:rgba(18,13,10,.7);color:var(--or-pale);font-size:1.2rem;cursor:pointer}
+.affiche-zoom button:hover,.affiche-zoom button:focus-visible{background:var(--ivoire);color:var(--ebene)}
+@media (prefers-reduced-motion:reduce){.affiche-zoom,.affiche-zoom img{transition:none}}
 @media (prefers-reduced-motion:reduce){.affiche,.affiche:hover{transform:none;transition:none}}
 
 /* ---------- ACTUALITÉ : l'assemblée générale ---------- */
@@ -354,7 +363,7 @@
           </div>
         </div>
         <div class="actu-side">
-          <a class="affiche" href="assets/img/affiche-portes-ouvertes.webp" target="_blank" rel="noopener" aria-label="Voir l'affiche de la journée portes ouvertes en grand">
+          <a class="affiche" href="assets/img/affiche-portes-ouvertes.webp" data-agrandir aria-haspopup="dialog" aria-label="Agrandir l'affiche de la journée portes ouvertes">
             <img src="assets/img/affiche-portes-ouvertes.webp" alt="Affiche de la journée portes ouvertes du club d'échecs Les Fous d'Étréchy : un cavalier de feu bondit au-dessus d'un échiquier. Samedi 14 novembre 2026, de 14 h à 18 h, Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus." width="896" height="1200" loading="lazy">
           </a>
           <div class="cal" aria-hidden="true">
@@ -713,5 +722,15 @@
   requestAnimationFrame(frame);
 })();
 </script>
+
+<!-- Agrandissement de l'affiche de la journée portes ouvertes -->
+<div class="affiche-zoom" id="afficheZoom" role="dialog" aria-modal="true" aria-label="Affiche de la journée portes ouvertes" hidden>
+  <img src="assets/img/affiche-portes-ouvertes.webp" alt="Affiche de la journée portes ouvertes du club d'échecs Les Fous d'Étréchy : samedi 14 novembre 2026, de 14 h à 18 h, Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus." width="896" height="1200">
+  <button type="button" aria-label="Fermer">✕</button>
+</div>
+<script>!function(){var z=document.getElementById("afficheZoom"),a=document.querySelector("[data-agrandir]"),r=null;if(!z||!a)return;
+function o(e){e.preventDefault();r=document.activeElement;z.hidden=!1;document.documentElement.style.overflow="hidden";requestAnimationFrame(function(){z.classList.add("on")});z.querySelector("button").focus()}
+function f(){z.classList.remove("on");document.documentElement.style.overflow="";setTimeout(function(){z.hidden=!0},250);r&&r.focus&&r.focus()}
+a.addEventListener("click",o);z.addEventListener("click",f);document.addEventListener("keydown",function(e){"Escape"!==e.key||z.hidden||f()})}();</script>
 </body>
 </html>
