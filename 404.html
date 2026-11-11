@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Page introuvable · Les Fous d'Étréchy</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{--ebene:#120D0A;--noyer:#1D140F;--or:#D3A24A;--or-pale:#ECC97F;--ivoire:#F5EBD8;--sepia:#C2AA88;--line:#43301F;
+--display:"Bodoni Moda",Georgia,serif;--body:Karla,system-ui,sans-serif;--mono:"DM Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:28px 16px;background:var(--ebene);color:var(--ivoire);font-family:var(--body);text-align:center;
+background-image:radial-gradient(ellipse at 50% 0%,rgba(211,162,74,.13),transparent 60%),repeating-conic-gradient(rgba(255,255,255,.018) 0 25%,transparent 0 50%);background-size:auto,96px 96px}
+main{width:100%;max-width:640px}
+.marque{display:flex;align-items:center;gap:12px;width:max-content;max-width:100%;margin:0 auto;color:var(--ivoire);text-decoration:none;font-family:var(--display);font-style:italic;font-size:1.15rem}
+.marque img{width:52px;height:52px;border-radius:50%;border:2px solid var(--or);background:#fff;object-fit:cover}
+.eyebrow{display:flex;justify-content:center;align-items:center;gap:10px;margin:34px 0 0;font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--or)}
+.eyebrow .sq{display:inline-grid;place-items:center;min-width:28px;height:28px;padding:0 5px;border:1px solid var(--or);border-radius:4px;letter-spacing:0;color:var(--or-pale)}
+.num{margin:10px 0 0;font-family:var(--display);font-weight:500;font-size:clamp(6rem,26vw,11rem);line-height:.95;color:transparent;-webkit-text-stroke:1.5px var(--or-pale);display:flex;justify-content:center;align-items:center;gap:.04em}
+.num .fou{font-size:.62em;color:var(--or-pale);-webkit-text-stroke:0;display:inline-block;animation:glisse 5s ease-in-out infinite}
+@keyframes glisse{0%,100%{transform:translate(-.12em,.12em)}50%{transform:translate(.12em,-.12em)}}
+h1{margin:6px 0 0;font-family:var(--display);font-weight:500;font-size:clamp(2rem,7vw,3rem);line-height:1.05}
+h1 em{color:var(--or);font-style:italic}
+p.lead{margin:16px auto 0;max-width:34em;color:var(--sepia);font-size:1.05rem;line-height:1.6}
+.acts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;border:1px solid var(--or);font-weight:700;font-size:.95rem;text-decoration:none;color:var(--or-pale);transition:background .25s,color .25s}
+.btn.solid{background:var(--or);color:var(--ebene)}
+.btn:hover,.btn:focus-visible{background:var(--ivoire);border-color:var(--ivoire);color:var(--ebene);outline:none}
+@media (prefers-reduced-motion:reduce){.num .fou{animation:none}}
+</style>
+</head>
+<body>
+<main>
+  <a class="marque" href="/"><img src="/assets/img/logo.webp" alt="" width="52" height="52">Les Fous d'Étréchy</a>
+  <p class="eyebrow"><span class="sq">??</span>Coup impossible</p>
+  <p class="num" aria-hidden="true">4<span class="fou">♝&#xFE0E;</span>4</p>
+  <h1>Case <em>introuvable</em></h1>
+  <p class="lead">Cette page n'est pas sur l'échiquier : elle a peut-être été déplacée, ou l'adresse contient une erreur. Reprenez la partie depuis l'une de ces cases.</p>
+  <div class="acts">
+    <a class="btn solid" href="/">Retour à l'accueil <span aria-hidden="true">→</span></a>
+    <a class="btn" href="/Lesfousdetrechy.html">Le club</a>
+    <a class="btn" href="/Lesfousdetrechy.html#agenda">L'agenda</a>
+    <a class="btn" href="/Tarifs.html">La cotisation</a>
+  </div>
+</main>
+</body>
+</html>
