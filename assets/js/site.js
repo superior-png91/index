@@ -15,7 +15,7 @@ var MENU = [
     ["e1", "Le bureau",     "Trois pièces maîtresses",              "Lesfousdetrechy.html#lebureau"]
   ]],
   ["Jouer & apprendre", [
-    ["d4", "Activités",     "Une séance, cinq façons d'y jouer",    "Lesfousdetrechy.html#activites"],
+    ["d4", "Activités",     "Une séance, trois façons d'y jouer",   "Lesfousdetrechy.html#activites"],
     ["e5", "Apprendre",     "Les bases en trois leçons",            "Lesfousdetrechy.html#apprendre"],
     ["f6", "Applications",  "Dix outils pour s'entraîner",          "Lesfousdetrechy.html#applications"],
     ["e4", "Le local & le matériel", "Nos deux salles, échiquiers, pendule", "Materiel.html"]
