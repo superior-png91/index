@@ -68,6 +68,7 @@ input:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(211,162,74,.22)}
   <a class="retour" href="../Lesfousdetrechy.html#applications">← Retour au site</a>
 </main>
 <script>
+function lireAcces(){var v=null;try{v=localStorage.getItem("lfde-acces")}catch(e){}if(!v)try{v=sessionStorage.getItem("lfde-acces")}catch(e){}if(!v&&window.name.indexOf("lfde-acces=")===0)v=window.name.slice(11);try{return JSON.parse(v||"null")}catch(e){return null}}function ecrireAcces(v){var ok=false;try{localStorage.setItem("lfde-acces",v);ok=localStorage.getItem("lfde-acces")===v}catch(e){}if(!ok){try{sessionStorage.setItem("lfde-acces",v);ok=sessionStorage.getItem("lfde-acces")===v}catch(e){}}if(!ok)window.name="lfde-acces="+v}function effacerAcces(){try{localStorage.removeItem("lfde-acces")}catch(e){}try{sessionStorage.removeItem("lfde-acces")}catch(e){}if(window.name.indexOf("lfde-acces=")===0)window.name=""}
 (function () {
   var SEL = "WkjY+d/goNuPpHJPxKCoNA==", ITER = 600000, CONTROLE = "2XT/bagwpOftPObIGT4cmTvJTcq/MEXkhSMs5/NKsNYrZ0I=", DUREE = 30 * 864e5;
   var q = new URLSearchParams(location.search), cible = q.get("retour") || "portail.html";
@@ -75,7 +76,7 @@ input:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(211,162,74,.22)}
   cible += location.hash;
   function u8(b) { var s = atob(b), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
   try {
-    var a = JSON.parse(localStorage.getItem("lfde-acces") || "null");
+    var a = lireAcces();
     if (a && a.s === SEL && Date.now() - a.t < DUREE) { location.replace(cible); return; }
   } catch (e) {}
   var f = document.getElementById("f"), mdp = document.getElementById("mdp"), msg = document.getElementById("msg"),
@@ -99,7 +100,7 @@ input:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(211,162,74,.22)}
       await crypto.subtle.decrypt({ name: "AES-GCM", iv: c.subarray(0, 12) }, cle, c.subarray(12));
       var raw = new Uint8Array(await crypto.subtle.exportKey("raw", cle)), s = "";
       for (var i = 0; i < raw.length; i++) s += String.fromCharCode(raw[i]);
-      try { localStorage.setItem("lfde-acces", JSON.stringify({ k: btoa(s), s: SEL, t: Date.now() })); } catch (e) {}
+      ecrireAcces(JSON.stringify({ k: btoa(s), s: SEL, t: Date.now() }));
       msg.textContent = "Bienvenue !";
       location.replace(cible);
     } catch (e) {
