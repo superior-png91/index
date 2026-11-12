@@ -386,7 +386,7 @@ var CLUB = {
     var timg = tfol.querySelector("img");
     function suit(e){
       var c = e.touches[0]; if (!c) return;
-      tfol.style.left = c.clientX + "px"; tfol.style.top = c.clientY + "px";
+      tfol.style.left = c.clientX + "px"; tfol.style.top = c.clientY + "px"; tfol.classList.toggle("gauche", c.clientX > innerWidth * 0.5);
       var el = document.elementFromPoint(c.clientX, c.clientY), a = el && el.closest && el.closest("[data-img]");
       if (a) { var s = a.getAttribute("data-img"); if (timg.getAttribute("src") !== s) timg.src = s; tfol.classList.add("on"); }
       else tfol.classList.remove("on");
