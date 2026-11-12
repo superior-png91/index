@@ -24,6 +24,7 @@ var MENU = [
     ["g7", "À vous de jouer",       "Saison, lieu, séances et contact", "Lesfousdetrechy.html#rejoindre"],
     ["g8", "Agenda",                "Tous les samedis, 14 h – 18 h",    "Lesfousdetrechy.html#agenda"],
     ["h7", "Adhérer",               "Cotisation, bulletin, statuts",    "Tarifs.html"],
+    ["d5", "Infos utiles",          "Sites, chaînes et boutiques d'échecs", "Infosutiles.html"],
     ["§",  "Informations légales",  "Mentions et données personnelles", "Lesfousdetrechy.html#mentions"]
   ]],
   ["Les films", [
