@@ -108,6 +108,7 @@
 #films .cards .media img,#films .cards .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
 #films a.card:hover .media img,#films a.card:hover .media video{transform:scale(1.05)}
 #films .soon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(18,13,10,.55);font-family:var(--display);font-style:italic;font-size:1.6rem;color:var(--or-pale)}
+@media (min-width:861px){#films .cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 #films .k{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--or)}
 
 /* ---------- g7 · venir au club ---------- */
@@ -471,6 +472,12 @@
           <span class="k">Film · avec musique</span>
           <h3>Au fil des saisons</h3>
           <p>Une seule partie sous les platanes du Corps de garde, de l'été jusqu'au printemps.</p>
+        </a>
+        <a class="card" href="Machinedutemps.html" data-hoverplay data-cursor="Regarder">
+          <div class="media" data-curtain><video muted loop playsinline preload="none" poster="assets/img/machine-poster.webp" src="assets/video/machine.mp4" aria-hidden="true"></video></div>
+          <span class="k">Film · avec le son</span>
+          <h3>La 64ᵉ Dimension</h3>
+          <p>Le bureau du club embarque à bord et traverse plus d'un siècle, de 1900 à aujourd'hui.</p>
         </a>
       </div>
     </div>
