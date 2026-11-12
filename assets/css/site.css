@@ -140,7 +140,8 @@ a.card:hover{border-color:color-mix(in srgb,var(--or) 60%,transparent);transform
 @media (hover:none){.follow:not(.touch){display:none}}
 .follow.touch{transform:translate(-50%,-140%) scale(.85);transition:opacity .2s,transform .25s;z-index:60}
 .follow.touch.on{opacity:1;transform:translate(-50%,-140%) scale(1)}
-.cases a{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.cases a{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;-webkit-tap-highlight-color:transparent}
+.cases .vignette{pointer-events:none;-webkit-user-drag:none}
 .cases .vignette{display:block;width:76px;aspect-ratio:4/3;object-fit:cover;border-radius:7px;border:1px solid color-mix(in srgb,var(--or) 40%,transparent);box-shadow:0 8px 16px -8px rgba(0,0,0,.7)}
 .cases a.a-vig{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) auto auto}
 .cases a.a-vig .vignette{grid-column:4;grid-row:1}.cases a.a-vig .ar{grid-column:5}

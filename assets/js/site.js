@@ -376,6 +376,7 @@ var CLUB = {
      RANGÉES À SURVOL : une photo suit la souris (data-img)
      ------------------------------------------------------------------ */
   var rows = $$("[data-img]");
+  var tactile = ("ontouchstart" in window) || navigator.maxTouchPoints > 0;
   if (rows.length && !fine) {
     /* écran tactile : pas de survol, la photo devient une vignette dans la rangée */
     rows.forEach(function(r){
@@ -385,6 +386,8 @@ var CLUB = {
       r.insertBefore(v, r.querySelector(".ar"));
       r.classList.add("a-vig");
     });
+  }
+  if (rows.length && tactile) {
     /* appui maintenu sur une rangée : la grande photo apparaît et suit le doigt */
     var tfol = document.createElement("div");
     tfol.className = "follow touch"; tfol.setAttribute("aria-hidden", "true");
@@ -393,10 +396,11 @@ var CLUB = {
     var timg = tfol.querySelector("img"), actif = false, minuteur = 0, sx = 0, sy = 0;
     function place(e){ var c = e.touches[0]; tfol.style.left = c.clientX + "px"; tfol.style.top = c.clientY + "px"; }
     rows.forEach(function(r){
+      r.draggable = false; r.addEventListener("dragstart", function(e){ e.preventDefault(); });
       r.addEventListener("contextmenu", function(e){ e.preventDefault(); });
       r.addEventListener("touchstart", function(e){
         var c = e.touches[0]; sx = c.clientX; sy = c.clientY; actif = false; clearTimeout(minuteur);
-        minuteur = setTimeout(function(){ actif = true; timg.src = r.getAttribute("data-img"); tfol.style.left = sx + "px"; tfol.style.top = sy + "px"; tfol.classList.add("on"); }, 280);
+        minuteur = setTimeout(function(){ actif = true; timg.src = r.getAttribute("data-img"); tfol.style.left = sx + "px"; tfol.style.top = sy + "px"; tfol.classList.add("on"); }, 200);
       }, {passive:true});
       r.addEventListener("touchmove", function(e){
         var c = e.touches[0];
