@@ -149,6 +149,38 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 20px}
 footer nav a{text-decoration:none}
 footer nav a:hover{color:var(--or-pale)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* carte de visite recto-verso (relief + brillance) */
+.carte-pro{background:radial-gradient(ellipse at 50% 30%,#2a1a11 0,var(--ebene) 70%);padding-block:clamp(56px,8vw,110px);text-align:center;overflow:hidden}
+.carte-pro .eyebrow{justify-content:center}
+.carte-pro h2{font-size:clamp(1.9rem,4vw,3.2rem);margin-top:16px}
+.carte-pro h2 em{color:var(--or-pale)}
+.carte-pro p.lead{margin:12px auto 0;max-width:34em;color:var(--sepia)}
+.carte-scene{perspective:1100px;width:min(380px,86%);margin:clamp(30px,4vw,44px) auto 0;aspect-ratio:1200/768}
+.carte3d{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;position:relative;width:100%;height:100%;transform-style:preserve-3d;cursor:pointer;outline:none;
+transform:rotateY(var(--flip,0deg));transition:transform 1.7s cubic-bezier(.45,.05,.25,1);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.carte-incl{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;width:100%;height:100%;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .6s ease-out}.carte-incl.suit{transition:transform .12s ease-out}
+.carte3d.retournee{--flip:180deg}
+.carte3d:focus-visible .face{box-shadow:0 0 0 3px var(--or),0 30px 50px -20px rgba(0,0,0,.8)}
+.carte3d .face{position:absolute;inset:0;border-radius:2.2%/3.4%;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#c9c5bb;
+box-shadow:0 0 0 1px rgba(255,255,255,.55) inset,0 2px 0 rgba(255,255,255,.7) inset,0 -3px 6px rgba(0,0,0,.18) inset,0 28px 46px -18px rgba(0,0,0,.85),0 8px 14px -6px rgba(0,0,0,.55)}
+.carte3d .face img{display:block;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.carte3d .recto{transform:translateZ(2px)}.carte3d .verso{transform:rotateY(180deg) translateZ(2px)}
+.carte3d .epaisseur{pointer-events:none;position:absolute;inset:0;border-radius:2.2%/3.4%;background:#e4e1d8}
+.carte3d .e1{transform:translateZ(1px)}.carte3d .e2{transform:translateZ(0);background:#d8d4c9}.carte3d .e3{transform:translateZ(-1px);background:#cbc6b9}
+/* grain du papier + relief */
+.carte3d .face::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* surface brillante : reflet qui suit le doigt / la souris */
+.carte3d .face::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:soft-light;
+background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.7) 0,rgba(255,255,255,.22) 22%,rgba(255,255,255,0) 52%),linear-gradient(115deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.4) 46%,rgba(255,255,255,0) 62%);background-size:100% 100%,260% 100%;background-position:0 0,calc(var(--mx) * -1 + 100%) 0}
+.carte3d .liens a{position:absolute;z-index:4;display:block;border-radius:6px;outline-offset:2px}
+.carte3d .liens a:hover,.carte3d .liens a:focus-visible{background:rgba(48,200,184,.16);box-shadow:0 0 0 1px rgba(48,200,184,.6)}
+.carte3d:not(.retournee) .liens a{pointer-events:none}
+.carte-incl.eveil{animation:eveil 1.6s ease-in-out 1}
+@keyframes eveil{0%,100%{transform:rotateX(0) rotateY(0)}30%{transform:rotateX(6deg) rotateY(-16deg)}65%{transform:rotateX(-4deg) rotateY(14deg)}}
+.carte-aide{margin:30px auto 0;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sepia)}
+@media (prefers-reduced-motion:reduce){.carte3d{transition:none}.carte-incl.eveil{animation:none}}
 </style>
 <style>/* les lignes de caractéristiques glissent depuis la droite sans faire déborder la page sur téléphone */.specs{overflow-x:clip}</style>
 <link rel="stylesheet" href="assets/css/entete.css">
@@ -374,6 +406,27 @@ footer nav a:hover{color:var(--or-pale)}
     </div>
   </section>
 
+  <section class="carte-pro" aria-labelledby="carte-titre">
+    <div class="wrap">
+      <p class="eyebrow"><span class="sq">♞</span>Carte de visite</p>
+      <h2 id="carte-titre">Alpha <em>Échecs</em></h2>
+      <p class="lead">par Étienne Bacrot</p>
+      <div class="carte-scene">
+        <div class="carte-incl" id="carte-incl"><div class="carte3d" id="carte3d" role="button" tabindex="0" aria-pressed="false" aria-label="Carte de visite Alpha Échecs : appuyer pour la retourner">
+          <span class="epaisseur e3"></span><span class="epaisseur e2"></span><span class="epaisseur e1"></span>
+          <div class="face recto"><img src="assets/img/carte-alpha-recto.webp" width="1000" height="640" alt="Carte de visite Alpha Échecs, recto : logo d'une tête de cheval, « Alpha Échecs par Étienne Bacrot »"></div>
+          <div class="face verso"><img src="assets/img/carte-alpha-verso.webp" width="1000" height="640" alt="Carte de visite Alpha Échecs, verso : site alphaechecs.fr, e-mail contact@alphaechecs.fr, téléphone">
+            <div class="liens">
+              <a href="https://www.alphaechecs.fr" target="_blank" rel="noopener" aria-label="Site web alphaechecs.fr" style="left:11%;top:31.3%;width:49%;height:7.5%"></a>
+              <a href="mailto:contact@alphaechecs.fr" aria-label="Écrire à contact@alphaechecs.fr" style="left:11%;top:46.3%;width:41%;height:7.5%"></a>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <p class="carte-aide" id="carte-aide">Touchez la carte pour la retourner</p>
+    </div>
+  </section>
+
 </main>
 
 <footer data-site="foot"></footer>
@@ -395,6 +448,40 @@ footer nav a:hover{color:var(--or-pale)}
   function out(){ box.classList.remove("on"); }
   box.addEventListener("mousemove", move); box.addEventListener("mouseleave", out);
   box.addEventListener("touchstart", move, {passive: false}); box.addEventListener("touchmove", move, {passive: false}); box.addEventListener("touchend", out);
+})();
+</script>
+<script>
+/* carte de visite : retournement, inclinaison et reflet */
+(function(){
+  var c = document.getElementById("carte3d"); if (!c) return; var w = document.getElementById("carte-incl");
+  var aide = document.getElementById("carte-aide"), liens = c.querySelectorAll(".liens a");
+  var reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function etat(){ var v = c.classList.contains("retournee"); c.setAttribute("aria-pressed", v);
+    liens.forEach(function(a){ a.tabIndex = v ? 0 : -1; });
+    if (aide) aide.textContent = v ? "Touchez le site ou l'adresse e-mail · touchez ailleurs pour retourner" : "Touchez la carte pour la retourner"; }
+  function bascule(){ c.classList.toggle("retournee"); etat(); }
+  c.addEventListener("click", function(e){ if (e.target.closest && e.target.closest(".liens a")) return; bascule(); });
+  c.addEventListener("keydown", function(e){ if (e.target === c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); bascule(); } });
+  etat();
+  if (!reduit) {
+    function incline(e){
+      var r = c.getBoundingClientRect(), p = e.touches ? e.touches[0] : e;
+      var x = (p.clientX - r.left) / r.width, y = (p.clientY - r.top) / r.height;
+      x = Math.max(0, Math.min(1, x)); y = Math.max(0, Math.min(1, y));
+      w.classList.add("suit");
+      w.style.setProperty("--ry", ((x - .5) * 22) + "deg"); w.style.setProperty("--rx", ((.5 - y) * 16) + "deg");
+      w.style.setProperty("--mx", (x * 100) + "%"); w.style.setProperty("--my", (y * 100) + "%");
+    }
+    function repos(){ w.classList.remove("suit"); w.style.setProperty("--ry", "0deg"); w.style.setProperty("--rx", "0deg"); w.style.setProperty("--mx", "50%"); w.style.setProperty("--my", "50%"); }
+    c.addEventListener("pointermove", function(e){ if (e.pointerType !== "touch") incline(e); });
+    c.addEventListener("pointerleave", repos);
+    c.addEventListener("touchstart", incline, {passive: true}); c.addEventListener("touchmove", incline, {passive: true});
+    c.addEventListener("touchend", function(){ setTimeout(repos, 250); });
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function(en){ if (en[0].isIntersecting) { w.classList.add("eveil"); setTimeout(function(){ w.classList.remove("eveil"); }, 1700); io.disconnect(); } }, {threshold: .6});
+      io.observe(c);
+    }
+  }
 })();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
