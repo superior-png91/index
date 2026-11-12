@@ -226,7 +226,7 @@
 /* ---------- a1 · OUVERTURE en « image vivante 3D » (WebGL, three.js) ----------
    Les trois films posés sur une courbe ; le défilement les fait tourner, la vitesse les plie,
    la souris fait onduler l'image. Sans 3D : les trois affiches, simplement côte à côte. */
-#ouverture.live{position:relative;height:400vh;background:var(--ebene);display:block;padding:0;min-height:0;overflow:visible}
+#ouverture.live{position:relative;height:560vh;background:var(--ebene);display:block;padding:0;min-height:0;overflow:visible}
 .live .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse 80% 70% at 50% 55%,#2a1a11 0%,var(--ebene) 72%)}
 .live canvas#gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
 /* la ligne « a1 · Club d'échecs de loisirs », centrée à la hauteur du bouton « Passer au club » */
@@ -242,14 +242,21 @@
 .live .tz-cap a{pointer-events:auto}
 .live .hint3d{position:absolute;bottom:16px;left:50%;translate:-50% 0;white-space:nowrap;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sepia)}
 .live .prog{position:absolute;right:max(16px,3vw);top:50%;translate:0 -50%;display:flex;flex-direction:column;gap:10px}
-.live .prog i{width:3px;height:26px;border-radius:2px;background:var(--line);transition:background .4s}
-.live .prog i.on{background:var(--or)}
+.live .prog{gap:2px}
+.live .prog button{display:grid;place-items:center;width:22px;height:34px;padding:0;border:0;background:none;cursor:pointer;border-radius:4px}
+.live .prog button::before{content:"";width:3px;height:26px;border-radius:2px;background:var(--line);transition:background .4s,transform .3s}
+.live .prog button:hover::before{background:var(--sepia);transform:scaleX(1.6)}
+.live .prog button.on::before{background:var(--or)}
+.live .prog button:focus-visible{outline:2px solid var(--or);outline-offset:1px}
+/* la légende change en fondu quand on passe d'un film à l'autre */
+.live .tz-cap .k,.live .tz-cap h2,.live .tz-cap a{transition:opacity .28s ease,transform .28s ease}
+.live .tz-cap.sw .k,.live .tz-cap.sw h2,.live .tz-cap.sw a{opacity:0;transform:translateY(10px)}
 .live .flat{display:none}
 .live.no3d{height:auto}
 .live.no3d .stage{position:relative;height:auto;padding:calc(var(--nav-h,64px) + 40px) 16px 60px;display:flex;flex-direction:column;align-items:center;gap:24px}
 .live.no3d canvas,.live.no3d .prog,.live.no3d .hint3d{display:none}
 .live.no3d .tz-head,.live.no3d .tz-cap{position:static}
-.live.no3d .flat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%;max-width:1100px}
+.live.no3d .flat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;width:100%;max-width:960px}
 .live.no3d .flat a{display:block;aspect-ratio:16/9;border:6px solid #b8812f;border-radius:4px;overflow:hidden}
 .live.no3d .flat img{width:100%;height:100%;object-fit:cover}
 @media (max-width:760px){.live.no3d .flat{grid-template-columns:1fr}}
@@ -333,9 +340,10 @@
         <a href="Tableautempeteavecmusique.html"><img src="assets/img/tempete-poster.webp" alt="Tempête sur l'échiquier"></a>
         <a href="Tableaurenaissance.html"><img src="assets/img/renaissance-poster.webp" alt="Le Tableau des Fous"></a>
         <a href="Tableausaisonsavecmusique.html"><img src="assets/img/saisons-poster.webp" alt="Au fil des saisons"></a>
+        <a href="Machinedutemps.html"><img src="assets/img/machine-poster.webp" alt="La 64ᵉ Dimension"></a>
       </div>
       <div class="tz-cap" id="cap3d" aria-live="polite"><p class="k">Film · Corps de garde</p><h2>Tempête <em>sur l'échiquier</em></h2><a href="Tableautempeteavecmusique.html">Voir le film en grand →</a></div>
-      <div class="prog" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+      <nav class="prog" aria-label="Choisir un film"><button type="button" class="on" aria-label="Tempête sur l'échiquier" title="Tempête sur l'échiquier"></button><button type="button" aria-label="Le Tableau des Fous" title="Le Tableau des Fous"></button><button type="button" aria-label="Au fil des saisons" title="Au fil des saisons"></button><button type="button" aria-label="La 64ᵉ Dimension" title="La 64ᵉ Dimension"></button></nav>
       <p class="hint3d" id="hint3d">Faites défiler · passez la souris sur les films</p>
     </div>
   </section>
@@ -560,7 +568,7 @@
 <script>
 /* =====================================================================
    OUVERTURE en « image vivante 3D »
-   Les trois films (muets) sont posés sur une courbe, comme un écran panoramique.
+   Les films (muets) sont posés sur une courbe, comme un écran panoramique.
    - au départ, le grand titre est posé sur les films ; en défilant on zoome dessous et il s'efface ;
    - puis le défilement fait tourner la courbe : Tempête, puis le Tableau des Fous, puis les Saisons ;
    - plus on fait défiler vite, plus les images se plient et se dédoublent en couleurs ;
@@ -571,12 +579,14 @@
 (function(){
   "use strict";
   var sec = document.getElementById("ouverture"), canvas = document.getElementById("gl"), head = document.getElementById("head3d"),
-      cap = document.getElementById("cap3d"), hint = document.getElementById("hint3d"), bars = [].slice.call(sec.querySelectorAll(".prog i"));
+      cap = document.getElementById("cap3d"), hint = document.getElementById("hint3d"), bars = [].slice.call(sec.querySelectorAll(".prog button"));
   var INFO = [
-    {k:"Film · Corps de garde", h:"Tempête <em>sur l'échiquier</em>", href:"Tableautempeteavecmusique.html", v:"assets/video/tempete.mp4"},
-    {k:"Film · Renaissance", h:"Le Tableau <em>des Fous</em>", href:"Tableaurenaissance.html", v:"assets/video/renaissance.mp4"},
-    {k:"Film · Sous les platanes", h:"Au fil <em>des saisons</em>", href:"Tableausaisonsavecmusique.html", v:"assets/video/saisons.mp4"}
+    {k:"Film · Corps de garde", h:"Tempête <em>sur l'échiquier</em>", href:"Tableautempeteavecmusique.html", v:"assets/video/tempete.mp4", p:"assets/img/tempete-poster.webp"},
+    {k:"Film · Renaissance", h:"Le Tableau <em>des Fous</em>", href:"Tableaurenaissance.html", v:"assets/video/renaissance.mp4", p:"assets/img/renaissance-poster.webp"},
+    {k:"Film · Sous les platanes", h:"Au fil <em>des saisons</em>", href:"Tableausaisonsavecmusique.html", v:"assets/video/saisons.mp4", p:"assets/img/saisons-poster.webp"},
+    {k:"Film · Salle du club", h:"La 64ᵉ <em>Dimension</em>", href:"Machinedutemps.html", v:"assets/video/machine.mp4", p:"assets/img/machine-poster.webp"}
   ];
+  var N = INFO.length;       // nombre de films : tout le carrousel s'adapte à cette liste
   function flat(){ sec.classList.add("no3d"); }
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || !window.THREE) { flat(); return; }
   var renderer;
@@ -619,18 +629,23 @@
     "  gl_FragColor = vec4(c, uAlpha);",
     "}"].join("\n");
 
-  var geo = new THREE.PlaneGeometry(W, H, 48, 27), meshes = [], vids = [];
+  var geo = new THREE.PlaneGeometry(W, H, 48, 27), meshes = [], vids = [], vtex = [], loaded = [], want = [];
+  var loader = new THREE.TextureLoader();
   INFO.forEach(function(f, i){
+    // la vidéo n'est demandée qu'au moment où le film approche du centre ; en attendant, son affiche prend la place (pas d'écran noir)
     var v = document.createElement("video");
-    v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "auto"; v.src = f.v;
-    vids.push(v);
+    v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "none";
+    vids.push(v); loaded.push(false); want.push(false);
+    var poster = loader.load(f.p); poster.minFilter = THREE.LinearFilter; poster.magFilter = THREE.LinearFilter; poster.generateMipmaps = false;
     var tex = new THREE.VideoTexture(v); tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+    vtex.push(tex);
     var mat = new THREE.ShaderMaterial({vertexShader:VS, fragmentShader:FS, side:THREE.DoubleSide, transparent:true,
-      uniforms:{uTex:{value:tex}, uTime:{value:0}, uVel:{value:0}, uHover:{value:0}, uMouse:{value:new THREE.Vector2(.5,.5)}, uBright:{value:1}, uAlpha:{value:1}}});
+      uniforms:{uTex:{value:poster}, uTime:{value:0}, uVel:{value:0}, uHover:{value:0}, uMouse:{value:new THREE.Vector2(.5,.5)}, uBright:{value:1}, uAlpha:{value:1}}});
+    v.addEventListener("playing", function(){ mat.uniforms.uTex.value = tex; }, {once:true});   // dès que la vidéo tourne, elle remplace l'affiche
     var m = new THREE.Mesh(geo, mat); m.userData.i = i; m.renderOrder = i; scene.add(m); meshes.push(m);
   });
 
-  var zBase = 10, pos = 0, vel = 0, cur = -1, visible = true, mouse = new THREE.Vector2(-9, -9), ray = new THREE.Raycaster(), t0 = performance.now();
+  var swT = 0, zBase = 10, pos = 0, vel = 0, cur = -1, visible = true, mouse = new THREE.Vector2(-9, -9), ray = new THREE.Raycaster(), t0 = performance.now();
   function cl(v){ return Math.max(0, Math.min(1, v)); }
   function size(){
     var w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;
@@ -641,10 +656,32 @@
   }
   size(); addEventListener("resize", size);
   function progress(){ var r = sec.getBoundingClientRect(); return cl(-r.top / (r.height - innerHeight)); }
-  function play(){ vids.forEach(function(v){ if (visible) { var q = v.play(); if (q && q.catch) q.catch(function(){}); } else v.pause(); }); }
+  // seuls le film du centre et ses voisins directs sont chargés et lus ; les autres sont mis en pause
+  function play(){
+    vids.forEach(function(v, i){
+      if (visible && want[i]) {
+        if (!loaded[i]) { loaded[i] = true; v.src = INFO[i].v; v.preload = "auto"; }
+        var q = v.play(); if (q && q.catch) q.catch(function(){});
+      } else v.pause();
+    });
+  }
   if ("IntersectionObserver" in window) new IntersectionObserver(function(en){ visible = en[0].isIntersecting; play(); }).observe(sec);
-  play();
   addEventListener("touchstart", play, {once:true, passive:true});
+  // aller au film i : on fait défiler jusqu'à sa place
+  function goTo(i){
+    var r = sec.getBoundingClientRect(), total = r.height - innerHeight;
+    scrollTo({top: scrollY + r.top + total * (.17 + .8 * i / (N - 1)), behavior:"smooth"});
+  }
+  bars.forEach(function(b, i){ b.addEventListener("click", function(){ goTo(i); }); });
+  // clavier : flèches gauche / droite pour passer d'un film à l'autre, tant que le carrousel est à l'écran
+  addEventListener("keydown", function(e){
+    if (!visible || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || "")) return;
+    var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
+    var p = progress(); if (p < .1) return;
+    var n = Math.max(0, Math.min(N - 1, Math.round(pos) + d));
+    e.preventDefault(); goTo(n);
+  });
 
   function setMouse(e){ var r = canvas.getBoundingClientRect(); mouse.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); }
   canvas.addEventListener("pointermove", setMouse);
@@ -655,8 +692,7 @@
     var hit = ray.intersectObjects(meshes)[0]; if (!hit) return;
     var i = hit.object.userData.i;
     if (i === cur) { location.href = INFO[i].href; return; }
-    var r = sec.getBoundingClientRect(), total = r.height - innerHeight;      // on fait défiler jusqu'au film cliqué
-    scrollTo({top: scrollY + r.top + total * (.18 + .8 * i / 2), behavior:"smooth"});
+    goTo(i);                                                                  // on fait défiler jusqu'au film cliqué
   });
 
   function frame(now){
@@ -666,8 +702,8 @@
     // 1) le grand titre est posé sur les films ; en défilant, on zoome dessous et il s'efface peu à peu
     var k = cl(p / .14); k = k * k * (3 - 2 * k);
     camera.position.set(0, 0, zBase * (1.6 - .6 * k));
-    // 2) ensuite, la courbe tourne : 0 → Tempête, 1 → Renaissance, 2 → Saisons
-    var target = cl((p - .16) / .8) * 2;
+    // 2) ensuite, la courbe tourne, un film après l'autre
+    var target = cl((p - .16) / .8) * (N - 1);
     var prev = pos; pos += (target - pos) * .09;
     vel += ((pos - prev) * 12 - vel) * .12; vel = Math.max(-1.2, Math.min(1.2, vel));
     head.style.opacity = (1 - k).toFixed(3);
@@ -679,7 +715,7 @@
     var hit = ray.intersectObjects(meshes)[0], hoverI = hit ? hit.object.userData.i : -1;
     canvas.style.cursor = hit ? "pointer" : "";
     meshes.forEach(function(m, i){
-      var o = (((i - pos) % 3) + 4.5) % 3 - 1.5, a = o * STEP;           // -1.5 … 1.5 : les films tournent en boucle
+      var o = (((i - pos) % N) + N * 1.5) % N - N / 2, a = o * STEP;     // les films tournent en boucle autour du centre
       // sur une courbe tournée vers le spectateur : les films de côté avancent, leur bord extérieur paraît plus grand (trapèze)
       m.position.set(R * Math.sin(a), -.18, R * (1 - Math.cos(a)) * .9);
       m.rotation.y = -a;
@@ -690,11 +726,17 @@
       u.uHover.value += ((hoverI === i ? 1 : 0) - u.uHover.value) * .08;
       if (hit && hit.object === m) u.uMouse.value.copy(hit.uv);
     });
-    var n = ((Math.round(pos) % 3) + 3) % 3;
+    var n = ((Math.round(pos) % N) + N) % N;
     if (n !== cur) {
-      cur = n;
-      cap.querySelector(".k").textContent = INFO[n].k; cap.querySelector("h2").innerHTML = INFO[n].h; cap.querySelector("a").href = INFO[n].href;
+      var first = cur < 0; cur = n;
       bars.forEach(function(b, k){ b.classList.toggle("on", k === n); });
+      // la légende s'efface, change de texte, puis revient
+      var fill = function(){ cap.querySelector(".k").textContent = INFO[cur].k; cap.querySelector("h2").innerHTML = INFO[cur].h; cap.querySelector("a").href = INFO[cur].href; cap.classList.remove("sw"); };
+      clearTimeout(swT);
+      if (first) fill(); else { cap.classList.add("sw"); swT = setTimeout(fill, 260); }
+      // chargement : le film du centre et ses voisins directs seulement
+      for (var q = 0; q < N; q++) { var dq = Math.abs(q - n); want[q] = Math.min(dq, N - dq) <= 1; }
+      play();
     }
     renderer.render(scene, camera);
   }
