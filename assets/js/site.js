@@ -377,40 +377,28 @@ var CLUB = {
      ------------------------------------------------------------------ */
   var rows = $$("[data-img]");
   var tactile = ("ontouchstart" in window) || navigator.maxTouchPoints > 0;
-  if (rows.length && !fine) {
-    /* écran tactile : pas de survol, la photo devient une vignette dans la rangée */
-    rows.forEach(function(r){
-      var v = document.createElement("img");
-      v.className = "vignette"; v.alt = ""; v.loading = "lazy"; v.decoding = "async";
-      v.src = r.getAttribute("data-img");
-      r.insertBefore(v, r.querySelector(".ar"));
-      r.classList.add("a-vig");
-    });
-  }
   if (rows.length && tactile) {
-    /* appui maintenu sur une rangée : la grande photo apparaît et suit le doigt */
+    /* écran tactile : la photo apparaît dès qu'on pose le doigt sur une rangée et le suit, sans bloquer le défilement */
     var tfol = document.createElement("div");
     tfol.className = "follow touch"; tfol.setAttribute("aria-hidden", "true");
     tfol.innerHTML = '<img alt="">';
     document.body.appendChild(tfol);
-    var timg = tfol.querySelector("img"), actif = false, minuteur = 0, sx = 0, sy = 0;
-    function place(e){ var c = e.touches[0]; tfol.style.left = c.clientX + "px"; tfol.style.top = c.clientY + "px"; }
+    var timg = tfol.querySelector("img");
+    function suit(e){
+      var c = e.touches[0]; if (!c) return;
+      tfol.style.left = c.clientX + "px"; tfol.style.top = c.clientY + "px";
+      var el = document.elementFromPoint(c.clientX, c.clientY), a = el && el.closest && el.closest("[data-img]");
+      if (a) { var s = a.getAttribute("data-img"); if (timg.getAttribute("src") !== s) timg.src = s; tfol.classList.add("on"); }
+      else tfol.classList.remove("on");
+    }
+    function cache(){ tfol.classList.remove("on"); }
     rows.forEach(function(r){
+      new Image().src = r.getAttribute("data-img");
       r.draggable = false; r.addEventListener("dragstart", function(e){ e.preventDefault(); });
       r.addEventListener("contextmenu", function(e){ e.preventDefault(); });
-      r.addEventListener("touchstart", function(e){
-        var c = e.touches[0]; sx = c.clientX; sy = c.clientY; actif = false; clearTimeout(minuteur);
-        minuteur = setTimeout(function(){ actif = true; timg.src = r.getAttribute("data-img"); tfol.style.left = sx + "px"; tfol.style.top = sy + "px"; tfol.classList.add("on"); }, 200);
-      }, {passive:true});
-      r.addEventListener("touchmove", function(e){
-        var c = e.touches[0];
-        if (!actif) { if (Math.abs(c.clientX - sx) > 9 || Math.abs(c.clientY - sy) > 9) clearTimeout(minuteur); return; }
-        e.preventDefault(); place(e);
-        var el = document.elementFromPoint(c.clientX, c.clientY), a = el && el.closest && el.closest("[data-img]");
-        if (a) { var s = a.getAttribute("data-img"); if (timg.getAttribute("src") !== s) timg.src = s; }
-      }, {passive:false});
-      function fin(e){ clearTimeout(minuteur); if (actif) { if (e.cancelable) e.preventDefault(); actif = false; tfol.classList.remove("on"); } }
-      r.addEventListener("touchend", fin); r.addEventListener("touchcancel", fin);
+      r.addEventListener("touchstart", suit, {passive:true});
+      r.addEventListener("touchmove", suit, {passive:true});
+      r.addEventListener("touchend", cache); r.addEventListener("touchcancel", cache);
     });
   }
   if (rows.length && fine) {
