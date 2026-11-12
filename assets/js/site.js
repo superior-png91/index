@@ -376,6 +376,16 @@ var CLUB = {
      RANGÉES À SURVOL : une photo suit la souris (data-img)
      ------------------------------------------------------------------ */
   var rows = $$("[data-img]");
+  if (rows.length && !fine) {
+    /* écran tactile : pas de survol, la photo devient une vignette dans la rangée */
+    rows.forEach(function(r){
+      var v = document.createElement("img");
+      v.className = "vignette"; v.alt = ""; v.loading = "lazy"; v.decoding = "async";
+      v.src = r.getAttribute("data-img");
+      r.insertBefore(v, r.querySelector(".ar"));
+      r.classList.add("a-vig");
+    });
+  }
   if (rows.length && fine) {
     var fol = document.createElement("div");
     fol.className = "follow"; fol.setAttribute("aria-hidden", "true");
