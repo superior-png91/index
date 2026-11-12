@@ -385,6 +385,29 @@ var CLUB = {
       r.insertBefore(v, r.querySelector(".ar"));
       r.classList.add("a-vig");
     });
+    /* appui maintenu sur une rangée : la grande photo apparaît et suit le doigt */
+    var tfol = document.createElement("div");
+    tfol.className = "follow touch"; tfol.setAttribute("aria-hidden", "true");
+    tfol.innerHTML = '<img alt="">';
+    document.body.appendChild(tfol);
+    var timg = tfol.querySelector("img"), actif = false, minuteur = 0, sx = 0, sy = 0;
+    function place(e){ var c = e.touches[0]; tfol.style.left = c.clientX + "px"; tfol.style.top = c.clientY + "px"; }
+    rows.forEach(function(r){
+      r.addEventListener("contextmenu", function(e){ e.preventDefault(); });
+      r.addEventListener("touchstart", function(e){
+        var c = e.touches[0]; sx = c.clientX; sy = c.clientY; actif = false; clearTimeout(minuteur);
+        minuteur = setTimeout(function(){ actif = true; timg.src = r.getAttribute("data-img"); tfol.style.left = sx + "px"; tfol.style.top = sy + "px"; tfol.classList.add("on"); }, 280);
+      }, {passive:true});
+      r.addEventListener("touchmove", function(e){
+        var c = e.touches[0];
+        if (!actif) { if (Math.abs(c.clientX - sx) > 9 || Math.abs(c.clientY - sy) > 9) clearTimeout(minuteur); return; }
+        e.preventDefault(); place(e);
+        var el = document.elementFromPoint(c.clientX, c.clientY), a = el && el.closest && el.closest("[data-img]");
+        if (a) { var s = a.getAttribute("data-img"); if (timg.getAttribute("src") !== s) timg.src = s; }
+      }, {passive:false});
+      function fin(e){ clearTimeout(minuteur); if (actif) { if (e.cancelable) e.preventDefault(); actif = false; tfol.classList.remove("on"); } }
+      r.addEventListener("touchend", fin); r.addEventListener("touchcancel", fin);
+    });
   }
   if (rows.length && fine) {
     var fol = document.createElement("div");
