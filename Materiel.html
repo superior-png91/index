@@ -179,6 +179,7 @@ background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.7) 0,
 .carte3d:not(.retournee) .liens a{pointer-events:none}
 .carte-incl.eveil{animation:eveil 1.6s ease-in-out 1}
 @keyframes eveil{0%,100%{transform:rotateX(0) rotateY(0)}30%{transform:rotateX(6deg) rotateY(-16deg)}65%{transform:rotateX(-4deg) rotateY(14deg)}}
+.prov{display:block;margin-top:8px;font-family:var(--body);font-style:normal;font-size:clamp(.95rem,1.6vw,1.15rem);letter-spacing:.02em;color:var(--sepia)}
 .chap-grille{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
 @media (min-width:860px){.chap-grille{grid-template-columns:minmax(0,1fr) 300px}}
 .carte-box{justify-self:end;width:min(100%,300px);padding:clamp(18px,2.4vw,26px);border:1px solid rgba(234,215,177,.28);border-radius:14px;background:linear-gradient(160deg,rgba(18,13,10,.55),rgba(18,13,10,.25));box-shadow:0 18px 40px -22px rgba(0,0,0,.8)}
@@ -323,7 +324,7 @@ background:linear-gradient(105deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.35) 
     <div class="wrap chap-grille">
       <div class="chap-texte">
       <p class="eyebrow"><span class="sq">♙</span>Le matériel</p>
-      <h2 id="materiel-titre">Le matériel <em>du club</em></h2>
+      <h2 id="materiel-titre">Le matériel <em>du club</em> <span class="prov">(provenant du site Alpha Échecs)</span></h2>
       <p class="lead">Chaque semaine, on joue sur des échiquiers homologués FIDE, avec une pendule de compétition. Pour les explications, un grand échiquier mural permet à tous de suivre la partie.</p>
       </div>
       <aside class="carte-box" aria-label="Boutique Alpha Échecs">
