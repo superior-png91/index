@@ -122,9 +122,9 @@ a.card:hover{border-color:color-mix(in srgb,var(--or) 60%,transparent);transform
 .lit em .w.on{color:var(--or-pale)}
 
 .cases{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.cases a{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) auto;gap:8px 24px;align-items:center;padding-block:clamp(18px,2.4vw,28px);border-bottom:1px solid var(--line);text-decoration:none;transition:padding .45s var(--ease),background .35s}
+.cases a{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) auto;gap:8px 24px;align-items:center;padding-block:clamp(10px,1.4vw,16px);border-bottom:1px solid var(--line);text-decoration:none;transition:padding .45s var(--ease),background .35s}
 .cases b{min-width:2.6em;text-align:center;font-family:var(--mono);font-weight:500;font-size:.8rem;background:var(--or);color:var(--ebene);border-radius:4px;padding:4px 7px;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
-.cases .t{font-family:var(--display);font-size:clamp(1.7rem,3.4vw,2.8rem);line-height:1.05;transition:color .3s}
+.cases .t{font-family:var(--display);font-size:clamp(1.35rem,2.4vw,1.95rem);line-height:1.05;transition:color .3s}
 .cases .d{color:var(--sepia);font-size:.98rem;transition:color .3s}
 .cases .ar{color:var(--or);font-size:1.3rem;transition:transform .35s var(--ease)}
 .cases a:hover{padding-left:16px;background:linear-gradient(90deg,color-mix(in srgb,var(--or) 10%,transparent),transparent 70%)}
@@ -133,7 +133,7 @@ a.card:hover{border-color:color-mix(in srgb,var(--or) 60%,transparent);transform
 .cases a:hover .d{color:var(--ivoire)}
 .cases a:hover .ar{transform:translateX(5px)}
 @media (max-width:760px){.cases a{grid-template-columns:auto minmax(0,1fr) auto}.cases .d{grid-column:2;grid-row:2}.cases .ar{grid-column:3;grid-row:1}}
-.follow{position:fixed;left:0;top:0;width:280px;aspect-ratio:4/3;max-width:100%;border-radius:10px;overflow:hidden;pointer-events:none;z-index:40;background:#fbf8f3;
+.follow{position:fixed;left:0;top:0;width:187px;aspect-ratio:4/3;max-width:100%;border-radius:10px;overflow:hidden;pointer-events:none;z-index:40;background:#fbf8f3;
   border:1px solid color-mix(in srgb,var(--or) 45%,transparent);box-shadow:0 30px 50px -18px rgba(0,0,0,.7);opacity:0;transform:translate(24px,-50%) scale(.85) rotate(-4deg);transition:opacity .3s,transform .45s var(--ease)}
 .follow.on{opacity:1;transform:translate(24px,-50%) scale(1) rotate(0)}
 .follow img{width:100%;height:100%;object-fit:cover}
