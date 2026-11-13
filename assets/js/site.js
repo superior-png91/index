@@ -182,7 +182,7 @@ var CLUB = {
       '<div class="sf-id"><span class="sn-logo" aria-hidden="true"></span><div><b>Les Fous d\'Étréchy</b><br>Club d\'échecs de loisirs · Association · Étréchy (91580), Essonne</div></div>' +
       '<nav class="sf-links" aria-label="Liens utiles"><a href="index.html">Accueil</a><a href="' + CLUB.rejoindre + '">Nous rejoindre</a><a href="' + CLUB.agenda + '">Agenda</a>' +
       '<a href="Lesbasesdesechecs.html">Les bases des échecs</a><a href="Materiel.html">Le local et le matériel</a>' +
-      '<a href="Lesfousdetrechy.html#documents">Documents du club</a><a href="Lesfousdetrechy.html#mentions">Mentions légales</a><a href="' + CLUB.facebook + '" target="_blank" rel="noopener">Groupe Facebook ↗</a></nav>' +
+      '<a href="Infosutiles.html">Infos utiles</a><a href="Lesfousdetrechy.html#documents">Documents du club</a><a href="Lesfousdetrechy.html#mentions">Mentions légales</a><a href="' + CLUB.facebook + '" target="_blank" rel="noopener">Groupe Facebook ↗</a></nav>' +
       '<span class="sf-diag">a1 → h8 · la grande diagonale</span></div>';
   }
 
