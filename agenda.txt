@@ -23,6 +23,7 @@ AGENDA_CLUB = `
 14/11/2026 ; ouvert ; 14 h – 18 h ; Journée portes ouvertes, venez nombreux, séance libre
 15/11/2026 ; fermé ; ; Anniversaire du club, 1ère bougie
 28/11/2026 ; ouvert  ; 14 h – 18 h ; 
+12/12/2026 ; ouvert ; 14 h – 18 h ; Tournoi de Noël
 26/12/2026 ; fermé ; ; Fermé pour les fêtes de fin d’année
 
 `
