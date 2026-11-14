@@ -571,7 +571,7 @@
 
 <!-- L'agenda (à modifier dans agenda.txt), puis le script commun -->
 <script src="agenda.txt"></script>
-<script src="assets/js/site.js?v=6"></script>
+<script src="assets/js/site.js?v=7"></script>
 <script>
 /* Hauteur du menu : la réglette se fige juste en dessous */
 (function(){
@@ -828,7 +828,7 @@
 (function(){
   /* si plus aucune carte d'actualité n'est visible (ex. le 14/11 au soir), on masque toute la section */
   var sec=document.getElementById("actu");
-  if(sec && !sec.hidden && !sec.querySelector(".actu-card:not([hidden]), .ag-card:not([hidden])")) sec.hidden=true;
+  if(sec && !sec.hidden && !/[?&]apercu(=|&|#|$)/.test(location.search) && !sec.querySelector(".actu-card:not([hidden]), .ag-card:not([hidden])")) sec.hidden=true;
   var card=document.querySelector(".ag-card.anniv"); if(!card||card.hidden) return;
   var cv=card.querySelector(".confetti"), cx=cv.getContext("2d"), btn=card.querySelector("[data-confetti]");
   var calm=matchMedia("(prefers-reduced-motion: reduce)").matches;

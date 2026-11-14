@@ -191,10 +191,36 @@ var CLUB = {
      data-until : l'élément disparaît une fois la date passée ;
      data-from  : il n'apparaît qu'à partir de cette date.
      ------------------------------------------------------------------ */
+  /* APERÇU PRIVÉ : ajoutez ?apercu à l'adresse (ex. lesfousdetrechy.fr/?apercu) pour voir les actualités
+     programmées avant leur date, chacune avec son étiquette « visible du … au … » et un bandeau Aperçu.
+     Rien n'est modifié pour les visiteurs : sans ?apercu, les dates s'appliquent comme d'habitude. */
+  var apercu = /[?&]apercu(=|&|#|$)/.test(location.search);
+  var fmtAp = new Intl.DateTimeFormat("fr-FR", {timeZone: "Europe/Paris", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit"});
   $$("[data-until], [data-from]").forEach(function(el){
     var u = Date.parse(el.getAttribute("data-until") || ""), f = Date.parse(el.getAttribute("data-from") || ""), now = Date.now();
-    if ((!isNaN(u) && now > u) || (!isNaN(f) && now < f)) el.hidden = true;
+    var off = (!isNaN(u) && now > u) || (!isNaN(f) && now < f);
+    if (apercu) {
+      if (el.id === "actu") return;
+      var tag = document.createElement("span"); tag.className = "apercu-tag"; tag.setAttribute("aria-hidden", "true");
+      var span = !isNaN(f) && !isNaN(u) ? "du " + fmtAp.format(f) + " au " + fmtAp.format(u) : !isNaN(f) ? "à partir du " + fmtAp.format(f) : "jusqu'au " + fmtAp.format(u);
+      tag.textContent = (off ? ((!isNaN(f) && now < f) ? "À VENIR · " : "TERMINÉ · ") : "EN LIGNE · ") + "visible " + span;
+      tag.setAttribute("data-etat", off ? ((!isNaN(f) && now < f) ? "avenir" : "fini") : "enligne");
+      el.parentNode.insertBefore(tag, el);
+      return;
+    }
+    if (off) el.hidden = true;
   });
+  if (apercu) {
+    var st = document.createElement("style");
+    st.textContent = ".apercu-tag{display:block;width:fit-content;max-width:100%;margin:0 0 8px;padding:6px 10px;border-radius:999px;font:600 .68rem/1.2 'DM Mono',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;background:#120D0A;color:#ECC97F;border:1px solid #D3A24A}" +
+      ".apercu-tag[data-etat=avenir]{background:#D3A24A;color:#120D0A;border-color:#120D0A}.apercu-tag[data-etat=fini]{opacity:.8}" +
+      "#apercu-bandeau{position:fixed;left:0;right:0;bottom:0;z-index:99999;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;padding:10px 16px;background:#D3A24A;color:#120D0A;font:500 .85rem/1.35 Inter,system-ui,sans-serif;box-shadow:0 -10px 30px rgba(0,0,0,.4)}" +
+      "#apercu-bandeau a{color:#120D0A;font-weight:700}";
+    document.head.appendChild(st);
+    var bd = document.createElement("div"); bd.id = "apercu-bandeau"; bd.setAttribute("role", "status");
+    bd.innerHTML = "<strong>Mode aperçu</strong><span>Les actualités programmées sont affichées même hors période. Les visiteurs ne les voient qu'aux dates indiquées.</span><a href=\"" + location.pathname + "\">Quitter l'aperçu</a>";
+    document.body.appendChild(bd);
+  }
 
   /* ------------------------------------------------------------------
      CURSEUR : une bulle dorée sur les zones [data-cursor] (ordinateur)
