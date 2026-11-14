@@ -171,6 +171,23 @@
 .ag-card .btn:hover{color:var(--or-pale)}
 @media (max-width:760px){.ag-card{grid-template-columns:auto minmax(0,1fr)}.ag-card .btn{grid-column:1 / -1;justify-self:start}}
 
+/* ---------- ACTUALITÉ : le club a 1 an ---------- */
+#actu [hidden]{display:none!important}
+.ag-card.anniv{position:relative;overflow:hidden;isolation:isolate}
+.ag-card.anniv .ag-cal{position:relative;padding-top:30px}
+.ag-card.anniv .ag-cal .d{font-size:clamp(5rem,9vw,7.4rem);font-weight:600}
+.flamme{position:absolute;top:0;left:50%;width:16px;height:30px;margin-left:-8px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(ellipse at 50% 75%,#fff6d0 0 18%,#ffb62e 45%,#e8541c 85%);box-shadow:0 0 18px 6px rgba(255,150,30,.55);transform-origin:50% 90%;animation:flamme 1.6s ease-in-out infinite}
+.flamme::after{content:"";position:absolute;left:50%;top:100%;width:3px;height:6px;margin-left:-1.5px;background:var(--ebene)}
+@keyframes flamme{0%,100%{transform:scale(1,1) rotate(-2deg)}25%{transform:scale(.92,1.08) rotate(3deg)}50%{transform:scale(1.06,.94) rotate(-3deg)}75%{transform:scale(.95,1.05) rotate(2deg)}}
+.anniv-acts{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.ag-card.anniv .btn{border-color:var(--ebene);color:var(--ebene);justify-content:center}
+.confetti{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.anniv-film{margin:0;border:6px solid #b8812f;border-radius:4px;overflow:hidden;background:#000;box-shadow:0 30px 60px -36px rgba(0,0,0,.8)}
+.anniv-film video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.anniv-film figcaption{padding:10px 16px;background:var(--noyer,#1D140F);color:var(--sepia,#C2AA88);font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
+@media (max-width:760px){.anniv-acts{grid-column:1 / -1;flex-direction:row;flex-wrap:wrap}}
+@media (prefers-reduced-motion:reduce){.flamme{animation:none}}
+
 /* ---------- BANDEAU DES PROCHAINES DATES : design de la démo, en plus fin ---------- */
 #dates{--band:#c9a35b;--band-ink:#0b0a08;background:var(--band);color:var(--band-ink);padding-block:clamp(12px,1.6vw,20px) clamp(14px,1.8vw,22px)}
 #dates .top-row{margin-bottom:10px}
@@ -364,9 +381,9 @@
     </section>
     </div>
   <!-- =============== ACTUALITÉS : AG (7/11) et JOURNÉE PORTES OUVERTES (14/11) — chaque bloc disparaît seul après sa date =============== -->
-  <section id="actu" aria-label="Actualités du club" data-until="2026-11-14T18:00:00+01:00">
+  <section id="actu" aria-label="Actualités du club" data-until="2026-11-22T00:00:00+01:00">
     <div class="wrap actu-list">
-      <div class="actu-card">
+      <div class="actu-card" data-until="2026-11-14T18:00:00+01:00">
         <div class="actu-copy">
           <p class="eyebrow"><span class="sq">!</span>Actualité du club</p>
           <h2 data-reveal-lines id="actu-t">Journée <em>portes ouvertes</em></h2>
@@ -404,6 +421,29 @@
           </div>
         </div>
       </div>
+      <!-- ANNIVERSAIRE : le club a 1 an (15/11/2026) ; la carte apparaît seule le 15/11 à 0 h et disparaît le 22/11 -->
+      <div class="ag-card anniv" data-from="2026-11-15T00:00:00+01:00" data-until="2026-11-22T00:00:00+01:00">
+        <canvas class="confetti" aria-hidden="true"></canvas>
+        <div class="ag-cal">
+          <span class="flamme" aria-hidden="true"></span>
+          <span class="d">1</span>
+          <span class="m">an</span>
+        </div>
+        <div class="ag-txt">
+          <p class="k">Le club a un an · 15 novembre 2026</p>
+          <h3>Joyeux anniversaire, <em>les Fous</em> !</h3>
+          <p>Le 15 novembre 2026, le club fête sa première année. Merci à tous ceux qui font vivre les Fous d'Étréchy, parties après parties. Rendez-vous chaque samedi, de 14 h à 18 h, à la Maison des Associations.</p>
+        </div>
+        <div class="anniv-acts">
+          <button type="button" class="btn ghost" data-confetti>Lancer les confettis</button>
+          <a class="btn ghost" href="Lesfousdetrechy.html#agenda">Voir l'agenda</a>
+        </div>
+      </div>
+      <!-- FILM D'ANNIVERSAIRE : sous la carte, même dates (15/11 → 22/11). Vidéo : assets/video/anniversaire.mp4, affiche : assets/img/anniversaire-poster.webp -->
+      <figure class="anniv-film" data-from="2026-11-15T00:00:00+01:00" data-until="2026-11-22T00:00:00+01:00">
+        <video controls playsinline preload="none" poster="assets/img/anniversaire-poster.webp" src="assets/video/anniversaire.mp4" aria-label="Film d'anniversaire des Fous d'Étréchy : le Bureau en tenue de soirée trinque, souffle la bougie du gâteau d'anniversaire du club et coupe la première part"></video>
+        <figcaption>Film · 1 an des Fous d'Étréchy · vidéo générée par IA</figcaption>
+      </figure>
     </div>
   </section>
    </div>
@@ -780,6 +820,50 @@
     cx.globalAlpha = 1; cx.globalCompositeOperation = "source-over";
   }
   requestAnimationFrame(frame);
+})();
+</script>
+
+<script>
+/* Anniversaire : confettis (pièces d'échecs et papier doré) quand la carte entre à l'écran, ou sur le bouton. Rien si « réduire les animations ». */
+(function(){
+  /* si plus aucune carte d'actualité n'est visible (ex. le 14/11 au soir), on masque toute la section */
+  var sec=document.getElementById("actu");
+  if(sec && !sec.hidden && !sec.querySelector(".actu-card:not([hidden]), .ag-card:not([hidden])")) sec.hidden=true;
+  var card=document.querySelector(".ag-card.anniv"); if(!card||card.hidden) return;
+  var cv=card.querySelector(".confetti"), cx=cv.getContext("2d"), btn=card.querySelector("[data-confetti]");
+  var calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(calm){ if(btn) btn.hidden=true; return; }
+  var COL=["#120D0A","#F5EBD8","#7a3b1d","#b3261e","#ffffff","#3b2a1a"], GLY=["\u265F","\u265E","\u265D","\u265C","\u265B","\u265A"];
+  var P=[], run=false, W=0, H=0, dpr=1;
+  function size(){ dpr=Math.min(devicePixelRatio||1,2); W=card.clientWidth; H=card.clientHeight; cv.width=W*dpr; cv.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0); }
+  function burst(){
+    size(); P=[];
+    for(var i=0;i<110;i++){
+      var left=i%2===0, ang=-Math.PI/2+(left?1:-1)*(.15+Math.random()*.6), sp=9+Math.random()*9;
+      P.push({x:left?W*.06:W*.94,y:H*.98,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,
+        w:6+Math.random()*7,h:3+Math.random()*5,r:Math.random()*6,vr:(Math.random()-.5)*.35,c:COL[i%COL.length],
+        g:i%5===0?GLY[i%GLY.length]:null,s:16+Math.random()*12});
+    }
+    if(!run){ run=true; requestAnimationFrame(step); }
+  }
+  function step(){
+    cx.clearRect(0,0,W,H); var alive=0;
+    for(var i=0;i<P.length;i++){
+      var p=P[i]; p.vy+=.28; p.vx*=.992; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr;
+      if(p.y>H+20) continue; alive++;
+      cx.save(); cx.translate(p.x,p.y); cx.rotate(p.r); cx.fillStyle=p.c;
+      if(p.g){ cx.font=p.s+"px serif"; cx.textAlign="center"; cx.fillText(p.g,0,0); }
+      else cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      cx.restore();
+    }
+    if(alive){ requestAnimationFrame(step); } else { run=false; cx.clearRect(0,0,W,H); }
+  }
+  if(btn) btn.addEventListener("click",burst);
+  var done=false;
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(en,ob){ en.forEach(function(e){ if(e.isIntersecting&&!done){ done=true; setTimeout(burst,350); ob.disconnect(); } }); },{threshold:.55}).observe(card);
+  }
+  addEventListener("resize",function(){ if(!run) size(); });
 })();
 </script>
 
