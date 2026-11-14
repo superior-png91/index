@@ -238,7 +238,7 @@ var CLUB = {
   $$("[data-ticker]").forEach(function(box){
     var track = $(".ticker-track", box), list = upcoming(70).slice(0, 6);
     var html = list.map(function(s){
-      var what = !s.open ? "Club fermé" : (s.note || (s.hours.txt === "14 h – 18 h" ? "Séance du club, 14 h – 18 h" : "Séance du club, " + s.hours.txt));
+      var what = !s.open ? (s.note || "Club fermé") : (s.note || (s.hours.txt === "14 h – 18 h" ? "Séance du club, 14 h – 18 h" : "Séance du club, " + s.hours.txt));
       return '<span class="tk' + (s.open ? "" : " off") + '"><small>' + esc(s.label) + '</small><span>' + esc(what) + '</span></span><span class="tk-sep">\u265D\uFE0E</span>';
     }).join("");
     box.setAttribute("aria-label", "Prochaines dates : " + list.map(function(s){ return s.label + (s.open ? (s.note ? ", " + s.note : ", séance") : ", fermé"); }).join(" ; "));
