@@ -1,0 +1,30 @@
+ACTUS_ECHECS = `
+
+=====================================================================
+  DANS L'ACTUALITÉ DES ÉCHECS  (page d'accueil)
+  Résultats, annonces de la Fédération, championnat du monde...
+=====================================================================
+
+  UNE LIGNE PAR ACTUALITÉ, six champs séparés par un point-virgule :
+
+  du ; au ; titre ; texte ; lien ; source
+
+  - du / au : première et dernière date d'affichage, jour/mois/année
+              (la carte disparaît seule le lendemain de la date « au »)
+  - titre   : court
+  - texte   : une ou deux phrases, écrites dans nos propres mots
+  - lien    : adresse complète de la page d'origine (https://...)
+  - source  : nom du site, par exemple FIDE, FFE, Europe Échecs
+
+  Ne mettez jamais de point-virgule dans le titre ou dans le texte.
+  Ne recopiez pas les articles ni les photos des autres sites.
+  Les lignes qui commencent par # sont ignorées. Deux cartes au maximum (les deux plus récentes).
+  Après modification : enregistrez (Ctrl + S), puis rechargez la page.
+  Ne touchez pas à la première ni à la dernière ligne du fichier.
+
+=====================================================================
+
+15/11/2026 ; 12/12/2026 ; Championnat du monde : Gukesh face à Sindarov à Genève ; Le tenant du titre, l'Indien Gukesh Dommaraju, défend sa couronne contre l'Ouzbek Javokhir Sindarov, vainqueur du tournoi des Candidats. Match en 14 parties classiques au maximum, du 24 novembre au 11 décembre, avec départage le 12 en cas d'égalité. ; https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/ ; FIDE
+12/11/2026 ; 30/11/2026 ; Han Nam Pham, champion d'Europe des moins de 10 ans ; À 9 ans, Han Nam Pham, du club parisien Palamède Échecs, remporte le titre européen des moins de 10 ans avec 9 victoires en 9 parties, titre assuré dès l'avant-dernière ronde. Le championnat d'Europe de la jeunesse vient de s'achever en Crète. ; https://www.palamede-echecs.fr/post/han-nam-champion-d-europe-avec-9-9-ella-dans-le-top-15-europ%C3%A9en ; Palamède Échecs
+
+`

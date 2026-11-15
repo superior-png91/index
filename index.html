@@ -174,6 +174,18 @@
 
 /* ---------- ACTUALITÉ : le club a 1 an ---------- */
 #actu [hidden]{display:none!important}
+/* ---------- DANS L'ACTUALITÉ DES ÉCHECS (lu dans actus.txt) ---------- */
+#actus-echecs{background:var(--acajou);padding-block:0 clamp(56px,7vw,96px)}
+#actus-echecs[hidden]{display:none!important}
+#actus-echecs .ae-head{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or);margin:0 0 18px}
+#actus-echecs .ae-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px}
+#actus-echecs .ae-card{display:flex;flex-direction:column;gap:10px;padding:clamp(18px,2.4vw,28px);border-radius:14px;border:1px solid color-mix(in srgb,var(--or) 35%,transparent);background:rgba(18,13,10,.55)}
+#actus-echecs .ae-card .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin:0}
+#actus-echecs .ae-card h3{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.2;color:var(--ivoire);margin:0}
+#actus-echecs .ae-card p{margin:0;color:var(--or-pale,var(--ivoire));line-height:1.55}
+#actus-echecs .ae-card a{margin-top:auto;align-self:flex-start;color:var(--or);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+#actus-echecs .ae-card a:hover,#actus-echecs .ae-card a:focus-visible{color:var(--ivoire)}
+
 .ag-card.anniv{position:relative;overflow:hidden;isolation:isolate}
 .ag-card.anniv .ag-cal{position:relative;padding-top:30px}
 .ag-card.anniv .ag-cal .d{font-size:clamp(5rem,9vw,7.4rem);font-weight:600}
@@ -486,6 +498,13 @@
       </div>
     </div>
   </section>
+  <!-- =============== DANS L'ACTUALITÉ DES ÉCHECS : cartes lues dans actus.txt, chacune disparaît seule après sa date =============== -->
+  <section id="actus-echecs" aria-label="Dans l'actualité des échecs" hidden>
+    <div class="wrap">
+      <p class="ae-head">Dans l'actualité des échecs</p>
+      <div class="ae-list" id="aeList"></div>
+    </div>
+  </section>
    </div>
   </div>
 
@@ -609,6 +628,15 @@
 
 <footer data-site="foot"></footer>
 
+<script src="actus.txt"></script>
+<script>!function(){var s=document.getElementById("actus-echecs"),l=document.getElementById("aeList");if(!s||!l||typeof ACTUS_ECHECS!=="string")return;
+var t=new Intl.DateTimeFormat("fr-CA",{timeZone:"Europe/Paris"}).format(new Date());
+function iso(d){var m=/^\s*(\d{1,2})\/(\d{1,2})\/(\d{4})\s*$/.exec(d);return m?m[3]+"-"+("0"+m[2]).slice(-2)+"-"+("0"+m[1]).slice(-2):""}
+var mois=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+var a=[];ACTUS_ECHECS.split(/\r?\n/).forEach(function(r){r=r.trim();if(!r||r.charAt(0)==="#")return;var p=r.split(";");if(p.length<6)return;var d=iso(p[0]),f=iso(p[1]);if(!d||!f||t<d||t>f)return;var u=p[p.length-2].trim(),src=p[p.length-1].trim();if(!/^https?:\/\//i.test(u))return;a.push({d:d,ti:p[2].trim(),tx:p.slice(3,p.length-2).join(";").trim(),u:u,s:src})});
+if(!a.length)return;a.sort(function(x,y){return x.d<y.d?1:x.d>y.d?-1:0});
+a.slice(0,2).forEach(function(c){var e=document.createElement("article");e.className="ae-card";var k=document.createElement("p");k.className="k";var q=c.d.split("-");k.textContent=c.s+" · "+parseInt(q[2],10)+" "+mois[parseInt(q[1],10)-1]+" "+q[0];var h=document.createElement("h3");h.textContent=c.ti;var x=document.createElement("p");x.textContent=c.tx;var z=document.createElement("a");z.href=c.u;z.target="_blank";z.rel="noopener noreferrer";z.textContent="Lire sur "+c.s+" ↗";e.appendChild(k);e.appendChild(h);e.appendChild(x);e.appendChild(z);l.appendChild(e)});
+s.hidden=!1}();</script>
 <!-- L'agenda (à modifier dans agenda.txt), puis le script commun -->
 <script src="agenda.txt"></script>
 <script src="assets/js/site.js?v=6"></script>
