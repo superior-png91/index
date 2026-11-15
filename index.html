@@ -149,9 +149,18 @@
 .affiche-zoom.on{opacity:1}
 .affiche-zoom img{max-width:min(92vw,100%);max-height:92vh;max-height:92dvh;width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.8),0 0 80px -10px rgba(255,140,40,.45);transform:scale(.94);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
 .affiche-zoom.on img{transform:none}
+.affiche{position:relative}
+.affiche:focus-within{transform:rotate(0) scale(1.02)}
+.affiche .affiche-open{display:block;line-height:0}
+.radio-hot{position:absolute;left:79%;top:89.6%;width:18.9%;height:9.6%;border-radius:4px;z-index:2;cursor:pointer}
+.radio-hot:hover,.radio-hot:focus-visible{outline:2px solid #fff;outline-offset:1px;box-shadow:0 0 0 4px rgba(255,255,255,.35)}
+.zoom-fig{position:relative;display:inline-block;line-height:0;max-width:92vw;transform:scale(.94);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.affiche-zoom.on .zoom-fig{transform:none}
+.affiche-zoom .zoom-fig img{max-width:100%;transform:none;transition:none}
+.affiche-zoom .zoom-fig .radio-hot[hidden]{display:none}
 .affiche-zoom button{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid var(--or);background:rgba(18,13,10,.7);color:var(--or-pale);font-size:1.2rem;cursor:pointer}
 .affiche-zoom button:hover,.affiche-zoom button:focus-visible{background:var(--ivoire);color:var(--ebene)}
-@media (prefers-reduced-motion:reduce){.affiche-zoom,.affiche-zoom img{transition:none}}
+@media (prefers-reduced-motion:reduce){.affiche-zoom,.affiche-zoom img,.zoom-fig{transition:none}}
 @media (prefers-reduced-motion:reduce){.affiche,.affiche:hover{transform:none;transition:none}}
 
 /* ---------- ACTUALITÉ : l'assemblée générale ---------- */
@@ -477,7 +486,7 @@
       <div class="actu-card nouvel-an" data-from="2026-12-19T00:00:00+01:00" data-until="2027-01-09T18:00:00+01:00">
         <div class="actu-copy">
           <p class="eyebrow"><span class="sq">!</span>Actualité du club</p>
-          <h2 data-reveal-lines>Journée portes ouvertes <em>du Nouvel An</em></h2>
+          <h2 data-reveal-lines>Journée portes ouvertes <em style="white-space:nowrap">du Nouvel An</em></h2>
           <p class="lead">Le samedi 9 janvier, pour bien commencer l'année, le club ouvre ses portes. Séance libre : venez nombreux jouer une partie, découvrir le club et rencontrer ses membres, que vous débutiez ou que vous jouiez depuis toujours.</p>
           <dl class="specs">
             <dt>Date</dt><dd>Samedi 9 janvier 2027</dd>
@@ -491,9 +500,12 @@
           </div>
         </div>
         <div class="actu-side">
-          <a class="affiche" href="assets/img/affiche-nouvel-an.webp" data-agrandir aria-haspopup="dialog" aria-label="Agrandir l'affiche de la journée portes ouvertes du Nouvel An">
-            <img src="assets/img/affiche-nouvel-an.webp" alt="Affiche de la journée portes ouvertes du Nouvel An du club d'échecs Les Fous d'Étréchy : un cavalier moitié glace, moitié feu bondit sur un échiquier. Samedi 9 janvier 2027, de 14 h à 18 h, Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus." width="896" height="1200" loading="lazy">
-          </a>
+          <div class="affiche">
+            <a class="affiche-open" href="assets/img/affiche-nouvel-an.webp" data-agrandir data-radio aria-haspopup="dialog" aria-label="Agrandir l'affiche de la journée portes ouvertes du Nouvel An">
+              <img src="assets/img/affiche-nouvel-an.webp" alt="Affiche de la journée portes ouvertes du Nouvel An du club d'échecs Les Fous d'Étréchy : un cavalier moitié glace, moitié feu au centre d'un échiquier. Samedi 9 janvier 2027, de 14 h à 18 h, à la Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus. Relayé par Sud Essonne la Radio." width="896" height="1344" loading="lazy">
+            </a>
+            <a class="radio-hot" href="https://sudessonne.fr/" target="_blank" rel="noopener" aria-label="Sud Essonne la Radio : ouvrir sudessonne.fr dans un nouvel onglet" title="Sud Essonne la Radio · sudessonne.fr"></a>
+          </div>
           <div class="cal" aria-hidden="true">
             <span class="d">9</span>
             <span class="w">Samedi</span>
@@ -953,12 +965,15 @@ s.hidden=!1}();</script>
 
 <!-- Agrandissement de l'affiche de la journée portes ouvertes -->
 <div class="affiche-zoom" id="afficheZoom" role="dialog" aria-modal="true" aria-label="Affiche de la journée portes ouvertes" hidden>
-  <img src="assets/img/affiche-portes-ouvertes.webp" alt="Affiche de la journée portes ouvertes du club d'échecs Les Fous d'Étréchy : samedi 14 novembre 2026, de 14 h à 18 h, Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus." width="896" height="1200">
+  <div class="zoom-fig">
+    <img src="assets/img/affiche-portes-ouvertes.webp" alt="Affiche de la journée portes ouvertes du club d'échecs Les Fous d'Étréchy : samedi 14 novembre 2026, de 14 h à 18 h, Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus." width="896" height="1200">
+    <a class="radio-hot" href="https://sudessonne.fr/" target="_blank" rel="noopener" aria-label="Sud Essonne la Radio : ouvrir sudessonne.fr dans un nouvel onglet" title="Sud Essonne la Radio · sudessonne.fr" hidden></a>
+  </div>
   <button type="button" aria-label="Fermer">✕</button>
 </div>
 <script>!function(){var z=document.getElementById("afficheZoom"),as=document.querySelectorAll("[data-agrandir]"),r=null;if(!z||!as.length)return;
-function o(e){e.preventDefault();r=document.activeElement;var im=e.currentTarget.querySelector("img"),zi=z.querySelector("img");zi.src=e.currentTarget.getAttribute("href");if(im)zi.alt=im.alt;z.hidden=!1;document.documentElement.style.overflow="hidden";requestAnimationFrame(function(){z.classList.add("on")});z.querySelector("button").focus()}
+function o(e){e.preventDefault();r=document.activeElement;var im=e.currentTarget.querySelector("img"),zi=z.querySelector("img");zi.src=e.currentTarget.getAttribute("href");if(im)zi.alt=im.alt;var zr=z.querySelector(".radio-hot");if(zr)zr.hidden=!e.currentTarget.hasAttribute("data-radio");z.hidden=!1;document.documentElement.style.overflow="hidden";requestAnimationFrame(function(){z.classList.add("on")});z.querySelector("button").focus()}
 function f(){z.classList.remove("on");document.documentElement.style.overflow="";setTimeout(function(){z.hidden=!0},250);r&&r.focus&&r.focus()}
-as.forEach(function(a){a.addEventListener("click",o)});z.addEventListener("click",f);document.addEventListener("keydown",function(e){"Escape"!==e.key||z.hidden||f()})}();</script>
+as.forEach(function(a){a.addEventListener("click",o)});z.addEventListener("click",f);var zq=z.querySelector(".radio-hot");if(zq)zq.addEventListener("click",function(e){e.stopPropagation()});document.addEventListener("keydown",function(e){"Escape"!==e.key||z.hidden||f()})}();</script>
 </body>
 </html>
