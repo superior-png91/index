@@ -32,7 +32,7 @@ var MENU = [
     ["▶", "Le Tableau des Fous",     "La partie sort du cadre",           "Tableaurenaissance.html"],
     ["▶", "Au fil des saisons",      "Une partie, quatre saisons",        "Tableausaisonsavecmusique.html"],
     ["▶", "La 64ᵉ Dimension",        "Le bureau à travers les époques", "Machinedutemps.html"],
-    ["▶", "Tous les films",          "Sur la page d'accueil",             "index.html#films"]
+    ["▶", "Tous les films",          "Sur la page d'accueil",             "index.html#morris"]
   ]]
 ];
 var CLUB = {

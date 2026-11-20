@@ -643,57 +643,16 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
   </section>
 
   <!-- =============== LES FILMS DU CLUB =============== -->
-  <style>
-.pl{position:relative;max-width:1280px;margin:0 auto}
-.pl-view{position:relative;overflow:hidden;border-radius:14px;background:#0b0806;padding:0;border:1px solid color-mix(in srgb,var(--or) 25%,transparent);user-select:none;-webkit-user-select:none}
-.pl-band{position:relative;z-index:4;height:38px;pointer-events:none;
- background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='38'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff7e2'/%3E%3Cstop offset='1' stop-color='%23dcc79b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='5.5' y='10.5' width='19' height='17' rx='4.6' fill='%23000' opacity='.6'/%3E%3Crect x='6.5' y='11.5' width='17' height='15' rx='4' fill='%2335281c'/%3E%3Crect x='7.5' y='12.8' width='15' height='13' rx='3.4' fill='url(%23g)'/%3E%3Cpath d='M9.5 27.6H20.5' stroke='%23fff' stroke-opacity='.35' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E"),linear-gradient(#2a1d14,#150f0a 55%,#0d0805);
- background-repeat:repeat-x,no-repeat;background-size:30px 38px,100% 100%}
-.pl-band-h{box-shadow:inset 0 2px 0 rgba(255,232,190,.16),0 6px 14px rgba(0,0,0,.6);border-bottom:1px solid rgba(0,0,0,.85)}
-.pl-band-b{box-shadow:inset 0 -2px 0 rgba(0,0,0,.7),0 -6px 14px rgba(0,0,0,.6);border-top:1px solid rgba(255,232,190,.14)}
-.pl-view{box-shadow:0 26px 50px -10px rgba(0,0,0,.7),0 2px 0 rgba(255,232,190,.08) inset,0 0 0 1px rgba(211,162,74,.28)}
-.pl-sizer:before,.pl-sizer:after{content:"";position:absolute;left:0;right:0;height:26px;z-index:3;pointer-events:none}
-.pl-sizer:before{top:0;background:linear-gradient(rgba(0,0,0,.18),transparent)}
-.pl-sizer:after{bottom:0;background:linear-gradient(transparent,rgba(0,0,0,.22))}
-@media (max-width:700px){.pl-band{height:28px;background-size:22px 28px,100% 100%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='28'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff7e2'/%3E%3Cstop offset='1' stop-color='%23dcc79b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='4' y='7.5' width='14' height='13' rx='3.4' fill='%23000' opacity='.6'/%3E%3Crect x='4.8' y='8.3' width='12.4' height='11.4' rx='3' fill='%2335281c'/%3E%3Crect x='5.6' y='9.3' width='10.8' height='9.6' rx='2.5' fill='url(%23g)'/%3E%3C/svg%3E"),linear-gradient(#2a1d14,#150f0a 55%,#0d0805)}}
-.pl-sizer{position:relative;touch-action:pan-y}
-.pl-scene{position:absolute;left:0;top:0;width:2304px;height:1296px;transform-origin:0 0}
-.pl-scene>img,.pl-scene canvas{position:absolute;pointer-events:none;display:block}
-.pl-table{left:0;top:0;width:2304px;height:1296px;max-width:none}
-.pl-glow{filter:blur(20px);opacity:.55;mix-blend-mode:screen}
-.pl-refl{filter:blur(6px);opacity:.5;-webkit-mask-image:linear-gradient(#000 0,transparent 100%);mask-image:linear-gradient(#000 0,transparent 100%)}
-.pl-lab{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:var(--display,Georgia,serif);font-size:clamp(1rem,2.2vw,1.35rem);color:var(--ivoire);text-shadow:0 1px 8px #000,0 0 3px #000;pointer-events:none;min-height:1.5em;z-index:3}
-.pl-tip{position:absolute;z-index:3;font:500 .8rem var(--mono,monospace);letter-spacing:.08em;color:var(--or-pale);text-shadow:0 1px 6px #000;pointer-events:none;opacity:0;transition:opacity .6s;white-space:nowrap}
-.pl-help{max-width:620px;margin:16px auto 0;text-align:center;color:var(--sepia);font-size:.95rem}
-.pl-btns{text-align:center;margin-top:12px}
-.pl-b{font:600 .85rem var(--mono,monospace);letter-spacing:.08em;text-transform:uppercase;background:rgba(18,13,10,.6);color:var(--or-pale);border:1px solid color-mix(in srgb,var(--or) 60%,transparent);border-radius:999px;padding:10px 20px;cursor:pointer}
-.pl-b:hover,.pl-b:focus-visible{background:var(--or);color:var(--ebene)}
-.pl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0;padding:0;list-style:none}
-</style>
+  <!-- Sans JavaScript : les quatre films en simples cartes (la colonne Morris ci-dessous les montre avec JavaScript) -->
+<noscript>
 <section id="films" aria-labelledby="films-t">
     <div class="wrap">
       <div class="sec-head">
         <div class="t">
           <p class="eyebrow"><span class="sq">▶</span>Les films du club</p>
-          <h2 data-reveal-lines id="films-t">Le club, <em>en mouvement</em>.</h2>
+          <h2 id="films-t">Le club, <em>en mouvement</em>.</h2>
         </div>
-        <p class="side">Les membres du club en vedette, dans de courtes animations tournées au Corps de garde et ailleurs.</p>
       </div>
-      <div class="pl" id="pellicule" data-pl>
-        <div class="pl-view"><div class="pl-sizer">
-          <div class="pl-scene"><img class="pl-table" src="assets/img/pellicule-table.webp?v=3" alt="" width="1920" height="1080" decoding="async"></div>
-          <div class="pl-tip" aria-hidden="true">← tirez →</div><div class="pl-lab" aria-hidden="true"></div>
-        </div></div>
-        <p class="pl-help">Tirez sur la pellicule, à la souris ou au doigt, pour dévoiler les quatre films, puis cliquez sur une image pour la voir en grand.</p>
-        <div class="pl-btns"><button type="button" class="pl-b">Tirer la pellicule</button></div>
-        <ul class="pl-sr">
-          <li><a href="Tableautempeteavecmusique.html">Tempête sur l'échiquier</a></li>
-          <li><a href="Tableaurenaissance.html">Le Tableau des Fous</a></li>
-          <li><a href="Tableausaisonsavecmusique.html">Au fil des saisons</a></li>
-          <li><a href="Machinedutemps.html">La 64ᵉ Dimension</a></li>
-        </ul>
-      </div>
-      <noscript>
       <div class="cards">
         <a class="card" href="Tableautempeteavecmusique.html" data-hoverplay data-cursor="Regarder">
           <div class="media" data-curtain><video muted loop playsinline preload="none" poster="assets/img/tempete-poster.webp" src="assets/video/tempete.mp4" aria-hidden="true"></video></div>
@@ -721,8 +680,10 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
         </a>
       </div>
     
-      </noscript>
-    </section>
+      
+    </div>
+  </section>
+</noscript>
 
   <!-- =============== g6b · LA COLONNE MORRIS =============== -->
   <section id="morris" aria-labelledby="mo-t">
@@ -800,8 +761,7 @@ a.slice(0,2).forEach(function(c){var e=document.createElement("article");e.class
 s.hidden=!1}();</script>
 <!-- L'agenda (à modifier dans agenda.txt), puis le script commun -->
 <script src="agenda.txt"></script>
-<script src="assets/js/site.js?v=6"></script>
-<script src="assets/js/pellicule.js?v=7"></script>
+<script src="assets/js/site.js?v=7"></script>
 <script src="assets/js/opera.js?v=4"></script>
 <script src="assets/js/colonne.js?v=5"></script>
 <script>
