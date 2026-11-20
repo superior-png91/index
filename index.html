@@ -376,24 +376,74 @@
 
 <main>
   <!-- =============== a1 · OUVERTURE : les trois films du club, en image vivante 3D =============== -->
-  <section id="ouverture" class="live" aria-label="Les Fous d'Étréchy et les films du club">
-    <div class="stage">
-      <canvas id="dust" aria-hidden="true"></canvas>
-      <canvas id="gl" aria-hidden="true"></canvas>
-      <a class="fi-skip" href="#dates">Passer au club ↓</a>
+  <style>
+#ouverture.op{position:relative;height:230vh;min-height:0;display:block;padding:0;overflow:visible;background:var(--ebene)}
+.op-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate;display:grid;place-items:center;background:radial-gradient(ellipse 80% 70% at 62% 50%,#33200f 0,#1a110b 55%,var(--ebene) 100%);padding:calc(var(--nav-h,64px) + 56px) clamp(16px,5vw,80px) clamp(20px,4vh,48px)}
+.op-in{width:100%;max-width:1320px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,4vw,64px);align-items:center;will-change:opacity,transform}
+.op-card{max-width:480px;border:1px solid color-mix(in srgb,var(--or) 35%,transparent);border-radius:14px;padding:clamp(14px,2vw,22px);background:rgba(18,13,10,.55);backdrop-filter:blur(3px)}
+.op-k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or);margin:0 0 6px}
+.op-pl{margin:0 0 12px;font-family:var(--display,Georgia,serif);font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--ivoire);line-height:1.25}
+.op-pl span{font-style:italic;color:var(--or-pale)}
+.op-now{display:flex;align-items:baseline;gap:12px;min-height:3.1em;border-top:1px solid color-mix(in srgb,var(--or) 22%,transparent);padding-top:12px}
+.op-now b{font:700 1.15rem var(--mono,monospace);color:var(--or-pale);white-space:nowrap}
+.op-now span{color:var(--erable,#ead7b1);font-size:.98rem;line-height:1.35;opacity:0}
+.op-now span.in{animation:opin .6s forwards}
+@keyframes opin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.op-bar{height:3px;background:color-mix(in srgb,var(--or) 18%,transparent);border-radius:3px;margin:10px 0 14px;overflow:hidden}
+.op-bar i{display:block;height:100%;width:0;background:var(--or);transition:width .6s}
+.op-ctl{display:flex;flex-wrap:wrap;gap:8px}
+.op-ctl button{font:600 .74rem var(--mono,monospace);letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--or-pale);border:1px solid color-mix(in srgb,var(--or) 55%,transparent);border-radius:999px;padding:8px 14px;cursor:pointer}
+.op-ctl button:hover,.op-ctl button:focus-visible{background:var(--or);color:var(--ebene)}
+/* le grand titre d'origine, posé sur la scène : il grandit puis s'efface quand on défile */
+.op .tz-head{position:absolute;left:0;right:0;top:50%;translate:0 -52%;z-index:4;padding-inline:16px;text-align:center;pointer-events:none;will-change:transform,opacity}
+.op .tz-title{font-size:clamp(3.6rem,13vw,12.5rem);line-height:.86;letter-spacing:-.03em;margin:0;filter:drop-shadow(0 6px 28px rgba(0,0,0,.75))}
+.op .tz-title .l1,.op .tz-title .l2{display:block;margin-right:0}
+@media (max-width:760px){.op .tz-title{font-size:clamp(2.6rem,13vw,3.6rem)}}
+.op-static{height:auto!important}
+.op-static .op-stage{position:relative;height:auto;display:block;padding-top:calc(var(--nav-h,64px) + 90px)}
+.op-static .tz-head{position:static;translate:none;margin-bottom:28px}
+@media (max-width:860px){.op-in{grid-template-columns:1fr;gap:10px;align-content:center}.op-right{order:1}.op-left{order:2}.op-card{max-width:none;padding:12px 14px}.op-pl{font-size:1rem;margin-bottom:8px}.op-now{min-height:2.6em;padding-top:8px}.op-bar{margin:8px 0 10px}.op-ctl button{padding:7px 11px;font-size:.68rem}}
+.op-right{position:relative}
+.op-wrap{perspective:2400px;width:100%;max-width:660px;margin:0 auto;display:flex;justify-content:center;align-items:flex-start}
+.op-board{position:relative;transform-style:preserve-3d;transform:rotateX(42deg);transform-origin:50% 40%;background:#6e4630;box-shadow:0 0 0 clamp(6px,1.2vw,12px) #3a2414,0 0 0 clamp(8px,1.5vw,15px) #d3a24a,0 40px 60px rgba(0,0,0,.6);--q:60px}
+.sq{position:absolute;width:var(--q);height:var(--q)}
+.op-board .sq{position:relative;display:inline-block;vertical-align:top}
+.op-board{display:flex;flex-wrap:wrap;align-content:flex-start}
+.sq.l{background:#ead7b1}.sq.d{background:#8a5a3a}
+.sq.last{box-shadow:inset 0 0 0 100px rgba(236,201,127,.38)}
+.sq.chk{box-shadow:inset 0 0 0 100px rgba(214,60,40,.5)}
+.pc{position:absolute;left:0;top:0;width:var(--q);height:var(--q);transform-style:preserve-3d;transition:transform .85s cubic-bezier(.45,.05,.25,1);pointer-events:none}
+.pc .sh{position:absolute;left:18%;right:18%;top:52%;height:22%;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(3px)}
+.pc .g{position:absolute;left:0;width:100%;bottom:46%;text-align:center;font:normal calc(var(--q)*.96)/1 "Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols","DejaVu Sans","Arial Unicode MS",sans-serif;transform-origin:50% 100%;transform:rotateX(-42deg);transition:opacity .7s,transform .8s}
+.pc.w .g{color:#f6ecd9;-webkit-text-stroke:calc(var(--q)*.028) #2a170c;paint-order:stroke fill;text-shadow:0 calc(var(--q)*.05) calc(var(--q)*.08) rgba(0,0,0,.5)}
+.pc.b .g{color:#1b120d;-webkit-text-stroke:calc(var(--q)*.022) #d9b46a;paint-order:stroke fill;text-shadow:0 calc(var(--q)*.05) calc(var(--q)*.08) rgba(0,0,0,.6)}
+.pc.hop .g{animation:ophop .85s}
+@keyframes ophop{0%,100%{transform:rotateX(-42deg) translateY(0)}45%{transform:rotateX(-42deg) translateY(calc(var(--q)*-.42)) scale(1.06)}}
+.pc.gone .g{opacity:0;transform:rotateX(-42deg) translateY(calc(var(--q)*.4)) rotate(22deg) scale(.5)}
+.pc.gone .sh{opacity:0;transition:opacity .5s}
+.op.mat .op.fade .op-board{opacity:0;transition:opacity .7s}
+.op-board{transition:opacity .7s}
+@media (prefers-reduced-motion:reduce){.pc{transition:none}.pc.hop .g{animation:none}}
+</style>
+<section id="ouverture" class="op" aria-label="Les Fous d'Étréchy : la partie de l'Opéra, jouée sur l'échiquier">
+    <div class="op-stage">
       <p class="num op-eyebrow"><span class="g">a1</span>Club d'échecs de loisirs · Étréchy (91580)</p>
+      <a class="fi-skip" href="#dates">Passer au club ↓</a>
+      <div class="op-in" id="opIn">
+        <div class="op-left">
+          <div class="op-card" id="opCard">
+            <p class="op-k">La partie de l'Opéra · Paris, 1858</p>
+            <p class="op-pl">Paul Morphy <span>contre</span> le duc de Brunswick et le comte Isouard</p>
+            <div class="op-now" aria-live="polite"><b id="opMove"></b><span id="opNote"></span></div>
+            <div class="op-bar" aria-hidden="true"><i id="opBar"></i></div>
+            <div class="op-ctl"><button type="button" id="opPlay">Lecture</button><button type="button" id="opNext" aria-label="Coup suivant">Coup suivant ›</button><button type="button" id="opRe">Recommencer</button><button type="button" id="opSpeed" aria-pressed="false" aria-label="Vitesse de la partie">×1</button></div>
+          </div>
+        </div>
+        <div class="op-right"><div class="op-wrap" id="opWrap"><div class="op-board" id="opBoard"></div></div></div>
+      </div>
       <div class="tz-head" id="head3d">
         <h1 class="tz-title" aria-label="Les Fous d'Étréchy"><span class="l1" aria-hidden="true" data-split="0.1">Les Fous</span><span class="l2" aria-hidden="true" data-split="0.1">d'Étréchy</span></h1>
       </div>
-      <div class="flat">
-        <a href="Tableautempeteavecmusique.html"><img src="assets/img/tempete-poster.webp" width="854" height="480" alt="Tempête sur l'échiquier"></a>
-        <a href="Tableaurenaissance.html"><img src="assets/img/renaissance-poster.webp" width="772" height="428" alt="Le Tableau des Fous"></a>
-        <a href="Tableausaisonsavecmusique.html"><img src="assets/img/saisons-poster.webp" width="854" height="480" alt="Au fil des saisons"></a>
-        <a href="Machinedutemps.html"><img src="assets/img/machine-poster.webp" width="854" height="480" alt="La 64ᵉ Dimension"></a>
-      </div>
-      <div class="tz-cap" id="cap3d" aria-live="polite"><p class="k">Film · Corps de garde</p><h2>Tempête <em>sur l'échiquier</em></h2><a href="Tableautempeteavecmusique.html">Voir le film en grand →</a></div>
-      <nav class="prog" aria-label="Choisir un film"><button type="button" class="on" aria-label="Tempête sur l'échiquier" title="Tempête sur l'échiquier"></button><button type="button" aria-label="Le Tableau des Fous" title="Le Tableau des Fous"></button><button type="button" aria-label="Au fil des saisons" title="Au fil des saisons"></button><button type="button" aria-label="La 64ᵉ Dimension" title="La 64ᵉ Dimension"></button></nav>
-      <p class="hint3d" id="hint3d">Faites défiler · passez la souris sur les films</p>
     </div>
   </section>
   <!-- La réglette des dates : la diagonale du fou, le bandeau et la porte ouverte se figent
@@ -618,10 +668,10 @@
         <p class="side">Les membres du club en vedette, dans de courtes animations tournées au Corps de garde et ailleurs.</p>
       </div>
       <div class="pl" id="pellicule" data-pl>
-        <div class="pl-view"><div class="pl-band pl-band-h" aria-hidden="true"></div><div class="pl-sizer">
+        <div class="pl-view"><div class="pl-sizer">
           <div class="pl-scene"><img class="pl-table" src="assets/img/pellicule-table.webp" alt="" width="1920" height="1080" decoding="async"></div>
           <div class="pl-tip" aria-hidden="true">← tirez →</div><div class="pl-lab" aria-hidden="true"></div>
-        </div><div class="pl-band pl-band-b" aria-hidden="true"></div></div>
+        </div></div>
         <p class="pl-help">Tirez sur la pellicule, à la souris ou au doigt, pour dévoiler les quatre films, puis cliquez sur une image pour la voir en grand.</p>
         <div class="pl-btns"><button type="button" class="pl-b">Tirer la pellicule</button></div>
         <ul class="pl-sr">
@@ -711,7 +761,8 @@ s.hidden=!1}();</script>
 <!-- L'agenda (à modifier dans agenda.txt), puis le script commun -->
 <script src="agenda.txt"></script>
 <script src="assets/js/site.js?v=6"></script>
-<script src="assets/js/pellicule.js?v=1"></script>
+<script src="assets/js/pellicule.js?v=2"></script>
+<script src="assets/js/opera.js?v=2"></script>
 <script>
 /* Hauteur du menu : la réglette se fige juste en dessous */
 (function(){
@@ -745,186 +796,7 @@ s.hidden=!1}();</script>
   })();
 })();
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-/* =====================================================================
-   OUVERTURE en « image vivante 3D »
-   Les films (muets) sont posés sur une courbe, comme un écran panoramique.
-   - au départ, le grand titre est posé sur les films ; en défilant on zoome dessous et il s'efface ;
-   - puis le défilement fait tourner la courbe : Tempête, puis le Tableau des Fous, puis les Saisons ;
-   - plus on fait défiler vite, plus les images se plient et se dédoublent en couleurs ;
-   - la souris (ou le doigt) fait onduler l'image ;
-   - clic sur le film du centre : sa page s'ouvre en grand ; clic sur un film de côté : il vient au centre.
-   Sans 3D (vieux navigateur) ou avec « réduire les animations » : les trois affiches, côte à côte.
-   ===================================================================== */
-(function(){
-  "use strict";
-  var sec = document.getElementById("ouverture"), canvas = document.getElementById("gl"), head = document.getElementById("head3d"),
-      cap = document.getElementById("cap3d"), hint = document.getElementById("hint3d"), bars = [].slice.call(sec.querySelectorAll(".prog button"));
-  var INFO = [
-    {k:"Film · Corps de garde", h:"Tempête <em>sur l'échiquier</em>", href:"Tableautempeteavecmusique.html", v:"assets/video/tempete.mp4", p:"assets/img/tempete-poster.webp"},
-    {k:"Film · Renaissance", h:"Le Tableau <em>des Fous</em>", href:"Tableaurenaissance.html", v:"assets/video/renaissance.mp4", p:"assets/img/renaissance-poster.webp"},
-    {k:"Film · Sous les platanes", h:"Au fil <em>des saisons</em>", href:"Tableausaisonsavecmusique.html", v:"assets/video/saisons.mp4", p:"assets/img/saisons-poster.webp"},
-    {k:"Film · Quelque part…", h:"La 64ᵉ <em>Dimension</em>", href:"Machinedutemps.html", v:"assets/video/machine.mp4", p:"assets/img/machine-poster.webp"}
-  ];
-  var N = INFO.length;       // nombre de films : tout le carrousel s'adapte à cette liste
-  function flat(){ sec.classList.add("no3d"); }
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !window.THREE) { flat(); return; }
-  var renderer;
-  try { renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true}); } catch(e) { flat(); return; }
-  renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
 
-  var scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(32, 1, .1, 100);
-  var W = 4, H = W * 9 / 16, R = 6.4, STEP = .7;      // taille d'un film, rayon de la courbe, écart entre les films
-
-  var VS = [
-    "uniform float uTime, uVel, uHover; uniform vec2 uMouse;",
-    "varying vec2 vUv; varying float vShade;",
-    "void main(){",
-    "  vUv = uv; vec3 p = position;",
-    "  float nx = p.x / " + (W / 2).toFixed(3) + ";",
-    "  p.z -= uVel * 1.4 * (1.0 - nx * nx);",
-    "  p.z += sin(uv.y * 3.1416) * uVel * .5 * sin(uv.x * 6.283 + uTime * 2.0);",
-    "  float d = distance(uv, uMouse);",
-    "  p.z += uHover * .16 * exp(-d * d * 18.0) * sin(d * 34.0 - uTime * 7.0);",
-    "  vShade = p.z;",
-    "  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);",
-    "}"].join("\n");
-  var FS = [
-    "uniform sampler2D uTex; uniform float uVel, uBright, uHover, uTime, uAlpha; uniform vec2 uMouse;",
-    "varying vec2 vUv; varying float vShade;",
-    "void main(){",
-    "  vec2 uv = vUv;",
-    "  float fx = .022, fy = fx * 16.0 / 9.0;",
-    "  if (uv.x < fx || uv.x > 1.0 - fx || uv.y < fy || uv.y > 1.0 - fy) {",
-    "    float g = .55 + .45 * sin((uv.x + uv.y) * 9.0 + uTime * .6);",
-    "    gl_FragColor = vec4(mix(vec3(.48,.33,.13), vec3(.96,.84,.55), g) * uBright, uAlpha); return;",
-    "  }",
-    "  vec2 iv = (uv - vec2(fx, fy)) / vec2(1.0 - 2.0 * fx, 1.0 - 2.0 * fy);",
-    "  float d = distance(uv, uMouse);",
-    "  iv += uHover * .012 * exp(-d * d * 18.0) * sin(d * 34.0 - uTime * 7.0) * normalize(uv - uMouse + 1e-4);",
-    "  float s = uVel * .025;",
-    "  vec3 c = vec3(texture2D(uTex, iv + vec2(s, 0.0)).r, texture2D(uTex, iv).g, texture2D(uTex, iv - vec2(s, 0.0)).b);",
-    "  c *= 1.0 + vShade * .35;",
-    "  c *= mix(.7, 1.0, smoothstep(.95, .35, distance(iv, vec2(.5)))) * uBright;",
-    "  gl_FragColor = vec4(c, uAlpha);",
-    "}"].join("\n");
-
-  var geo = new THREE.PlaneGeometry(W, H, 48, 27), meshes = [], vids = [], vtex = [], loaded = [], want = [];
-  var loader = new THREE.TextureLoader();
-  INFO.forEach(function(f, i){
-    // la vidéo n'est demandée qu'au moment où le film approche du centre ; en attendant, son affiche prend la place (pas d'écran noir)
-    var v = document.createElement("video");
-    v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "none";
-    vids.push(v); loaded.push(false); want.push(false);
-    var poster = loader.load(f.p); poster.minFilter = THREE.LinearFilter; poster.magFilter = THREE.LinearFilter; poster.generateMipmaps = false;
-    var tex = new THREE.VideoTexture(v); tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
-    vtex.push(tex);
-    var mat = new THREE.ShaderMaterial({vertexShader:VS, fragmentShader:FS, side:THREE.DoubleSide, transparent:true,
-      uniforms:{uTex:{value:poster}, uTime:{value:0}, uVel:{value:0}, uHover:{value:0}, uMouse:{value:new THREE.Vector2(.5,.5)}, uBright:{value:1}, uAlpha:{value:1}}});
-    v.addEventListener("playing", function(){ mat.uniforms.uTex.value = tex; }, {once:true});   // dès que la vidéo tourne, elle remplace l'affiche
-    var m = new THREE.Mesh(geo, mat); m.userData.i = i; m.renderOrder = i; scene.add(m); meshes.push(m);
-  });
-
-  var swT = 0, zBase = 10, pos = 0, vel = 0, cur = -1, visible = true, mouse = new THREE.Vector2(-9, -9), ray = new THREE.Raycaster(), t0 = performance.now();
-  function cl(v){ return Math.max(0, Math.min(1, v)); }
-  function size(){
-    var w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;
-    renderer.setSize(w, h, false); camera.aspect = w / h;
-    var tg = Math.tan(camera.fov * Math.PI / 360), want = w / h < 1 ? W * 1.55 : W * 2.7;
-    zBase = Math.max(want / (2 * tg * camera.aspect), H * 2.6 / (2 * tg));   // sur téléphone, la caméra recule
-    camera.updateProjectionMatrix();
-  }
-  size(); addEventListener("resize", size);
-  function progress(){ var r = sec.getBoundingClientRect(); return cl(-r.top / (r.height - innerHeight)); }
-  // seuls le film du centre et ses voisins directs sont chargés et lus ; les autres sont mis en pause
-  function play(){
-    vids.forEach(function(v, i){
-      if (visible && want[i]) {
-        if (!loaded[i]) { loaded[i] = true; v.src = INFO[i].v; v.preload = "auto"; }
-        var q = v.play(); if (q && q.catch) q.catch(function(){});
-      } else v.pause();
-    });
-  }
-  if ("IntersectionObserver" in window) new IntersectionObserver(function(en){ visible = en[0].isIntersecting; play(); }).observe(sec);
-  addEventListener("touchstart", play, {once:true, passive:true});
-  // aller au film i : on fait défiler jusqu'à sa place
-  function goTo(i){
-    var r = sec.getBoundingClientRect(), total = r.height - innerHeight;
-    scrollTo({top: scrollY + r.top + total * (.17 + .8 * i / (N - 1)), behavior:"smooth"});
-  }
-  bars.forEach(function(b, i){ b.addEventListener("click", function(){ goTo(i); }); });
-  // clavier : flèches gauche / droite pour passer d'un film à l'autre, tant que le carrousel est à l'écran
-  addEventListener("keydown", function(e){
-    if (!visible || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
-    if (/^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || "")) return;
-    var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
-    var p = progress(); if (p < .1) return;
-    var n = Math.max(0, Math.min(N - 1, Math.round(pos) + d));
-    e.preventDefault(); goTo(n);
-  });
-
-  function setMouse(e){ var r = canvas.getBoundingClientRect(); mouse.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); }
-  canvas.addEventListener("pointermove", setMouse);
-  canvas.addEventListener("pointerdown", setMouse);
-  canvas.addEventListener("pointerleave", function(){ mouse.set(-9, -9); });
-  canvas.addEventListener("click", function(e){
-    setMouse(e); ray.setFromCamera(mouse, camera);
-    var hit = ray.intersectObjects(meshes)[0]; if (!hit) return;
-    var i = hit.object.userData.i;
-    if (i === cur) { location.href = INFO[i].href; return; }
-    goTo(i);                                                                  // on fait défiler jusqu'au film cliqué
-  });
-
-  function frame(now){
-    requestAnimationFrame(frame);
-    if (!visible) return;
-    var p = progress(), time = (now - t0) / 1000;
-    // 1) le grand titre est posé sur les films ; en défilant, on zoome dessous et il s'efface peu à peu
-    var k = cl(p / .14); k = k * k * (3 - 2 * k);
-    camera.position.set(0, 0, zBase * (1.6 - .6 * k));
-    // 2) ensuite, la courbe tourne, un film après l'autre
-    var target = cl((p - .16) / .8) * (N - 1);
-    var prev = pos; pos += (target - pos) * .09;
-    vel += ((pos - prev) * 12 - vel) * .12; vel = Math.max(-1.2, Math.min(1.2, vel));
-    head.style.opacity = (1 - k).toFixed(3);
-    head.style.transform = "translateY(" + (-60 * k) + "px) scale(" + (1 + .12 * k).toFixed(3) + ")";
-    cap.style.opacity = k.toFixed(3);
-    hint.style.opacity = p > .02 ? 0 : 1;
-
-    ray.setFromCamera(mouse, camera);
-    var hit = ray.intersectObjects(meshes)[0], hoverI = hit ? hit.object.userData.i : -1;
-    canvas.style.cursor = hit ? "pointer" : "";
-    meshes.forEach(function(m, i){
-      var o = (((i - pos) % N) + N * 1.5) % N - N / 2, a = o * STEP;     // les films tournent en boucle autour du centre
-      // sur une courbe tournée vers le spectateur : les films de côté avancent, leur bord extérieur paraît plus grand (trapèze)
-      m.position.set(R * Math.sin(a), -.18, R * (1 - Math.cos(a)) * .9);
-      m.rotation.y = -a;
-      var u = m.material.uniforms;
-      u.uTime.value = time; u.uVel.value = vel;
-      u.uBright.value = (1 - .45 * Math.min(1, Math.abs(o))) * (.5 + .5 * k);   // films assombris sous le titre
-      u.uAlpha.value = cl((1.45 - Math.abs(o)) / .3);
-      u.uHover.value += ((hoverI === i ? 1 : 0) - u.uHover.value) * .08;
-      if (hit && hit.object === m) u.uMouse.value.copy(hit.uv);
-    });
-    var n = ((Math.round(pos) % N) + N) % N;
-    if (n !== cur) {
-      var first = cur < 0; cur = n;
-      bars.forEach(function(b, k){ b.classList.toggle("on", k === n); });
-      // la légende s'efface, change de texte, puis revient
-      var fill = function(){ cap.querySelector(".k").textContent = INFO[cur].k; cap.querySelector("h2").innerHTML = INFO[cur].h; cap.querySelector("a").href = INFO[cur].href; cap.classList.remove("sw"); };
-      clearTimeout(swT);
-      if (first) fill(); else { cap.classList.add("sw"); swT = setTimeout(fill, 260); }
-      // chargement : le film du centre et ses voisins directs seulement
-      for (var q = 0; q < N; q++) { var dq = Math.abs(q - n); want[q] = Math.min(dq, N - dq) <= 1; }
-      play();
-    }
-    renderer.render(scene, camera);
-  }
-  requestAnimationFrame(frame);
-})();
-
-</script>
 <script>
 /* Poussière d'or derrière les films : quelques grains de lumière, nets ou flous, qui montent lentement
    et se rapprochent un peu de la souris. Légère : 40 grains au plus, 30 images par seconde. */

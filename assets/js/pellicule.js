@@ -37,7 +37,7 @@ function build(){texT=mk();texC=mk();var a=texT.getContext("2d"),b=texC.getConte
  [a,b].forEach(function(c){c.globalCompositeOperation="source-atop";var t=c.createLinearGradient(0,0,0,HF);t.addColorStop(0,"rgba(255,190,120,.16)");t.addColorStop(.05,"rgba(255,190,120,0)");t.addColorStop(.95,"rgba(0,0,0,0)");t.addColorStop(1,"rgba(0,0,0,.22)");c.fillStyle=t;c.fillRect(0,0,texT.width,HF);c.globalCompositeOperation="source-over"})}
 var K=.48,VX=150,Y0=240,Y1=1110;
 function fit(){var W=Math.min(root.clientWidth,1280),narrow=W<700;
- if(narrow){VX=160;Y0=250;Y1=1090;K=W/2060}else{VX=150;Y0=240;Y1=1110;K=W/2080}
+ if(narrow){VX=160;Y0=222;Y1=1090;K=W/2060}else{VX=150;Y0=212;Y1=1110;K=W/2080}
  sizer.style.width=W+"px";sizer.style.height=((Y1-Y0)*K)+"px";scene.style.transform="translate("+(-VX*K)+"px,"+(-Y0*K)+"px) scale("+K+")"}
 addEventListener("resize",fit);
 var d=0,vel=0,hov=[0,0,0,0],hot=-1,seq=null,drag=null,touched=false,lastT=0,lastD=0,raf=0;
