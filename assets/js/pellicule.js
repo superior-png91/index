@@ -42,7 +42,11 @@ function fit(){var W=Math.min(root.clientWidth,1280),narrow=W<700;
 addEventListener("resize",fit);
 var d=0,vel=0,hov=[0,0,0,0],hot=-1,seq=null,drag=null,touched=false,lastT=0,lastD=0,raf=0;
 function ease(t){return 1-Math.pow(1-t,3)}
-function tugs(from){var T=[.2,.45,.7,1],steps=[],t=performance.now()+300,cur=from;T.forEach(function(g){if(g<=cur)return;steps.push({a:cur,b:g,t0:t,t1:t+1050});t+=1050+420;cur=g});seq=steps}
+function tugs(from){var steps=[],t=performance.now()+300,cur=from,guard=0;
+ while(cur<1&&guard++<14){var left=1-cur,inc=left<.14?left:Math.min(left,.1+Math.random()*.32),b=cur+inc;if(1-b<.06)b=1;
+  var dur=650+Math.random()*1100;steps.push({a:cur,b:b,t0:t,t1:t+dur,sm:Math.random()<.4?1:0});t+=dur+120+Math.random()*750;cur=b;
+  if(cur<1&&cur>.3&&Math.random()<.25){var r=Math.max(0,cur-(.04+Math.random()*.08)),d2=450+Math.random()*350;steps.push({a:cur,b:r,t0:t,t1:t+d2,sm:1});t+=d2+100+Math.random()*300;cur=r}}
+ seq=steps}
 function retract(){var t=performance.now();seq=[{a:d/L,b:0,t0:t,t1:t+1900,sm:1}]}
 function stepSeq(t){if(!seq||!seq.length)return;var s=seq[0];if(t<s.t0)return;var k=Math.min(1,(t-s.t0)/(s.t1-s.t0));d=(s.a+(s.b-s.a)*(s.sm?(k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2):ease(k)))*L;if(k>=1){seq.shift();if(!seq.length)seq=null}}
 function render(t){cx.clearRect(0,0,CW,CH);rx.clearRect(0,0,CW,CH);gx.clearRect(0,0,CW,CH);if(d<2)return;
