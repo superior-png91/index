@@ -19,7 +19,7 @@ var CX=520,CY=350,CW=1640,CH=830;
 var cx=cv.getContext("2d"),rx=rf.getContext("2d"),gx=gl.getContext("2d");
 var texImg=new Image(),posters=[],ld=0,texT,texC,started=false,vis=false,ready=false;
 function done(){if(++ld==N+1){build();ready=true;fit();if(vis)begin()}}
-texImg.onload=done;texImg.src="assets/img/pellicule-bande.webp";
+texImg.onload=done;texImg.src="assets/img/pellicule-bande.webp?v=2";
 FILMS.forEach(function(f,i){var im=new Image();im.onload=done;im.src=f.p;posters[i]=im});
 function mk(){var c=document.createElement("canvas");c.width=Math.ceil(L)+2;c.height=HF;return c}
 function build(){texT=mk();texC=mk();var a=texT.getContext("2d"),b=texC.getContext("2d");a.drawImage(texImg,0,0);b.drawImage(texImg,0,0);
