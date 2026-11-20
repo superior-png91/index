@@ -315,6 +315,16 @@
 .live .tz-title .l1,.live .tz-title .l2{display:block;margin-right:0}
 @media (max-width:760px){.live .tz-title{font-size:clamp(2.6rem,13vw,3.6rem)}}
 </style>
+<style id="op2d">
+.op-board{transform:none!important;transform-origin:50% 50%}
+.pc .sh{display:none}
+.pc .g{top:0;bottom:auto;height:100%;display:flex;align-items:center;justify-content:center;font-size:calc(var(--q)*.82);line-height:1;transform:none!important;padding-bottom:calc(var(--q)*.04)}
+@keyframes ophop{0%,100%{transform:none}45%{transform:translateY(calc(var(--q)*-.16)) scale(1.18)}}
+.pc.gone .g{transform:scale(.5) rotate(20deg)!important}
+.pc.w .g{text-shadow:0 calc(var(--q)*.03) calc(var(--q)*.05) rgba(0,0,0,.45)}
+#ouverture.op{height:520vh!important}
+#opPlay,#opNext,#opRe,#opSpeed{display:none!important}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="sym-fou" viewBox="0 0 100 140">
@@ -761,8 +771,8 @@ s.hidden=!1}();</script>
 <!-- L'agenda (à modifier dans agenda.txt), puis le script commun -->
 <script src="agenda.txt"></script>
 <script src="assets/js/site.js?v=6"></script>
-<script src="assets/js/pellicule.js?v=4"></script>
-<script src="assets/js/opera.js?v=2"></script>
+<script src="assets/js/pellicule.js?v=6"></script>
+<script src="assets/js/opera.js?v=3"></script>
 <script>
 /* Hauteur du menu : la réglette se fige juste en dessous */
 (function(){

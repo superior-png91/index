@@ -49,7 +49,7 @@ function build(){
  board.querySelectorAll(".pc").forEach(function(e){e.remove()});pcs=[];map={};
  function add(t,col,c,r){var e=document.createElement("div");e.className="pc "+(col=="w"?"w":"b");e.innerHTML='<i class="sh"></i><b class="g" aria-hidden="true">'+GL[t]+'</b>';board.appendChild(e);var p={el:e,t:t,col:col,c:c,r:r};place(p,c,r);pcs.push(p);map[key(c,r)]=p}
  for(var c=0;c<8;c++){add(START[c],"w",c,0);add("P","w",c,1);add("P","b",c,6);add(START[c],"b",c,7)}
- ply=0;mark([]);status("","Appuyez sur lecture pour voir la partie.",true);prog()}
+ ply=0;mark([]);status("","Faites défiler la page pour jouer la partie ↓",true);prog()}
 function mark(l){lastSq.forEach(function(e){e.classList.remove("last","chk")});lastSq=[];l.forEach(function(s){var e=board.querySelector('.sq[data-s="'+s+'"]');if(e){e.classList.add("last");lastSq.push(e)}})}
 function status(m,n,init){mvEl.textContent=m;noteEl.textContent=n;if(!init){noteEl.classList.remove("in");void noteEl.offsetWidth;noteEl.classList.add("in")}}
 function prog(){bar.style.width=(ply/M.length*100)+"%"}
@@ -72,7 +72,7 @@ bPlay.addEventListener("click",function(){setPlaying(!playing)});
 bNext.addEventListener("click",function(){setPlaying(false);if(ply>=M.length){build()}step()});
 bRe.addEventListener("click",function(){clearTimeout(timer);root.classList.remove("mat");build();setPlaying(true)});
 bSp.addEventListener("click",function(){speed=speed==1?2:1;bSp.textContent="×"+speed;bSp.setAttribute("aria-pressed",speed==2)});
-function size(){var W=Math.min(wrap.clientWidth,660,Math.max(300,(innerHeight-190)*1.08));if(innerWidth<=860)W=Math.min(W,Math.max(240,(innerHeight-400)/.84));q=Math.floor(W/8);var S=q*8;board.style.width=board.style.height=S+"px";board.style.setProperty("--q",q+"px");wrap.style.height=Math.round(S*.84)+"px";pcs.forEach(function(p){place(p,p.c,p.r)})}
+function size(){var W=Math.min(wrap.clientWidth,600,Math.max(300,innerHeight-250));if(innerWidth<=860)W=Math.min(W,Math.max(240,innerHeight-380));q=Math.floor(W/8);var S=q*8;board.style.width=board.style.height=S+"px";board.style.setProperty("--q",q+"px");wrap.style.height=S+"px";pcs.forEach(function(p){place(p,p.c,p.r)})}
 /* cases */
 for(var r=7;r>=0;r--)for(var c=0;c<8;c++){var e=document.createElement("div");e.className="sq "+((c+r)%2?"l":"d");e.dataset.s=String.fromCharCode(97+c)+(r+1);board.appendChild(e)}
 size();addEventListener("resize",size);build();
@@ -80,12 +80,14 @@ if("IntersectionObserver" in window){new IntersectionObserver(function(es){vis=e
 document.addEventListener("visibilitychange",function(){if(document.hidden)clearTimeout(timer);else if(playing)tick()});
 /* le grand titre grandit puis s'efface en défilant ; la partie démarre quand il a presque disparu */
 function cl(x){return x<0?0:x>1?1:x}
-var began=false;
-function onScroll(){var r=root.getBoundingClientRect(),run=r.height-innerHeight,p=run>0?cl(-r.top/run):1,k=cl(p/.42);k=k*k*(3-2*k);
+var began=false,target=0,pt=0;
+function replay(n){build();for(var i=0;i<n;i++)move(M[i])}
+function pump(){clearTimeout(pt);if(target>ply){move(M[ply])}else if(target<ply){replay(Math.max(target,ply-1>target?target:target))}if(ply!=target)pt=setTimeout(pump,Math.abs(target-ply)>3?160:420)}
+function onScroll(){var r=root.getBoundingClientRect(),run=r.height-innerHeight,p=run>0?cl(-r.top/run):1,k=cl(p/.16);k=k*k*(3-2*k);
  head.style.opacity=(1-k).toFixed(3);head.style.transform="translateY("+(-60*k)+"px) scale("+(1+.32*k).toFixed(3)+")";
  layer.style.opacity=(.18+.82*k).toFixed(3);layer.style.transform="scale("+(.95+.05*k).toFixed(3)+")";
  layer.style.pointerEvents=k>.5?"auto":"none";
- if(k>.55&&!began){began=true;setPlaying(true)}}
+ target=Math.round(cl((p-.2)/.74)*M.length);if(target!=ply)pump()}
 if(reduce){root.classList.add("op-static");playing=false;bPlay.textContent="Lecture"}
 else{addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);onScroll()}
 vis=vis||!("IntersectionObserver" in window);
