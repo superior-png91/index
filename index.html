@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&family=Noto+Sans+Symbols+2&family=Big+Shoulders+Display:wght@800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/site.css?v=4">
 <link rel="stylesheet" href="assets/css/entete.css">
-<link rel="stylesheet" href="assets/css/colonne.css?v=6">
+<link rel="stylesheet" href="assets/css/colonne.css?v=7">
 <style>
 /* ---------- a1 · OUVERTURE : les trois films du club, en trapèze ----------
    Trois petites fenêtres muettes : celle du milieu de face, les deux autres inclinées.
@@ -334,6 +334,12 @@
 .op-board{transform:none!important;transform-origin:50% 50%}
 .pc .sh{display:none}
 .pc .g{top:0;bottom:auto;height:100%;display:flex;align-items:center;justify-content:center;font-size:calc(var(--q)*.82);line-height:1;transform:none!important;padding-bottom:calc(var(--q)*.04)}
+.pc .g svg{display:block;height:84%;width:auto;overflow:visible}
+.pc.w .g svg{color:#f6ecd9;stroke:#2a170c;stroke-width:3.2;paint-order:stroke fill;filter:drop-shadow(0 calc(var(--q)*.03) calc(var(--q)*.04) rgba(0,0,0,.45))}
+.pc.b .g svg{color:#1b120d;stroke:#d9b46a;stroke-width:2.6;paint-order:stroke fill;filter:drop-shadow(0 calc(var(--q)*.03) calc(var(--q)*.05) rgba(0,0,0,.55))}
+/* la carte passe devant le grand titre : le lien « Qui était Paul Morphy ? » n'est jamais caché */
+.op-in{will-change:auto}
+.op-left{position:relative;z-index:5}
 @keyframes ophop{0%,100%{transform:none}45%{transform:translateY(calc(var(--q)*-.16)) scale(1.18)}}
 .pc.gone .g{transform:scale(.5)!important}
 .pc.w .g{text-shadow:0 calc(var(--q)*.03) calc(var(--q)*.05) rgba(0,0,0,.45)}
@@ -393,7 +399,7 @@
   if (t || !window.gsap) { k.remove(); return; }
   e.classList.add("intro-on");
   {for(var q=document.getElementById("b25"),A=q.querySelector(".b25-shine"),P=k.querySelector(".stage"),M=k.querySelector(".pcs-layer"),D="http://www.w3.org/2000/svg",N=["tour","cavalier","fou","dame","roi","fou","cavalier","tour"],O=[],F=[],H=8;H>=1;H--)for(var j=0;j<8;j++){var W=document.createElement("div");W.className="q "+((j+H)%2==1?"d":"l"),q.insertBefore(W,A),O.push(W);var Y=1===H||8===H?N[j]:2===H||7===H?"pion":null;if(Y){var z=document.createElement("span");z.className="sh",W.appendChild(z);var R=document.createElement("div");R.className="pc "+(H<=2?"w":"b");var X=document.createElementNS(D,"svg");X.setAttribute("viewBox","0 0 100 140");var _=document.createElementNS(D,"use");_.setAttribute("href","fou"===Y?"#sym-fou":"#"+Y),X.appendChild(_),R.appendChild(X),W.appendChild(R);var V=("pion"===Y?0:1)+.06*Math.abs(j-3.5)+(H>4?.03:0);F.push({el:R,sh:z,k:0,order:V,f:j,row:8-H})}}F.sort((function(e,t){return e.order-t.order}));var U={};function K(){var e=P.getBoundingClientRect();U.ox=.5*e.width,U.oy=.3*e.height,U.cx=q.offsetLeft+q.offsetWidth/2,U.cy=q.offsetTop+q.offsetHeight/2,U.sq=q.clientWidth/8,U.w=.62*U.sq,U.h=1.4*U.w,F.forEach((function(e){e.el.style.width=U.w+"px",e.el.style.height=U.h+"px"}))}k.hidden=!1,K(),window.addEventListener("resize",K);var Z={tilt:0,spin:45,scale:.55,y:40,alpha:0};function J(){q.style.transform="translate3d(0,"+Z.y+"px,0) scale("+Z.scale+") rotateX("+Z.tilt+"deg) rotateZ("+Z.spin+"deg)",P.style.opacity=Z.alpha,M.style.opacity=Z.alpha;var tr="translateX(-50%) rotateZ("+(-Z.spin)+"deg) rotateX("+(-Z.tilt)+"deg)",i,s,c;
-for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=Math.min(1,2.2*c);s.sh.style.opacity=.9*c;s.sh.style.transform="scale("+(.4+.6*c)+")"}}J(),k.hidden=!1,e.style.overflow="hidden";var G=k.querySelector(".intro-logo"),$=k.querySelector(".intro-name"),Q=k.querySelector(".intro-tag"),ee=k.querySelector(".intro-rule"),te=!1;gsap.ticker.add(J);var ne=gsap.timeline({onComplete:function(){te||(te=!0,gsap.ticker.remove(J),window.removeEventListener("resize",K),k.hidden=!0,e.style.overflow="",e.classList.remove("intro-on"))}});ne.to(Z,{alpha:1,scale:.9,y:0,duration:.9,ease:"power3.out"},0).from(O,{scale:0,rotate:90,duration:.5,ease:"back.out(2)",stagger:{grid:[8,8],from:56,amount:.7}},.05).to(Z,{spin:0,scale:1,duration:.9,ease:"power3.out"},.7).to(Z,{tilt:56,duration:1,ease:"power3.inOut"},.7).to(F,{k:1,duration:.6,ease:"power2.out"},1.8).fromTo(A,{xPercent:-120},{xPercent:120,duration:1.1,ease:"power2.inOut"},2.2).fromTo($,{clipPath:"inset(0 100% 0 0)",letterSpacing:".3em",y:10},{clipPath:"inset(0 0% 0 0)",letterSpacing:"0em",y:0,duration:1.1,ease:"power3.out"},2.1).fromTo($,{backgroundPosition:"100% 0"},{backgroundPosition:"0% 0",duration:2,ease:"power1.inOut"},2.1).fromTo(G,{scale:0,rotate:-25,opacity:0},{scale:1,rotate:0,opacity:1,duration:.8,ease:"back.out(1.8)"},1.95).fromTo(ee,{scaleX:0},{scaleX:1,duration:.8,ease:"expo.out"},2.55).fromTo(Q,{opacity:0,y:8},{opacity:1,y:0,duration:.6,ease:"power3.out"},2.7).to([G,$,ee,Q],{y:-18,opacity:0,duration:.45,ease:"power2.in",stagger:.05},3.9).to(Z,{tilt:72,scale:2.6,y:-60,alpha:0,duration:1,ease:"power3.in"},3.95).to(k,{clipPath:"inset(0 0 100% 0)",duration:.75,ease:"power3.inOut"},4.5),ne.timeScale(1.35),document.getElementById("introSkip").addEventListener("click",(function(){ne.progress(1)}))}
+for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=Math.min(1,2.2*c);s.sh.style.opacity=.9*c;s.sh.style.transform="scale("+(.4+.6*c)+")"}}J(),k.hidden=!1,e.style.overflow="hidden";var G=k.querySelector(".intro-logo"),$=k.querySelector(".intro-name"),Q=k.querySelector(".intro-tag"),ee=k.querySelector(".intro-rule"),te=!1;gsap.ticker.add(J);var ne=gsap.timeline({onComplete:function(){te||(te=!0,gsap.ticker.remove(J),window.removeEventListener("resize",K),k.hidden=!0,e.style.overflow="",e.classList.remove("intro-on"))}});ne.to(Z,{alpha:1,scale:.9,y:0,duration:.9,ease:"power3.out"},0).from(O,{scale:0,rotate:90,duration:.5,ease:"back.out(2)",stagger:{grid:[8,8],from:56,amount:.7}},.05).to(Z,{spin:0,scale:1,duration:.9,ease:"power3.out"},.7).to(Z,{tilt:56,duration:1,ease:"power3.inOut"},.7).to(F,{k:1,duration:.6,ease:"power2.out"},1.8).fromTo(A,{xPercent:-120},{xPercent:120,duration:1.1,ease:"power2.inOut"},2.2).fromTo($,{clipPath:"inset(0 100% 0 0)",letterSpacing:".3em",y:10},{clipPath:"inset(0 0% 0 0)",letterSpacing:"0em",y:0,duration:1.1,ease:"power3.out"},2.1).fromTo($,{backgroundPosition:"100% 0"},{backgroundPosition:"0% 0",duration:2,ease:"power1.inOut"},2.1).fromTo(G,{scale:0,rotate:-25,opacity:0},{scale:1,rotate:0,opacity:1,duration:.8,ease:"back.out(1.8)"},1.95).fromTo(ee,{scaleX:0},{scaleX:1,duration:.8,ease:"expo.out"},2.55).fromTo(Q,{opacity:0,y:8},{opacity:1,y:0,duration:.6,ease:"power3.out"},2.7).to(k.querySelector(".intro-title"),{scale:1.7,opacity:0,duration:.9,ease:"power2.in"},3.85).to(Z,{alpha:0,duration:.8,ease:"power2.in"},3.95).to(k,{clipPath:"inset(0 0 100% 0)",duration:.75,ease:"power3.inOut"},4.5),ne.timeScale(1.35),document.getElementById("introSkip").addEventListener("click",(function(){ne.progress(1)}))}
 })();
 </script>
 
@@ -428,7 +434,7 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
 .op-static{height:auto!important}
 .op-static .op-stage{position:relative;height:auto;display:block;padding-top:calc(var(--nav-h,64px) + 90px)}
 .op-static .tz-head{position:static;translate:none;margin-bottom:28px}
-@media (max-width:860px){.op-in{grid-template-columns:1fr;gap:10px;align-content:center}.op-right{order:1}.op-left{order:2}.op-card{max-width:none;padding:12px 14px}.op-pl{font-size:1rem;margin-bottom:8px}.op-now{min-height:2.6em;padding-top:8px}.op-bar{margin:8px 0 10px}.op-ctl button{padding:7px 11px;font-size:.68rem}}
+@media (max-width:860px){.op-in{grid-template-columns:1fr;gap:22px;align-content:center}.op-right{order:1}.op-left{order:2}.op-card{max-width:none;padding:12px 14px}.op-pl{font-size:1rem;margin-bottom:8px}.op-now{min-height:2.6em;padding-top:8px}.op-bar{margin:8px 0 10px}.op-ctl button{padding:7px 11px;font-size:.68rem}}
 .op-right{position:relative}
 .op-wrap{perspective:2400px;width:100%;max-width:660px;margin:0 auto;display:flex;justify-content:center;align-items:flex-start}
 .op-board{position:relative;transform-style:preserve-3d;transform:rotateX(42deg);transform-origin:50% 40%;background:#6e4630;box-shadow:0 0 0 clamp(6px,1.2vw,12px) #3a2414,0 0 0 clamp(8px,1.5vw,15px) #d3a24a,0 40px 60px rgba(0,0,0,.6);--q:60px}
@@ -709,6 +715,7 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
       <p class="side">Les quatre films du club, collés sur une colonne Morris de Paris. Faites défiler la page : la colonne pivote et dévoile les affiches.</p>
       <p class="mo-help">↓ Défilez · cliquez sur une affiche pour voir le film</p>
     </div>
+    <div class="mo-fbox">
     <div class="mo-frame">
       <img id="moBG" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" data-src="assets/img/morris2-base.webp?v=2" width="1344" height="1792" alt="Colonne Morris couverte des affiches des quatre films du club, sur un trottoir de Paris, sous les platanes, dans la lumière du soir" decoding="async" draggable="false">
       <canvas id="moA" width="1344" height="1792" aria-hidden="true"></canvas>
@@ -719,6 +726,7 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.6L12 18.5v-13L7.6 9.5H4z" fill="currentColor" stroke="none"/><path class="w" d="M15.2 9a4.2 4.2 0 0 1 0 6M17.6 6.6a7.6 7.6 0 0 1 0 10.8"/><path class="x" d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg>
         <span id="moSndT">Ambiance</span>
       </button>
+    </div>
     </div>
     <ul class="mo-sr">
       <li><a href="Tableautempeteavecmusique.html">Tempête sur l'échiquier</a></li>
@@ -778,7 +786,7 @@ s.hidden=!1}();</script>
 <!-- L'agenda (à modifier dans agenda.txt), puis le script commun -->
 <script src="agenda.txt"></script>
 <script src="assets/js/site.js?v=7"></script>
-<script src="assets/js/opera.js?v=4"></script>
+<script src="assets/js/opera.js?v=5"></script>
 <script src="assets/js/colonne.js?v=14"></script>
 <script>
 /* Hauteur du menu : la réglette se fige juste en dessous */

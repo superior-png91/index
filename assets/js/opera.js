@@ -5,7 +5,8 @@ var root=document.getElementById("ouverture");if(!root||!root.classList.contains
 var head=document.getElementById("head3d"),layer=document.getElementById("opIn"),stage=root.querySelector(".op-stage"),board=document.getElementById("opBoard"),wrap=document.getElementById("opWrap"),mvEl=document.getElementById("opMove"),noteEl=document.getElementById("opNote"),
     bPlay=document.getElementById("opPlay"),bNext=document.getElementById("opNext"),bRe=document.getElementById("opRe"),bSp=document.getElementById("opSpeed"),bar=document.getElementById("opBar");
 var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
-var GL={K:"♚",Q:"♛",R:"♜",B:"♝",N:"♞",P:"♟︎"};
+/* pièces dessinées (mêmes dessins que l'introduction) : centrées pareil sur tous les appareils, contrairement aux caractères ♚♛ dont la position varie selon la police du téléphone */
+var GL={K:"roi",Q:"dame",R:"tour",B:"sym-fou",N:"cavalier",P:"pion"};
 /* coup = [départ, arrivée, notation, commentaire, (départ2, arrivée2 : tour du roque)] */
 var M=[
 ["e2","e4","1. e4","Morphy ouvre en prenant le centre."],
@@ -47,7 +48,7 @@ function key(c,r){return c+","+r}
 function place(p,c,r){p.c=c;p.r=r;p.el.style.transform="translate3d("+(c*q)+"px,"+((7-r)*q)+"px,0)"}
 function build(){
  board.querySelectorAll(".pc").forEach(function(e){e.remove()});pcs=[];map={};
- function add(t,col,c,r){var e=document.createElement("div");e.className="pc "+(col=="w"?"w":"b");e.innerHTML='<i class="sh"></i><b class="g" aria-hidden="true">'+GL[t]+'</b>';board.appendChild(e);var p={el:e,t:t,col:col,c:c,r:r};place(p,c,r);pcs.push(p);map[key(c,r)]=p}
+ function add(t,col,c,r){var e=document.createElement("div");e.className="pc "+(col=="w"?"w":"b");e.innerHTML='<i class="sh"></i><b class="g" aria-hidden="true"><svg viewBox="0 0 100 140" focusable="false"><use href="#'+GL[t]+'"/></svg></b>';board.appendChild(e);var p={el:e,t:t,col:col,c:c,r:r};place(p,c,r);pcs.push(p);map[key(c,r)]=p}
  for(var c=0;c<8;c++){add(START[c],"w",c,0);add("P","w",c,1);add("P","b",c,6);add(START[c],"b",c,7)}
  ply=0;mark([]);status("","Faites défiler la page pour jouer la partie ↓",true);prog()}
 function mark(l){lastSq.forEach(function(e){e.classList.remove("last","chk")});lastSq=[];l.forEach(function(s){var e=board.querySelector('.sq[data-s="'+s+'"]');if(e){e.classList.add("last");lastSq.push(e)}})}
@@ -83,10 +84,11 @@ function cl(x){return x<0?0:x>1?1:x}
 var began=false,target=0,pt=0;
 function replay(n){build();for(var i=0;i<n;i++)move(M[i])}
 function pump(){clearTimeout(pt);if(target>ply){move(M[ply])}else if(target<ply){replay(Math.max(target,ply-1>target?target:target))}if(ply!=target)pt=setTimeout(pump,Math.abs(target-ply)>3?160:420)}
+/* seul le titre zoome ; l'échiquier, à peine voilé sous le titre, s'éclaire ; la carte (et « Qui était Paul Morphy ? ») reste visible et cliquable */
+var board2=root.querySelector(".op-right");
 function onScroll(){var r=root.getBoundingClientRect(),run=r.height-innerHeight,p=run>0?cl(-r.top/run):1,k=cl(p/.16);k=k*k*(3-2*k);
  head.style.opacity=(1-k).toFixed(3);head.style.transform="translateY("+(-60*k)+"px) scale("+(1+.32*k).toFixed(3)+")";
- layer.style.opacity=(.18+.82*k).toFixed(3);layer.style.transform="scale("+(.95+.05*k).toFixed(3)+")";
- layer.style.pointerEvents=k>.5?"auto":"none";
+ board2.style.opacity=(.35+.65*k).toFixed(3);
  target=Math.round(cl((p-.2)/.74)*M.length);if(target!=ply)pump()}
 if(reduce){root.classList.add("op-static");playing=false;bPlay.textContent="Lecture"}
 else{addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);onScroll()}
