@@ -435,6 +435,20 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
 .op-static .op-stage{position:relative;height:auto;display:block;padding-top:calc(var(--nav-h,64px) + 90px)}
 .op-static .tz-head{position:static;translate:none;margin-bottom:28px}
 @media (max-width:860px){.op-in{grid-template-columns:1fr;gap:22px;align-content:center}.op-right{order:1}.op-left{order:2}.op-card{max-width:none;padding:12px 14px}.op-pl{font-size:1rem;margin-bottom:8px}.op-now{min-height:2.6em;padding-top:8px}.op-bar{margin:8px 0 10px}.op-ctl button{padding:7px 11px;font-size:.68rem}}
+
+/* paysage (téléphones et tablettes couchés) : carte à gauche, échiquier à droite, le tout tenant dans la hauteur visible */
+@media (orientation:landscape) and (max-height:900px) and (max-width:1300px){
+ .op-stage{padding:calc(var(--nav-h,64px) + 46px) clamp(14px,3vw,40px) 12px}
+ .op-in{grid-template-columns:minmax(0,1fr) auto;gap:clamp(14px,3vw,36px);align-content:center}
+ .op-right{order:2}.op-left{order:1}
+ .op-wrap{width:auto;margin:0}
+ .op-card{max-width:none;padding:10px 14px}
+ .op-k{font-size:.6rem;margin-bottom:4px}.op-pl{font-size:clamp(.85rem,3.4vh,1.05rem);margin-bottom:6px}
+ .op-now{min-height:2.4em;padding-top:6px}.op-now b{font-size:.95rem}.op-now span{font-size:.82rem;line-height:1.3}
+ .op-bar{margin:6px 0 8px}.op-ctl{gap:6px}.op-ctl button{padding:6px 10px;font-size:.62rem}
+ .op-bio{margin-top:8px;font-size:.62rem}
+ .op-eyebrow{padding-right:210px}
+}
 .op-right{position:relative}
 .op-wrap{perspective:2400px;width:100%;max-width:660px;margin:0 auto;display:flex;justify-content:center;align-items:flex-start}
 .op-board{position:relative;transform-style:preserve-3d;transform:rotateX(42deg);transform-origin:50% 40%;background:#6e4630;box-shadow:0 0 0 clamp(6px,1.2vw,12px) #3a2414,0 0 0 clamp(8px,1.5vw,15px) #d3a24a,0 40px 60px rgba(0,0,0,.6);--q:60px}
@@ -786,7 +800,7 @@ s.hidden=!1}();</script>
 <!-- L'agenda (à modifier dans agenda.txt), puis le script commun -->
 <script src="agenda.txt"></script>
 <script src="assets/js/site.js?v=7"></script>
-<script src="assets/js/opera.js?v=5"></script>
+<script src="assets/js/opera.js?v=6"></script>
 <script src="assets/js/colonne.js?v=14"></script>
 <script>
 /* Hauteur du menu : la réglette se fige juste en dessous */
