@@ -177,7 +177,7 @@ function initAudio(){
   master=AC.createGain();master.gain.value=0;master.connect(AC.destination);return true}
 function loadBuf(cb){
   if(buf){cb();return}if(loading)return;loading=true;
-  fetch("assets/audio/ambiance-rue.mp3?v=1").then(function(r){return r.arrayBuffer()}).then(function(ab){
+  fetch("assets/audio/ambiance-rue.mp3?v=2").then(function(r){return r.arrayBuffer()}).then(function(ab){
     return new Promise(function(ok,ko){AC.decodeAudioData(ab,ok,ko)})}).then(function(d){buf=d;loading=false;cb()}).catch(function(){loading=false})}
 function play(){
   if(srcNode||!buf)return;srcNode=AC.createBufferSource();srcNode.buffer=buf;srcNode.loop=true;
