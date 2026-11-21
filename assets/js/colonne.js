@@ -231,6 +231,7 @@ function setHot(h){
   var f=h?ORDER[h[0]][h[1]]:-1;
   frm.style.cursor=h?"pointer":"";lab.textContent=h?FILMS[f].t:""}
 frm.addEventListener("pointermove",function(e){lastPtr={clientX:e.clientX,clientY:e.clientY};setHot(hit(e))});
+frm.addEventListener("contextmenu",function(e){e.preventDefault()});   /* appui long sur téléphone */
 frm.addEventListener("pointerleave",function(){lastPtr=null;setHot(null)});
 frm.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".mo-snd"))return;var h=hit(e);if(h)location.href=FILMS[ORDER[h[0]][h[1]]].h});
 if(/[?&]debug/.test(location.search))window.__mo={get ac(){return AC},get on(){return on},walkers:walkers,birds:birds,spawnBirds:spawnBirds,spawnWalker:spawnWalker,startAudio:startAudio,get master(){return master}};

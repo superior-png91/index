@@ -13,7 +13,8 @@
 #moA{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 #moO{position:absolute;left:0;top:49.1071%;width:100%;height:16.7411%;pointer-events:none;user-select:none;-webkit-user-drag:none}
 #moC{position:absolute;left:28.4970%;top:31.3058%;width:29.7619%;height:38.0022%;pointer-events:none}
-.mo-frame{touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.mo-frame{touch-action:pan-y;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+#moBG,#moO,#moA,#moC{pointer-events:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}   /* appui long : pas de menu « enregistrer / ouvrir l'image » */
 .mo-snd{position:absolute;top:12px;right:12px;z-index:3;display:flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 11px;border-radius:999px;border:1px solid rgba(215,170,90,.55);background:rgba(18,13,10,.72);color:var(--or-pale);font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .mo-snd:hover,.mo-snd:focus-visible{background:rgba(40,28,18,.9);color:var(--ivoire)}
 .mo-snd svg{width:20px;height:20px;flex:none}
