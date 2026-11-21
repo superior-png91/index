@@ -162,6 +162,20 @@
 .affiche-zoom button{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid var(--or);background:rgba(18,13,10,.7);color:var(--or-pale);font-size:1.2rem;cursor:pointer}
 .affiche-zoom button:hover,.affiche-zoom button:focus-visible{background:var(--ivoire);color:var(--ebene)}
 @media (prefers-reduced-motion:reduce){.affiche-zoom,.affiche-zoom img,.zoom-fig{transition:none}}
+.op-bio{display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:8px 0 4px;background:none;border:0;border-bottom:1px solid color-mix(in srgb,var(--or) 55%,transparent);font:600 .74rem var(--mono,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--or-pale);cursor:pointer}
+.op-bio:hover,.op-bio:focus-visible{color:var(--ivoire);border-bottom-color:var(--ivoire)}
+.morphy-pop{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:clamp(12px,3vw,40px);background:rgba(10,7,5,.9);backdrop-filter:blur(6px);opacity:0;transition:opacity .3s}
+.morphy-pop[hidden]{display:none}
+.morphy-pop.on{opacity:1}
+.morphy-box{position:relative;width:min(100%,42rem);max-height:min(88vh,88dvh);overflow:auto;overscroll-behavior:contain;border:1px solid color-mix(in srgb,var(--or) 45%,transparent);border-radius:14px;padding:clamp(22px,4vw,40px);background:#1a110b;box-shadow:0 30px 80px rgba(0,0,0,.8),0 0 80px -10px rgba(255,140,40,.3);transform:translateY(10px);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.morphy-pop.on .morphy-box{transform:none}
+.morphy-box .op-k{margin-bottom:10px}
+.morphy-box h2{margin:0 0 clamp(14px,2.4vw,22px);font-family:var(--display,Georgia,serif);font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.05;color:var(--ivoire)}
+.morphy-box p{margin:0 0 .9em;color:var(--erable,#ead7b1);font-size:clamp(.96rem,1.5vw,1.06rem);line-height:1.62}
+.morphy-box p:last-child{margin-bottom:0}
+.morphy-pop>button{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid var(--or);background:rgba(18,13,10,.7);color:var(--or-pale);font-size:1.2rem;cursor:pointer}
+.morphy-pop>button:hover,.morphy-pop>button:focus-visible{background:var(--ivoire);color:var(--ebene)}
+@media (prefers-reduced-motion:reduce){.morphy-pop,.morphy-box{transition:none}}
 @media (prefers-reduced-motion:reduce){.affiche,.affiche:hover{transform:none;transition:none}}
 
 /* ---------- ACTUALITÉ : l'assemblée générale ---------- */
@@ -449,6 +463,7 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
             <div class="op-now" aria-live="polite"><b id="opMove"></b><span id="opNote"></span></div>
             <div class="op-bar" aria-hidden="true"><i id="opBar"></i></div>
             <div class="op-ctl"><button type="button" id="opPlay">Lecture</button><button type="button" id="opNext" aria-label="Coup suivant">Coup suivant ›</button><button type="button" id="opRe">Recommencer</button><button type="button" id="opSpeed" aria-pressed="false" aria-label="Vitesse de la partie">×1</button></div>
+            <button type="button" class="op-bio" id="opBio" aria-haspopup="dialog">Qui était Paul Morphy ? →</button>
           </div>
         </div>
         <div class="op-right"><div class="op-wrap" id="opWrap"><div class="op-board" id="opBoard"></div></div></div>
@@ -892,5 +907,23 @@ s.hidden=!1}();</script>
 function o(e){e.preventDefault();r=document.activeElement;var im=e.currentTarget.querySelector("img"),zi=z.querySelector("img");zi.src=e.currentTarget.getAttribute("href");if(im)zi.alt=im.alt;var zr=z.querySelector(".radio-hot");if(zr)zr.hidden=!e.currentTarget.hasAttribute("data-radio");z.hidden=!1;document.documentElement.style.overflow="hidden";requestAnimationFrame(function(){z.classList.add("on")});z.querySelector("button").focus()}
 function f(){z.classList.remove("on");document.documentElement.style.overflow="";setTimeout(function(){z.hidden=!0},250);r&&r.focus&&r.focus()}
 as.forEach(function(a){a.addEventListener("click",o)});z.addEventListener("click",f);var zq=z.querySelector(".radio-hot");if(zq)zq.addEventListener("click",function(e){e.stopPropagation()});document.addEventListener("keydown",function(e){"Escape"!==e.key||z.hidden||f()})}();</script>
+
+<!-- Biographie de Paul Morphy (ouverte depuis la carte « La partie de l'Opéra ») -->
+<div class="morphy-pop" id="morphyPop" role="dialog" aria-modal="true" aria-labelledby="morphyT" hidden>
+  <div class="morphy-box" tabindex="-1">
+    <p class="op-k">Le joueur de la partie de l'Opéra</p>
+    <h2 id="morphyT">Paul Charles Morphy</h2>
+    <p>Paul Charles Morphy apprit les règles du jeu vers l'âge de 8 à 10 ans, en observant son père (Alonzo) et son oncle (Ernest) jouer. À douze ans, il battit le maître hongrois Johann Löwenthal, en tournée à La Nouvelle-Orléans, lors de trois parties consécutives. Le prodige américain était né, et son génie allait briller comme une météorite.</p>
+    <p>En 1858-1859, il entreprit la tournée européenne qui le consacra. Il affronta et battit tous les maîtres du continent, y compris Adolf Anderssen — considéré alors comme le meilleur joueur du monde — au cours d'un match expéditif (7 victoires, 2 défaites, 2 nulles).</p>
+    <p>À Paris, il affronta le duc de Brunswick et le comte Isouard pendant une représentation de Norma de Bellini (les journaux de l'époque indiquent qu'il s'agissait plus probablement d'une représentation du Barbier de Séville de Rossini) au théâtre de l'Opéra (qui se situait alors à la Salle Le Peletier, le Palais Garnier n'étant pas encore construit). Cette partie de l'Opéra (1858) reste l'une des plus célèbres de l'histoire : sacrifice royal en 17 coups, d'une beauté cristalline. Morphy, grand mélomane, était d'ailleurs assez frustré de devoir jouer dos à la scène alors qu'il aurait préféré regarder le spectacle !</p>
+    <p>À 22 ans, au sommet absolu de sa gloire, il se retire du jeu. Avocat de formation, il tente d'ouvrir un cabinet à La Nouvelle-Orléans — sans succès. La légende le veut errant dans les rues, parlant tout seul. Mort en 1884 d'une attaque vasculaire, à 47 ans.</p>
+  </div>
+  <button type="button" aria-label="Fermer">✕</button>
+</div>
+<script>!function(){var p=document.getElementById("morphyPop"),b=document.getElementById("opBio"),r=null;if(!p||!b)return;
+function o(){r=document.activeElement;p.hidden=!1;document.documentElement.style.overflow="hidden";requestAnimationFrame(function(){p.classList.add("on")});p.querySelector("button").focus()}
+function f(){p.classList.remove("on");document.documentElement.style.overflow="";setTimeout(function(){p.hidden=!0},250);r&&r.focus&&r.focus()}
+b.addEventListener("click",o);p.addEventListener("click",function(e){e.target.closest(".morphy-box")||f()});p.querySelector("button").addEventListener("click",f);
+document.addEventListener("keydown",function(e){"Escape"!==e.key||p.hidden||f()})}();</script>
 </body>
 </html>
