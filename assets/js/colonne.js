@@ -8,11 +8,11 @@ var FILMS=[
  {t:"Au fil des saisons",p:"assets/img/saisons-poster.webp",h:"Tableausaisonsavecmusique.html"},
  {t:"La 64ᵉ Dimension",p:"assets/img/machine-poster.webp",h:"Machinedutemps.html"}];
 /* géométrie du fût dans la photo (pixels de l'image 1344×1792) */
-var W=1344,HI=1792,CX=665,R=200,T0=578,TS=32,B0=1540,BS=12,RX0=440,RY0=540,RW=450,RH=1040,
-    CL=464,CT=578,CW=404,CH=968,
-    C=2*Math.PI*R,H=B0-T0,N=FILMS.length,NS=2,NR=3,SLOT=C/NS,PH=292.5,ROWS=[21,334.5,648],TURNS=1.25,
-    ORDER=[[0,1],[2,3],[3,0]],ROWOFF=[0,SLOT/2,0],
-    HZ=1370,CAMH=.5;               /* horizon et hauteur d'œil (en mètres) pour poser les passants */
+var W=1344,HI=1792,CX=583,R=200,T0=563,TS=8,B0=1240,BS=8,RX0=CX-R-10,RY0=T0-2,RW=2*R+20,RH=(B0-T0)+4,
+    CL=CX-R,CT=T0-2,CW=2*R,CH=(B0-T0)+4,
+    C=2*Math.PI*R,H=B0-T0,N=FILMS.length,NS=2,NR=2,SLOT=C/NS,PH=320,ROWS=[12,345],TURNS=1.25,
+    ORDER=[[0,1],[2,3]],ROWOFF=[0,SLOT/2],
+    HZ=989,CAMH=1.25;               /* horizon et hauteur d'œil (en mètres) pour poser les passants */
 var frm=document.querySelector(".mo-frame"),bg=$("moBG"),cv=$("moC"),cx=cv.getContext("2d"),am=$("moA"),ax=am.getContext("2d"),
     lab=$("moLab"),sec=$("morris"),btn=$("moSnd"),btnT=$("moSndT");
 var shade=new Image(),spec=new Image(),posters=[],ld=0,need=3+N,strip,P,S,pctx,sctx,rot=0,dirtyC=true,vis=true;
@@ -25,7 +25,7 @@ function done(){if(++ld<need)return;build();dirtyC=true;requestAnimationFrame(fr
 var begun=false;
 function begin(){   /* les images ne se chargent que lorsqu'on approche de la section */
   if(begun)return;begun=true;
-  shade.onload=spec.onload=done;shade.src="assets/img/morris-shade.webp?v=2";spec.src="assets/img/morris-spec.webp";
+  shade.onload=spec.onload=done;shade.src="assets/img/morris2-shade.webp?v=3";spec.src="assets/img/morris2-spec.webp?v=3";
   FILMS.forEach(function(f,i){var im=new Image();im.onload=done;im.src=f.p;posters[i]=im});
   bg.addEventListener("load",done,{once:true});bg.src=bg.getAttribute("data-src")}
 if("IntersectionObserver" in window)new IntersectionObserver(function(e,o){if(e[0].isIntersecting){begin();o.disconnect()}},{rootMargin:"900px 0px"}).observe(sec);else begin();
@@ -34,7 +34,7 @@ function mk(w,h){var c=document.createElement("canvas");c.width=w;c.height=h;ret
 /* ───────── les affiches, en bande à plat puis plaquées sur le cylindre ───────── */
 var hl=null,lastPtr=null,FILT=(function(){try{var c=document.createElement('canvas').getContext('2d');return typeof c.filter==='string'}catch(e){return false}})();   /* affiche survolée : [rangée, position] */
 function drawStrip(){
-  var SW=Math.ceil(C)+24,g=strip.getContext("2d");g.clearRect(0,0,SW,H);g.imageSmoothingQuality="high";
+  var SW=Math.ceil(C)+24,g=strip.getContext("2d");g.clearRect(0,0,SW,H);g.fillStyle="#2a2018";g.fillRect(0,0,SW,H);g.imageSmoothingQuality="high";   /* fond de panneau : cache l'affiche d'origine entre les nôtres */
   for(var r=0;r<NR;r++)for(var i=0;i<NS;i++){
     var f=ORDER[r][i],im=posters[f],w=PH*im.width/im.height,x=i*SLOT+(SLOT-w)/2+ROWOFF[r],y=ROWS[r],on=hl&&hl[0]===r&&hl[1]===i;
     for(var k=-1;k<=1;k++){var xx=x+k*C;if(xx>SW||xx+w<0)continue;
@@ -74,7 +74,7 @@ function drawColumn(){
 var INK="#140e09";
 var walkers=[],birds=[],tW=0,tB=0,lastT=0;
 function spawnWalker(dir,x,s,sp){
-  var k=Math.random(),dress=Math.random()<.38,o={dir:dir,s:s||rnd(68,100),x:x!=null?x:(dir>0?-110:W+110),ph:rnd(0,6.28),hh:rnd(1.62,1.84),
+  var k=Math.random(),dress=Math.random()<.38,o={dir:dir,s:s||rnd(46,66),x:x!=null?x:(dir>0?-110:W+110),ph:rnd(0,6.28),hh:rnd(1.62,1.84),
     dress:dress,hat:dress?pick(["none","beret","bun","none"]):pick(["top","cap","none","none","beret"]),
     item:dress?pick(["umbrella","bag","none","bag"]):pick(["cane","bag","umbrella","none","none"]),dog:Math.random()<.22};
   o.sp=sp||rnd(1.05,1.4)*o.s;walkers.push(o);return o}
