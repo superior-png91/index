@@ -25,20 +25,22 @@ function done(){if(++ld<need)return;build();dirtyC=true;requestAnimationFrame(fr
 var begun=false;
 function begin(){   /* les images ne se chargent que lorsqu'on approche de la section */
   if(begun)return;begun=true;
-  shade.onload=spec.onload=done;shade.src="assets/img/morris-shade.webp";spec.src="assets/img/morris-spec.webp";
+  shade.onload=spec.onload=done;shade.src="assets/img/morris-shade.webp?v=2";spec.src="assets/img/morris-spec.webp";
   FILMS.forEach(function(f,i){var im=new Image();im.onload=done;im.src=f.p;posters[i]=im});
   bg.addEventListener("load",done,{once:true});bg.src=bg.getAttribute("data-src")}
 if("IntersectionObserver" in window)new IntersectionObserver(function(e,o){if(e[0].isIntersecting){begin();o.disconnect()}},{rootMargin:"900px 0px"}).observe(sec);else begin();
 function mk(w,h){var c=document.createElement("canvas");c.width=w;c.height=h;return c}
 
 /* ───────── les affiches, en bande à plat puis plaquées sur le cylindre ───────── */
-var hl=null,lastPtr=null;   /* affiche survolée : [rangée, position] */
+var hl=null,lastPtr=null,FILT=(function(){try{var c=document.createElement('canvas').getContext('2d');return typeof c.filter==='string'}catch(e){return false}})();   /* affiche survolée : [rangée, position] */
 function drawStrip(){
   var SW=Math.ceil(C)+24,g=strip.getContext("2d");g.clearRect(0,0,SW,H);g.imageSmoothingQuality="high";
   for(var r=0;r<NR;r++)for(var i=0;i<NS;i++){
     var f=ORDER[r][i],im=posters[f],w=PH*im.width/im.height,x=i*SLOT+(SLOT-w)/2+ROWOFF[r],y=ROWS[r],on=hl&&hl[0]===r&&hl[1]===i;
     for(var k=-1;k<=1;k++){var xx=x+k*C;if(xx>SW||xx+w<0)continue;
-      g.globalAlpha=1;g.globalCompositeOperation="source-over";g.drawImage(im,xx,y,w,PH);
+      g.globalAlpha=1;g.globalCompositeOperation="source-over";
+      if(FILT){g.filter="brightness(1.22) contrast(1.14) saturate(1.12)";g.drawImage(im,xx,y,w,PH);g.filter="none"}
+      else{g.drawImage(im,xx,y,w,PH);g.globalCompositeOperation="lighter";g.globalAlpha=.2;g.drawImage(im,xx,y,w,PH);g.globalAlpha=1;g.globalCompositeOperation="source-over"}
       if(on){
         g.globalCompositeOperation="lighter";g.globalAlpha=.5;g.drawImage(im,xx,y,w,PH);g.globalAlpha=.22;g.drawImage(im,xx,y,w,PH);   /* plus lumineuse, plus vive */
         g.globalCompositeOperation="source-over";g.globalAlpha=1;
