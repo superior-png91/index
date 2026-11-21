@@ -41,3 +41,17 @@
   .mo-help{margin-top:clamp(6px,1.2vh,12px);font-size:.66rem;letter-spacing:.12em}
   .mo-fbox{flex:1 1 auto;min-height:0;width:100%;height:auto}
 }
+
+/* paysage court (téléphone couché) : texte compact à gauche, colonne agrandie (recadrée sur la rue, sans le ciel ni le trottoir) */
+@media (orientation:landscape) and (max-height:600px){
+ .mo-stick{--av:calc(100svh - var(--nav-h,64px) - 24px);--fw:min(calc(var(--av) / 1.187),46vw);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(14px,3vw,36px);padding-top:calc(var(--nav-h,64px) + 8px);padding-bottom:12px}
+ .mo-txt{max-width:none}
+ .mo-txt .eyebrow{margin-bottom:6px;font-size:.6rem}
+ .mo-txt h2{font-size:clamp(1.4rem,7vh,2.4rem)}
+ .mo-txt p.side{margin-top:8px;font-size:clamp(.78rem,3.6vh,.98rem);line-height:1.4}
+ .mo-help{margin-top:8px;font-size:.58rem}
+ .mo-fbox{container-type:normal;position:relative;overflow:hidden;border-radius:10px;width:var(--fw);height:calc(var(--fw) * 1.187);box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(215,170,90,.25)}
+ .mo-frame{position:absolute;left:0;top:calc(var(--fw) * -.0533);width:var(--fw);border-radius:0;box-shadow:none}
+ .mo-snd{top:calc(4% + 8px);right:8px;height:34px}
+ .mo-lab{bottom:calc(7% + 3%)}
+}

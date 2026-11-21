@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&family=Noto+Sans+Symbols+2&family=Big+Shoulders+Display:wght@800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/site.css?v=4">
 <link rel="stylesheet" href="assets/css/entete.css">
-<link rel="stylesheet" href="assets/css/colonne.css?v=7">
+<link rel="stylesheet" href="assets/css/colonne.css?v=10">
 <style>
 /* ---------- a1 · OUVERTURE : les trois films du club, en trapèze ----------
    Trois petites fenêtres muettes : celle du milieu de face, les deux autres inclinées.
@@ -247,6 +247,15 @@
 #dates .tk span{font-family:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;font-style:normal;font-weight:800;text-transform:uppercase;letter-spacing:0;color:var(--band-ink);font-size:clamp(1.7rem,3.4vw,2.9rem);line-height:1}
 #dates .tk.off span{color:rgba(11,10,8,.5)}
 #dates .tk-sep{color:var(--band-ink);font-size:1.2rem}
+
+/* bandeau plus bas : logo et dates réduits dans le sens de la hauteur */
+#dates{padding-block:clamp(6px,.9vw,10px) clamp(8px,1vw,12px)}
+#dates .top-row{margin-bottom:4px}
+#dates .top-row a.relais img{width:64px;height:64px;border-radius:11px}
+#dates .top-left{gap:12px}
+#dates .eyebrow{margin:0}
+#dates .ticker{padding-block:4px}
+#dates .tk span{font-size:clamp(1.35rem,2.6vw,2.15rem)}
 
 /* ---------- la réglette des dates : bandeau figé au milieu de l'écran, dates pilotées par la molette ---------- */
 .dates-pin{position:relative;background:var(--acajou)}
