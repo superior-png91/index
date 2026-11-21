@@ -32,8 +32,21 @@ if("IntersectionObserver" in window)new IntersectionObserver(function(e,o){if(e[
 function mk(w,h){var c=document.createElement("canvas");c.width=w;c.height=h;return c}
 
 /* ───────── les affiches, en bande à plat puis plaquées sur le cylindre ───────── */
-var hl=null,lastPtr=null,FILT=(function(){try{var c=document.createElement('canvas').getContext('2d');return typeof c.filter==='string'}catch(e){return false}})();   /* affiche survolée : [rangée, position] */
+var dirtyS=false,hl=null,lastPtr=null,FILT=(function(){try{var c=document.createElement('canvas').getContext('2d');return typeof c.filter==='string'}catch(e){return false}})();   /* affiche survolée : [rangée, position] */
+/* titre du film, écrit sur l'affiche survolée : il est dans la bande à plat, donc il épouse la courbure du cylindre et tourne avec l'affiche */
+function caption(g,t,xx,y,w){
+  var fam='"Bodoni Moda",Georgia,serif',sz=36,bh=74,cxm=xx+w/2,by=y+PH-bh;
+  g.save();
+  var gr=g.createLinearGradient(0,by-18,0,y+PH);gr.addColorStop(0,"rgba(14,9,5,0)");gr.addColorStop(.45,"rgba(14,9,5,.78)");gr.addColorStop(1,"rgba(14,9,5,.9)");
+  g.fillStyle=gr;g.fillRect(xx+2,by-18,w-4,bh+16);
+  g.font="italic 600 "+sz+"px "+fam;while(sz>16&&g.measureText(t).width>w-64){sz-=2;g.font="italic 600 "+sz+"px "+fam}
+  var tw=g.measureText(t).width,fs=((-rot)%C+C)%C,mid=xx+w/2;
+  while(fs-mid>C/2)fs-=C;while(mid-fs>C/2)fs+=C;
+  cxm=Math.min(Math.max(fs,xx+tw/2+30),xx+w-tw/2-30);   /* le titre suit la partie de l'affiche qui fait face */
+  g.textAlign="center";g.textBaseline="middle";g.shadowColor="rgba(0,0,0,.9)";g.shadowBlur=8;g.fillStyle="#ffe8b0";g.fillText(t,cxm,y+PH-bh/2+2);
+  g.restore()}
 function drawStrip(){
+  if(!strip)return;
   var SW=Math.ceil(C)+24,g=strip.getContext("2d");g.clearRect(0,0,SW,H);g.fillStyle="#2a2018";g.fillRect(0,0,SW,H);g.imageSmoothingQuality="high";   /* fond de panneau : cache l'affiche d'origine entre les nôtres */
   for(var r=0;r<NR;r++)for(var i=0;i<NS;i++){
     var f=ORDER[r][i],im=posters[f],w=PH*im.width/im.height,x=i*SLOT+(SLOT-w)/2+ROWOFF[r],y=ROWS[r],on=hl&&hl[0]===r&&hl[1]===i;
@@ -45,7 +58,8 @@ function drawStrip(){
         g.globalCompositeOperation="lighter";g.globalAlpha=.5;g.drawImage(im,xx,y,w,PH);g.globalAlpha=.22;g.drawImage(im,xx,y,w,PH);   /* plus lumineuse, plus vive */
         g.globalCompositeOperation="source-over";g.globalAlpha=1;
         g.save();g.shadowColor="rgba(255,205,110,.95)";g.shadowBlur=16;g.strokeStyle="rgba(255,224,150,.98)";g.lineWidth=4;g.strokeRect(xx+2,y+2,w-4,PH-4);g.restore();
-        g.strokeStyle="rgba(255,244,214,.9)";g.lineWidth=1.5;g.strokeRect(xx+4.5,y+4.5,w-9,PH-9)}
+        g.strokeStyle="rgba(255,244,214,.9)";g.lineWidth=1.5;g.strokeRect(xx+4.5,y+4.5,w-9,PH-9)
+        caption(g,FILMS[f].t,xx,y,w)}
       else{g.strokeStyle="rgba(10,8,6,.35)";g.lineWidth=1;g.strokeRect(xx+.5,y+.5,w-1,PH-1)}}}
   g.globalAlpha=1}
 function build(){
@@ -189,18 +203,20 @@ setBtn();arm();
 /* ───────── défilement, survol, clic ───────── */
 function onScroll(){
   var r=sec.getBoundingClientRect(),h=r.height-innerHeight,p=h>0?Math.min(1,Math.max(0,-r.top/h)):0;
-  var nr=p*C*TURNS;if(Math.abs(nr-rot)>.05){rot=nr;dirtyC=true;if(lastPtr)setHot(hit(lastPtr))}
+  var nr=p*C*TURNS;if(Math.abs(nr-rot)>.05){rot=nr;dirtyC=true;if(lastPtr)setHot(hit(lastPtr));if(hl)dirtyS=true}
   var v=r.bottom>0&&r.top<innerHeight;if(v!==vis){vis=v;applyGain()}
   if(!scrolled&&r.top<-20){scrolled=true;startAudio();if(!on)btn.classList.add("hint")}}
 addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);onScroll();
 function frame(ts){
   requestAnimationFrame(frame);
+  if(dirtyS&&vis){dirtyS=false;drawStrip()}
   if(dirtyC&&vis){dirtyC=false;drawColumn()}
   var dt=Math.min(.05,(ts-lastT)/1000||0);lastT=ts;
   if(reduce||!vis||document.hidden)return;
   if(!(window.__mo&&window.__mo.freeze))step(dt);drawAmbient()}
 if(!reduce)seed();
 function hit(ev){
+  if(!strip)return null;
   var b=frm.getBoundingClientRect(),X=(ev.clientX-b.left)*W/b.width,Y=(ev.clientY-b.top)*HI/b.height,u=(X-CX)/R;
   if(Math.abs(u)>=.985)return null;
   var t=top(u),bb=bot(u);if(Y<t||Y>bb)return null;
@@ -213,7 +229,7 @@ function setHot(h){
   var same=(!h&&!hl)||(h&&hl&&h[0]===hl[0]&&h[1]===hl[1]);if(same)return;
   hl=h;drawStrip();dirtyC=true;
   var f=h?ORDER[h[0]][h[1]]:-1;
-  frm.style.cursor=h?"pointer":"";lab.textContent=h?FILMS[f].t:"";lab.classList.toggle("on",!!h)}
+  frm.style.cursor=h?"pointer":"";lab.textContent=h?FILMS[f].t:""}
 frm.addEventListener("pointermove",function(e){lastPtr={clientX:e.clientX,clientY:e.clientY};setHot(hit(e))});
 frm.addEventListener("pointerleave",function(){lastPtr=null;setHot(null)});
 frm.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".mo-snd"))return;var h=hit(e);if(h)location.href=FILMS[ORDER[h[0]][h[1]]].h});
