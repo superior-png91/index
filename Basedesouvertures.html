@@ -53,6 +53,7 @@ body { background: var(--noyer); color: var(--ivoire); font-family: var(--body);
 h1, h2, h3 { font-family: var(--display); font-weight: 500; line-height: 1.08; text-wrap: balance; margin: 0; }
 p { margin: 0; }
 button { font: inherit; color: inherit; }
+button, a, select, input, label { touch-action: manipulation; }
 a { color: var(--or-pale); }
 :focus-visible { outline: 2px solid var(--or); outline-offset: 3px; }
 
@@ -181,7 +182,7 @@ td.c { text-align: center; font-family: var(--mono); }
 .q button.wrong { border-color: var(--err); color: var(--err); }
 
 /* Panneau échiquier */
-.panel { position: sticky; top: 22px; max-height: calc(100vh - 44px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; background: var(--ebene); border: 1px solid color-mix(in srgb, var(--or) 30%, transparent); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.panel { position: sticky; top: 22px; max-height: calc(100vh - 44px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-gutter: stable both-edges; background: var(--ebene); border: 1px solid color-mix(in srgb, var(--or) 30%, transparent); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
 .panel > * { flex-shrink: 0; }
 .panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .panel-title { font-family: var(--display); font-size: 22px; line-height: 1.15; }
