@@ -172,7 +172,11 @@
 .morphy-box .op-k{margin-bottom:10px}
 .morphy-box h2{margin:0 0 clamp(14px,2.4vw,22px);font-family:var(--display,Georgia,serif);font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.05;color:var(--ivoire)}
 .morphy-box p{margin:0 0 .9em;color:var(--erable,#ead7b1);font-size:clamp(.96rem,1.5vw,1.06rem);line-height:1.62}
+.morphy-box p:not(.op-k){text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
 .morphy-box p:last-child{margin-bottom:0}
+.morphy-fig{float:right;width:min(40%,250px);margin:2px 0 14px clamp(16px,3vw,28px)}
+.morphy-fig img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid color-mix(in srgb,var(--or) 40%,transparent);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+@media (max-width:560px){.morphy-fig{float:none;width:min(66%,240px);margin:0 auto 16px}}
 .morphy-pop>button{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid var(--or);background:rgba(18,13,10,.7);color:var(--or-pale);font-size:1.2rem;cursor:pointer}
 .morphy-pop>button:hover,.morphy-pop>button:focus-visible{background:var(--ivoire);color:var(--ebene)}
 @media (prefers-reduced-motion:reduce){.morphy-pop,.morphy-box{transition:none}}
@@ -946,6 +950,7 @@ as.forEach(function(a){a.addEventListener("click",o)});z.addEventListener("click
   <div class="morphy-box" tabindex="-1">
     <p class="op-k">Le joueur de la partie de l'Opéra</p>
     <h2 id="morphyT">Paul Charles Morphy</h2>
+    <figure class="morphy-fig"><img src="assets/img/morphy.webp?v=1" width="900" height="1205" alt="Portrait de Paul Morphy assis devant un échiquier, affiche des Fous d'Étréchy" loading="lazy" decoding="async"></figure>
     <p>Paul Charles Morphy apprit les règles du jeu vers l'âge de 8 à 10 ans, en observant son père (Alonzo) et son oncle (Ernest) jouer. À douze ans, il battit le maître hongrois Johann Löwenthal, en tournée à La Nouvelle-Orléans : il remporta deux des trois parties, la troisième étant nulle. Le prodige américain était né, et son génie allait briller comme une météorite.</p>
     <p>En 1858-1859, il entreprit la tournée européenne qui le consacra. Il affronta et battit tous les maîtres du continent, y compris Adolf Anderssen — considéré alors comme le meilleur joueur du monde — au cours d'un match expéditif (7 victoires, 2 défaites, 2 nulles).</p>
     <p>À Paris, il affronta le duc de Brunswick et le comte Isouard pendant une représentation de Norma de Bellini (les journaux de l'époque indiquent qu'il s'agissait plus probablement d'une représentation du Barbier de Séville de Rossini) au théâtre de l'Opéra (qui se situait alors à la Salle Le Peletier, le Palais Garnier n'étant pas encore construit). Cette partie de l'Opéra (1858) reste l'une des plus célèbres de l'histoire : sacrifice royal en 17 coups, d'une beauté cristalline. Morphy, grand mélomane, était d'ailleurs assez frustré de devoir jouer dos à la scène alors qu'il aurait préféré regarder le spectacle !</p>
