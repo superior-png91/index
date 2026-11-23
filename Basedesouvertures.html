@@ -252,6 +252,11 @@ td.c { text-align: center; font-family: var(--mono); }
 .panel:fullscreen { max-height: none; overflow: auto; }
 /* Le doigt fait défiler la page depuis l'échiquier, sauf sur une pièce qu'on peut jouer (glisser-déposer) */
 .sq.mv { touch-action: none; }
+/* Bouton « Quitter » du mode séance, toujours visible en haut à droite */
+.fs-quit { display: none; }
+.panel:fullscreen .fs-quit { display: inline-flex; align-items: center; gap: 6px; position: fixed; z-index: 30; top: max(10px, env(safe-area-inset-top)); right: max(10px, env(safe-area-inset-right)); min-height: 44px; padding: 8px 16px; border: 1px solid var(--or); border-radius: 999px; background: rgba(20, 13, 8, .88); color: var(--or); font: 700 15px/1 var(--body); cursor: pointer; touch-action: manipulation; box-shadow: 0 4px 14px rgba(0, 0, 0, .5); }
+.panel:fullscreen .fs-quit svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.panel:fullscreen .panel-head { padding-right: 120px; }
 .panel:fullscreen .board-wrap { grid-column: 1; grid-row: 1 / span 6; align-self: center; width: 100%; }
 .panel:fullscreen > :not(.board-wrap) { grid-column: 2; }
 .panel:fullscreen .panel-title { font-size: 34px; }
@@ -394,6 +399,7 @@ td.c { text-align: center; font-family: var(--mono); }
     <main class="main">
       <div class="content" id="content"></div>
       <aside class="panel" id="panel" aria-label="Échiquier">
+        <button type="button" class="fs-quit" id="fsQuit" aria-label="Quitter le mode séance"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Quitter</button>
         <div class="panel-head"><span class="panel-title" id="pTitle">Échiquier</span><span class="panel-kind" id="pKind"></span></div>
         <p class="consigne" id="pConsigne" hidden></p>
         <div class="board-wrap" id="boardWrap"><div class="board" id="board"></div></div>
@@ -5129,6 +5135,7 @@ window.COURS = {
     return h;
   }
   var FS = '<button class="btn ic" data-a="fs" title="Mode séance : échiquier en plein écran" aria-label="Mode séance"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg><span class="lbl">Mode séance</span></button>';
+  function fsBtn() { return document.fullscreenElement || document.webkitFullscreenElement ? FS.replace(">Mode séance</span>", ">Quitter la séance</span>") : FS; }
   var FLIP = '<button class="btn ic" data-a="flip" title="Retourner l\'échiquier" aria-label="Retourner l\'échiquier"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 20V5M4 9l4-4 4 4M16 4v15M12 15l4 4 4-4"/></svg><span class="lbl">Retourner</span></button>';
 
   /* Mode ligne */
@@ -5174,7 +5181,7 @@ window.COURS = {
     h += '<button class="btn icon" data-a="last" aria-label="Fin"' + (L.idx >= n ? " disabled" : "") + ">⏭</button>";
     if (L.line && L.base < L.sans.length) h += '<button class="btn" data-a="back">Revenir à la ligne</button>';
     if (L.line && tokens(L.line).length > 1) h += '<button class="btn primary" data-a="train">M\'entraîner</button>';
-    h += FLIP + FS;
+    h += FLIP + fsBtn();
     $("controls").innerHTML = h;
   }
 
@@ -5259,7 +5266,7 @@ window.COURS = {
       h += '<button class="btn' + (S.done && !nx ? " primary" : "") + '" data-a="restart">Recommencer</button>' + FLIP;
       if (S.training) h += '<button class="btn" data-a="backline">Revoir la ligne</button>';
     }
-    $("controls").innerHTML = h + FS;
+    $("controls").innerHTML = h + fsBtn();
   }
   function nextExKey() {
     var keys = Array.prototype.map.call(document.querySelectorAll('#content [data-load^="ex-"]:not([hidden])'), function (el) { return el.getAttribute("data-load"); });
@@ -5279,15 +5286,35 @@ window.COURS = {
     renderSeqControls();
   }
 
+  /* ---------- Mode séance (plein écran) ---------- */
+  var fsPushed = false;
+  function fsElement() { return document.fullscreenElement || document.webkitFullscreenElement || null; }
+  function fsEnter() {
+    var pnl = $("panel"), req = pnl.requestFullscreen || pnl.webkitRequestFullscreen, no = function () { feedback("Le plein écran n'est pas disponible ici.", ""); };
+    if (!req) return no();
+    try { var r = req.call(pnl); if (r && r.catch) r.catch(no); } catch (err) { no(); }
+  }
+  function fsExit() {
+    var ex = document.exitFullscreen || document.webkitExitFullscreen;
+    try { var r = ex && ex.call(document); if (r && r.catch) r.catch(function () {}); } catch (err) {}
+  }
+  function fsChange() {
+    var on = !!fsElement();
+    Array.prototype.forEach.call(document.querySelectorAll('[data-a="fs"] .lbl'), function (l) { l.textContent = on ? "Quitter la séance" : "Mode séance"; });
+    /* Une entrée d'historique pendant la séance : le bouton ou le geste « Retour » d'Android quitte la séance au lieu de quitter la page */
+    if (on && !fsPushed) { try { history.pushState({ seance: 1 }, "", location.href); fsPushed = true; } catch (err) {} }
+    else if (!on && fsPushed) { fsPushed = false; try { if (history.state && history.state.seance) history.back(); } catch (err) {} }
+  }
+  document.addEventListener("fullscreenchange", fsChange);
+  document.addEventListener("webkitfullscreenchange", fsChange);
+  window.addEventListener("popstate", function () { if (fsPushed) { fsPushed = false; if (fsElement()) fsExit(); } });
+  $("fsQuit").addEventListener("click", fsExit);
+
   $("controls").addEventListener("click", function (e) {
     var b = e.target.closest("[data-a]"); if (!b) return;
     var a = b.getAttribute("data-a");
     if (a === "flip") { orient = orient === "w" ? "b" : "w"; renderBoard(); return; }
-    if (a === "fs") {
-      var pnl = $("panel");
-      try { if (document.fullscreenElement) document.exitFullscreen(); else if (pnl.requestFullscreen) pnl.requestFullscreen().catch(function () { feedback("Le plein écran n'est pas disponible ici.", ""); }); else feedback("Le plein écran n'est pas disponible ici.", ""); } catch (err) {}
-      return;
-    }
+    if (a === "fs") { if (fsElement()) fsExit(); else fsEnter(); return; }
     if (L) {
       if (a === "first") showLineIdx(0);
       else if (a === "prev") showLineIdx(L.idx - 1);
