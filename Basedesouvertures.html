@@ -225,6 +225,11 @@ td.c { text-align: center; font-family: var(--mono); }
 .feedback.err { background: var(--err-bg); border-left-color: var(--err); }
 .feedback.err b { color: var(--err); }
 .feedback .sol { display: block; color: var(--erable); margin-top: 6px; }
+#content section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 84px); }
+.picker { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.picker select { flex: 1 1 220px; min-width: 0; max-width: 100%; min-height: 40px; padding: 7px 34px 7px 12px; border: 1px solid var(--or); border-radius: 8px; background: var(--ebene) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23d0a254' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat right 12px center / 12px 8px; color: var(--erable); font: inherit; font-weight: 700; cursor: pointer; -webkit-appearance: none; appearance: none; }
+.picker select:focus-visible { outline: 2px solid var(--or); outline-offset: 2px; }
+.picker option, .picker optgroup { background: #1e140c; color: #f0e2c6; }
 .comment { font-size: 15px; font-style: italic; color: var(--or-pale); border-left: 3px solid var(--or); padding: 2px 0 2px 12px; }
 .controls { display: flex; gap: 6px; flex-wrap: wrap; }
 .btn { border: 1px solid var(--line); background: var(--noyer-2); border-radius: 999px; padding: 7px 14px; cursor: pointer; font-size: 14px; font-weight: 700; color: var(--erable); transition: border-color .2s, color .2s, background .2s; }
@@ -334,6 +339,7 @@ td.c { text-align: center; font-family: var(--mono); }
   .btn.icon { min-width: 48px; }
   .filters button { min-height: 38px; padding: 6px 14px; }
   .typein input { font-size: 16px; padding: 10px 12px; }
+  .picker select { font-size: 16px; min-height: 46px; }
   .movelist button { padding: 6px 8px; }
   .movelist .n { padding: 6px 0 6px 5px; }
   .q button { min-height: 42px; padding: 8px 15px; }
@@ -4853,8 +4859,29 @@ window.COURS = {
       '<div class="box"><span class="k">Animer une séance</span>Le bouton « Mode séance » met l\'échiquier en plein écran, pour l\'échiquier mural ou le vidéoprojecteur du club.</div></div></section>';
     h += '<p class="source">Contenu tiré du « ' + esc(C.source.titre) + " », " + esc(C.source.version) + ". Notation française : R roi, D dame, T tour, F fou, C cavalier ; les pions sans lettre. Valeur des pièces : pion 1, cavalier et fou 3, tour 5, dame 9.</p>";
     setContent(h);
-    loadLine("Position de départ", "", "w", "Choisissez une leçon pour commencer.");
+    loadLine("Position de départ", "", "w", "");
+    feedback(lessonPicker(), "pick");
   }
+  /* Sélecteur « Choisissez une leçon » : les 18 leçons par niveau, puis les trois parties du répertoire */
+  function lessonPicker() {
+    var o = '<option value="" selected disabled>Leçon ou répertoire…</option>';
+    C.niveaux.forEach(function (n) {
+      o += '<optgroup label="Niveau ' + n.id + " · " + esc(n.titre) + '">';
+      n.lecons.forEach(function (l) { o += '<option value="lecon-' + l.n + '">' + l.n + ". " + esc(l.titre) + (lessonDone(l) ? " ✓" : "") + "</option>"; });
+      o += "</optgroup>";
+    });
+    o += '<optgroup label="Votre répertoire">';
+    C.repertoire.sections.forEach(function (sec, i) { o += '<option value="rep-' + i + '">' + esc(sec.titre) + "</option>"; });
+    o += "</optgroup>";
+    return '<label class="picker" for="lessonPick"><span>Choisissez une leçon pour commencer&nbsp;:</span><select id="lessonPick">' + o + "</select></label>";
+  }
+  var repJump = null;
+  document.addEventListener("change", function (e) {
+    if (!e.target || e.target.id !== "lessonPick") return;
+    var v = e.target.value; if (!v) return;
+    if (v.indexOf("rep-") === 0) { repJump = +v.slice(4); if (location.hash === "#repertoire") onRoute(); else location.hash = "repertoire"; }
+    else location.hash = v;
+  });
 
   var filterStars = 0;
   function pageLecon(n) {
@@ -4900,7 +4927,12 @@ window.COURS = {
       h += "</section>";
     });
     setContent(h);
-    activate("r0-0");
+    var j = repJump; repJump = null;
+    if (j != null && R.sections[j]) {
+      activate("r" + j + "-0");
+      var sec = $("content").querySelectorAll("section")[j];
+      if (sec) setTimeout(function () { sec.scrollIntoView({ block: "start" }); }, 0);
+    } else activate("r0-0");
   }
 
   function pageParties() {
