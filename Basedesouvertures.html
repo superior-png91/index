@@ -160,6 +160,13 @@ tbody tr:hover td { background: var(--acajou); }
 tbody tr.loaded td { background: var(--acajou); box-shadow: inset 0 -1px 0 var(--or); }
 td.mono { font-family: var(--mono); font-size: 12.5px; min-width: 220px; }
 td.c { text-align: center; font-family: var(--mono); }
+.tip { position: relative; display: inline-flex; align-items: center; gap: 5px; border: 0; background: none; padding: 2px 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; cursor: help; }
+.tip-i { display: inline-grid; place-items: center; width: 15px; height: 15px; border: 1px solid currentColor; border-radius: 50%; font-size: 9.5px; letter-spacing: 0; line-height: 1; }
+.tip::after { content: attr(data-tip); position: absolute; z-index: 20; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); width: max-content; max-width: min(240px, 70vw); padding: 8px 11px; border: 1px solid var(--or); border-radius: 8px; background: #1e140c; color: var(--erable); font-family: var(--body); font-size: 13px; font-weight: 400; letter-spacing: 0; line-height: 1.45; text-transform: none; text-align: left; white-space: normal; box-shadow: 0 8px 20px rgba(0, 0, 0, .55); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .15s; }
+.tip.tip-r::after { left: auto; right: -6px; transform: none; }
+.tip:hover::after, .tip:focus-visible::after, .tip.open::after { opacity: 1; visibility: visible; }
+.tip:focus-visible { outline: 2px solid var(--or); outline-offset: 3px; border-radius: 4px; }
+.rep-legend { display: none; }
 .note { font-size: 14.5px; color: var(--sepia); margin: 10px 0 0; }
 .note b { color: var(--erable); }
 
@@ -316,6 +323,8 @@ td.c { text-align: center; font-family: var(--mono); }
   .table-wrap { overflow: visible; border: 0; background: none; }
   .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; }
   .table-wrap thead { display: none; }
+  .rep-legend { display: block; margin-top: 10px; font-size: 14px; color: var(--sepia); }
+  .rep-legend b { color: var(--or); font-weight: 700; }
   .table-wrap tbody { display: flex; flex-direction: column; gap: 10px; }
   .table-wrap tr { background: var(--noyer-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
   .table-wrap td { border: 0; padding: 3px 0; display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; text-align: left; min-width: 0; }
@@ -4911,11 +4920,20 @@ window.COURS = {
     document.querySelectorAll("#filters button").forEach(function (b) { b.classList.toggle("on", +b.getAttribute("data-f") === filterStars); });
   }
 
+  /* Infobulles des en-têtes « Niv. » et « Leçon » : au survol, au clavier et au toucher */
+  var TIP_NIV = "Niveau de la leçon : 1 Débutant, 2 Club, 3 Club confirmé.";
+  var TIP_LECON = "Numéro de la leçon (1 à 18) qui enseigne cette ligne. Cliquez le numéro pour ouvrir la leçon.";
+  function tipBtn(label, text, right) { return '<button type="button" class="tip' + (right ? " tip-r" : "") + '" aria-label="' + esc(label + " : " + text) + '" data-tip="' + esc(text) + '">' + esc(label) + '<span class="tip-i" aria-hidden="true">?</span></button>'; }
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest ? e.target.closest(".tip") : null;
+    document.querySelectorAll(".tip.open").forEach(function (o) { if (o !== t) o.classList.remove("open"); });
+    if (t) t.classList.toggle("open");
+  });
   function pageRepertoire() {
     var R = C.repertoire;
-    var h = '<div class="page-head">' + eyebrow("b2", "Répertoire") + "<h1>Votre <em>répertoire</em></h1><p class=\"lead\">" + esc(R.intro) + " Cliquez une ligne pour la rejouer, puis « M'entraîner » pour la jouer de mémoire avec votre camp.</p></div>";
+    var h = '<div class="page-head">' + eyebrow("b2", "Répertoire") + "<h1>Votre <em>répertoire</em></h1><p class=\"lead\">" + esc(R.intro) + " Cliquez une ligne pour la rejouer, puis « M'entraîner » pour la jouer de mémoire avec votre camp.</p><p class=\"rep-legend\"><b>Niveau</b> : 1 Débutant, 2 Club, 3 Club confirmé. <b>Leçon</b> : numéro de la leçon qui enseigne la ligne ; touchez-le pour l'ouvrir.</p></div>";
     R.sections.forEach(function (s, si) {
-      h += "<section><h2>" + esc(s.titre) + '</h2><div class="table-wrap"><table><thead><tr><th>' + esc(s.colAdverse) + "</th><th>" + esc(s.colSysteme) + '</th><th>Ligne de base</th><th class="c">Niv.</th><th class="c">Leçon</th></tr></thead><tbody>';
+      h += "<section><h2>" + esc(s.titre) + '</h2><div class="table-wrap"><table><thead><tr><th>' + esc(s.colAdverse) + "</th><th>" + esc(s.colSysteme) + '</th><th>Ligne de base</th><th class="c">' + tipBtn("Niv.", TIP_NIV, true) + '</th><th class="c">' + tipBtn("Leçon", TIP_LECON, true) + "</th></tr></thead><tbody>";
       s.lignes.forEach(function (r, ri) {
         var key = "r" + si + "-" + ri;
         registry[key] = function () { loadLine(r.systeme, r.ligne, s.camp, "Si l'adversaire joue " + r.adverse + "."); };
