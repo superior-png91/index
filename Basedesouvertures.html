@@ -191,7 +191,7 @@ td.c { text-align: center; font-family: var(--mono); }
 .panel-kind { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--or); white-space: nowrap; }
 .consigne { font-size: 15px; color: var(--erable); }
 .panel.has-consigne { --reserve: 345px; }
-.board-wrap { position: relative; width: min(100%, max(300px, calc(var(--vh) - var(--reserve)))); container-type: inline-size; margin-inline: auto; aspect-ratio: 1; touch-action: none; user-select: none; -webkit-user-select: none; border: 11px solid #3e2415; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .35), 0 0 0 3px #d0a254, 0 0 0 7px #281a0b, 0 30px 50px -24px rgba(0, 0, 0, .7); }
+.board-wrap { position: relative; width: min(100%, max(300px, calc(var(--vh) - var(--reserve)))); container-type: inline-size; margin-inline: auto; aspect-ratio: 1; touch-action: manipulation; user-select: none; -webkit-user-select: none; border: 11px solid #3e2415; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .35), 0 0 0 3px #d0a254, 0 0 0 7px #281a0b, 0 30px 50px -24px rgba(0, 0, 0, .7); }
 .board { display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); width: 100%; height: 100%; background: repeating-conic-gradient(var(--sq-d1) 0 25%, var(--sq-l1) 0 50%) 0 0 / 25% 25%; }
 .sq { position: relative; background: linear-gradient(135deg, var(--sq-l1), var(--sq-l2)); }
 .sq.d { background: linear-gradient(135deg, var(--sq-d1), var(--sq-d2)); }
@@ -250,6 +250,8 @@ td.c { text-align: center; font-family: var(--mono); }
 /* Mode séance : l'échiquier en grand, pour le mur ou le vidéoprojecteur */
 .panel:fullscreen { position: static; display: grid; grid-template-columns: min(92vh, 62vw) minmax(280px, 1fr); grid-template-rows: auto auto 1fr; align-content: center; gap: 14px 32px; padding: 3vh 3vw; border: 0; border-radius: 0; background: radial-gradient(ellipse at 40% 40%, #2a1a10, var(--ebene) 75%); }
 .panel:fullscreen { max-height: none; overflow: auto; }
+/* Le doigt fait défiler la page depuis l'échiquier, sauf sur une pièce qu'on peut jouer (glisser-déposer) */
+.sq.mv { touch-action: none; }
 .panel:fullscreen .board-wrap { grid-column: 1; grid-row: 1 / span 6; align-self: center; width: 100%; }
 .panel:fullscreen > :not(.board-wrap) { grid-column: 2; }
 .panel:fullscreen .panel-title { font-size: 34px; }
@@ -336,9 +338,16 @@ td.c { text-align: center; font-family: var(--mono); }
 }
 /* Mode séance sur un écran en hauteur (tablette ou téléphone en portrait) */
 @media (orientation: portrait) {
-  .panel:fullscreen { grid-template-columns: minmax(0, 1fr); align-content: start; padding: 4vh 4vw; }
-  .panel:fullscreen > *, .panel:fullscreen .board-wrap { grid-column: 1; grid-row: auto; }
+  .panel:fullscreen { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; align-content: start; padding: 4vh 4vw; }
+  .panel:fullscreen > *, .panel:fullscreen > :not(.board-wrap), .panel:fullscreen .board-wrap { grid-column: 1; grid-row: auto; }
   .panel:fullscreen .board-wrap { width: min(100%, 62vh); justify-self: center; }
+}
+@media (orientation: portrait) and (max-width: 599px) {
+  .panel:fullscreen { padding: max(12px, env(safe-area-inset-top)) 12px max(16px, env(safe-area-inset-bottom)); gap: 10px; }
+  .panel:fullscreen .board-wrap { border-width: 7px; }
+  .panel:fullscreen .panel-title { font-size: 24px; }
+  .panel:fullscreen .feedback, .panel:fullscreen .consigne, .panel:fullscreen .comment { font-size: 16px; }
+  .panel:fullscreen .movelist { font-size: 14px; }
 }
 @media (min-width: 900px) and (max-width: 1799px) and (orientation: landscape) {
   .btn.ic { padding-inline: 12px; }
@@ -5018,6 +5027,7 @@ window.COURS = {
       if (sq === hintSq || sq === hintTo) cls += " hint";
       if (sq === checkSq) cls += " check";
       if (targets[sq]) cls += " target" + (targets[sq] === "cap" ? " cap" : "");
+      if (interactive && pc && pc.color === game.turn()) cls += " mv";
       h += '<div class="' + cls + '" data-sq="' + sq + '">';
       if (pc) h += '<div class="pc" style="background-image:url(\'' + P[pc.color + pc.type] + '\')"></div>';
       if (j === 0) h += '<span class="coord r">' + (8 - rr) + "</span>";
@@ -5056,14 +5066,17 @@ window.COURS = {
     $("boardWrap").appendChild(box);
   }
 
-  var drag = null;
+  var drag = null, tap = null;
   function sqAt(x, y) { var el = document.elementFromPoint(x, y); el = el && el.closest ? el.closest("[data-sq]") : null; return el ? el.getAttribute("data-sq") : null; }
   $("board").addEventListener("pointerdown", function (e) {
     if (!interactive) return;
     var sqEl = e.target.closest("[data-sq]"); if (!sqEl) return;
     var sq = sqEl.getAttribute("data-sq"), pc = game.get(sq);
+    /* Case vide ou pièce adverse : on attend la fin du toucher, pour qu'un glissement fasse défiler la page sans jouer de coup */
+    if (!(pc && pc.color === game.turn())) { tap = { sq: sq, id: e.pointerId }; return; }
+    tap = null;
     if (sel && sel !== sq && tryMove(sel, sq)) return;
-    if (pc && pc.color === game.turn()) {
+    {
       sel = sq; renderBoard();
       var size = sqEl.getBoundingClientRect().width, g = document.createElement("div");
       g.className = "ghost"; g.style.width = g.style.height = size + "px";
@@ -5071,7 +5084,7 @@ window.COURS = {
       document.body.appendChild(g);
       drag = { from: sq, ghost: g, x: e.clientX, y: e.clientY, moved: false };
       try { $("board").setPointerCapture(e.pointerId); } catch (err) {}
-    } else { sel = null; renderBoard(); }
+    }
   });
   $("board").addEventListener("pointermove", function (e) {
     if (!drag) return;
@@ -5082,11 +5095,18 @@ window.COURS = {
     drag.ghost.style.left = e.clientX + "px"; drag.ghost.style.top = e.clientY + "px";
   });
   $("board").addEventListener("pointerup", function (e) {
+    if (tap) {
+      var t = tap; tap = null;
+      var el = e.target.closest ? e.target.closest("[data-sq]") : null;
+      if (t.id !== e.pointerId || !el || el.getAttribute("data-sq") !== t.sq || !interactive) return;
+      if (sel && sel !== t.sq && tryMove(sel, t.sq)) return;
+      sel = null; renderBoard(); return;
+    }
     if (!drag) return;
     var d = drag; drag = null; d.ghost.remove();
     if (d.moved) { var to = sqAt(e.clientX, e.clientY); if (!(to && to !== d.from && tryMove(d.from, to))) renderBoard(); }
   });
-  $("board").addEventListener("pointercancel", function () { if (drag) { drag.ghost.remove(); drag = null; renderBoard(); } });
+  $("board").addEventListener("pointercancel", function () { tap = null; if (drag) { drag.ghost.remove(); drag = null; renderBoard(); } });
 
   /* ---------- Panneau ---------- */
   var timers = [];
