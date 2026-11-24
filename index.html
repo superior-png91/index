@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Les Fous d&#x27;Étréchy · Club d&#x27;échecs à Étréchy (Essonne)</title>
-<meta name="description" content="Les Fous d&#x27;Étréchy, club d&#x27;échecs de loisirs à Étréchy (91580). Tous les samedis de 14 h à 18 h à la Maison des Associations.">
+<meta name="description" content="Club d&#x27;échecs de loisirs à Étréchy (91580) : initiation, parties libres, tournois internes. Tous les samedis, de 14 h à 18 h. Débutants bienvenus.">
 <link rel="canonical" href="https://lesfousdetrechy.fr/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="Les Fous d'Étréchy">
 <meta property="og:title" content="Les Fous d&#x27;Étréchy, club d&#x27;échecs de loisirs">
-<meta property="og:description" content="Les Fous d&#x27;Étréchy, club d&#x27;échecs de loisirs à Étréchy (91580). Tous les samedis de 14 h à 18 h à la Maison des Associations.">
+<meta property="og:description" content="Club d&#x27;échecs de loisirs à Étréchy (91580) : initiation, parties libres, tournois internes. Tous les samedis, de 14 h à 18 h. Débutants bienvenus.">
 <meta property="og:url" content="https://lesfousdetrechy.fr/">
 <meta property="og:image" content="https://lesfousdetrechy.fr/assets/img/partage-club.jpg">
 <meta property="og:image:width" content="1200">
@@ -182,25 +182,10 @@
 @media (prefers-reduced-motion:reduce){.morphy-pop,.morphy-box{transition:none}}
 @media (prefers-reduced-motion:reduce){.affiche,.affiche:hover{transform:none;transition:none}}
 
-/* ---------- ACTUALITÉ : l'assemblée générale ---------- */
+/* ---------- ACTUALITÉS ---------- */
 .actu-list{display:flex;flex-direction:column;gap:clamp(18px,2.4vw,28px)}
 .actu-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.ag-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(18px,3vw,44px);align-items:center;padding:clamp(20px,3vw,34px) clamp(22px,4vw,56px);border-radius:16px;
-  background:var(--or);color:var(--ebene);box-shadow:0 30px 60px -36px rgba(0,0,0,.8)}
-.ag-cal{display:grid;justify-items:center;line-height:1;padding-right:clamp(18px,3vw,44px);border-right:1px solid rgba(18,13,10,.25)}
-.ag-cal .d{font-family:var(--display);font-weight:500;font-size:clamp(4rem,7vw,5.8rem);line-height:.82}
-.ag-cal .m{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;margin-top:8px}
-.ag-txt{min-width:0}
-.ag-txt .k{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
-.ag-txt h3{margin-top:8px;font-size:clamp(2rem,4vw,3.3rem);letter-spacing:-.02em;line-height:.98}
-.ag-txt h3 em{font-style:italic}
-.ag-txt p{margin-top:10px;max-width:46em;font-size:1.02rem;line-height:1.6;color:#2a1a10}
-.ag-card .btn{border-color:var(--ebene);color:var(--ebene)}
-.ag-card .btn::before{background:var(--ebene)}
-.ag-card .btn:hover{color:var(--or-pale)}
-@media (max-width:760px){.ag-card{grid-template-columns:auto minmax(0,1fr)}.ag-card .btn{grid-column:1 / -1;justify-self:start}}
 
-/* ---------- ACTUALITÉ : le club a 1 an ---------- */
 #actu [hidden]{display:none!important}
 /* ---------- DANS L'ACTUALITÉ DES ÉCHECS (lu dans actus.txt) ---------- */
 #actus-echecs{background:var(--acajou);padding-block:0 clamp(56px,7vw,96px)}
@@ -214,20 +199,6 @@
 #actus-echecs .ae-card a{margin-top:auto;align-self:flex-start;color:var(--or);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
 #actus-echecs .ae-card a:hover,#actus-echecs .ae-card a:focus-visible{color:var(--ivoire)}
 
-.ag-card.anniv{position:relative;overflow:hidden;isolation:isolate}
-.ag-card.anniv .ag-cal{position:relative;padding-top:30px}
-.ag-card.anniv .ag-cal .d{font-size:clamp(5rem,9vw,7.4rem);font-weight:600}
-.flamme{position:absolute;top:0;left:50%;width:16px;height:30px;margin-left:-8px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(ellipse at 50% 75%,#fff6d0 0 18%,#ffb62e 45%,#e8541c 85%);box-shadow:0 0 18px 6px rgba(255,150,30,.55);transform-origin:50% 90%;animation:flamme 1.6s ease-in-out infinite}
-.flamme::after{content:"";position:absolute;left:50%;top:100%;width:3px;height:6px;margin-left:-1.5px;background:var(--ebene)}
-@keyframes flamme{0%,100%{transform:scale(1,1) rotate(-2deg)}25%{transform:scale(.92,1.08) rotate(3deg)}50%{transform:scale(1.06,.94) rotate(-3deg)}75%{transform:scale(.95,1.05) rotate(2deg)}}
-.anniv-acts{display:flex;flex-direction:column;gap:10px;align-items:stretch}
-.ag-card.anniv .btn{border-color:var(--ebene);color:var(--ebene);justify-content:center}
-.confetti{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-.anniv-film{margin:0;border:6px solid #b8812f;border-radius:4px;overflow:hidden;background:#000;box-shadow:0 30px 60px -36px rgba(0,0,0,.8)}
-.anniv-film video{display:block;width:100%;aspect-ratio:16/9;background:#000}
-.anniv-film figcaption{padding:10px 16px;background:var(--noyer,#1D140F);color:var(--sepia,#C2AA88);font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
-@media (max-width:760px){.anniv-acts{grid-column:1 / -1;flex-direction:row;flex-wrap:wrap}}
-@media (prefers-reduced-motion:reduce){.flamme{animation:none}}
 
 /* ---------- BANDEAU DES PROCHAINES DATES : design de la démo, en plus fin ---------- */
 #dates{--band:#c9a35b;--band-ink:#0b0a08;background:var(--band);color:var(--band-ink);padding-block:clamp(12px,1.6vw,20px) clamp(14px,1.8vw,22px)}
@@ -359,6 +330,63 @@
 #ouverture.op{height:520vh!important}
 #opPlay,#opNext,#opRe,#opSpeed{display:none!important}
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "https://lesfousdetrechy.fr/#site",
+   "url": "https://lesfousdetrechy.fr/",
+   "name": "Les Fous d'Étréchy",
+   "inLanguage": "fr-FR",
+   "publisher": {
+    "@id": "https://lesfousdetrechy.fr/#club"
+   }
+  },
+  {
+   "@type": "NGO",
+   "@id": "https://lesfousdetrechy.fr/#club",
+   "name": "Les Fous d'Étréchy",
+   "alternateName": "Club d'échecs Les Fous d'Étréchy",
+   "url": "https://lesfousdetrechy.fr/",
+   "logo": "https://lesfousdetrechy.fr/assets/img/logo.webp",
+   "image": "https://lesfousdetrechy.fr/assets/img/partage-club.jpg",
+   "description": "Association de loisirs, club d'échecs à Étréchy (Essonne) : parties libres, petits tournois internes, initiation et ateliers d'étude, pour les enfants et les adultes, débutants comme joueurs de club.",
+   "knowsAbout": [
+    "échecs",
+    "initiation aux échecs"
+   ],
+   "areaServed": "Étréchy et sud de l'Essonne",
+   "location": {
+    "@type": "Place",
+    "name": "Maison des Associations d'Étréchy",
+    "address": {
+     "@type": "PostalAddress",
+     "streetAddress": "1 rue du 11 Novembre 1918",
+     "postalCode": "91580",
+     "addressLocality": "Étréchy",
+     "addressRegion": "Île-de-France",
+     "addressCountry": "FR"
+    },
+    "geo": {
+     "@type": "GeoCoordinates",
+     "latitude": 48.493038,
+     "longitude": 2.1903811
+    },
+    "openingHoursSpecification": {
+     "@type": "OpeningHoursSpecification",
+     "dayOfWeek": "https://schema.org/Saturday",
+     "opens": "14:00",
+     "closes": "18:00",
+     "validFrom": "2026-11-01",
+     "validThrough": "2027-10-31"
+    }
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="sym-fou" viewBox="0 0 100 140">
@@ -528,70 +556,9 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
       <div class="ticker" data-ticker role="region"><div class="ticker-track" aria-hidden="true"></div></div>
     </section>
     </div>
-  <!-- =============== ACTUALITÉS : AG (7/11) et JOURNÉE PORTES OUVERTES (14/11) — chaque bloc disparaît seul après sa date =============== -->
+  <!-- =============== ACTUALITÉS : chaque bloc disparaît seul après sa date =============== -->
   <section id="actu" aria-label="Actualités du club" data-until="2027-01-10T00:00:00+01:00">
     <div class="wrap actu-list">
-      <div class="actu-card" data-until="2026-11-14T18:00:00+01:00">
-        <div class="actu-copy">
-          <p class="eyebrow"><span class="sq">!</span>Actualité du club</p>
-          <h2 data-reveal-lines id="actu-t">Journée <em>portes ouvertes</em></h2>
-          <p class="lead">Le samedi 14 novembre, le club ouvre grand ses portes. Séance libre : venez nombreux jouer une partie, découvrir le club et rencontrer ses membres, que vous débutiez ou que vous jouiez depuis toujours.</p>
-          <dl class="specs">
-            <dt>Date</dt><dd>Samedi 14 novembre 2026</dd>
-            <dt>Horaire</dt><dd>De 14 h à 18 h</dd>
-            <dt>Lieu</dt><dd>Maison des Associations, 1 rue du 11 Novembre 1918, 91580 Étréchy</dd>
-            <dt>Séance</dt><dd>Libre, venez nombreux</dd>
-          </dl>
-          <div class="acts">
-            <a data-magnetic class="btn solid" href="https://www.google.com/maps/dir/?api=1&amp;destination=48.493038%2C2.1903811&amp;travelmode=driving" target="_blank" rel="noopener">Itinéraire <span class="arr">↗</span></a>
-            <a data-magnetic class="btn ghost" href="Lesfousdetrechy.html#agenda">Voir l'agenda</a>
-          </div>
-        </div>
-        <div class="actu-side">
-          <a class="affiche" href="assets/img/affiche-portes-ouvertes.webp" data-agrandir aria-haspopup="dialog" aria-label="Agrandir l'affiche de la journée portes ouvertes">
-            <img src="assets/img/affiche-portes-ouvertes.webp" alt="Affiche de la journée portes ouvertes du club d'échecs Les Fous d'Étréchy : un cavalier de feu bondit au-dessus d'un échiquier. Samedi 14 novembre 2026, de 14 h à 18 h, Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus." width="896" height="1200" loading="lazy">
-          </a>
-          <div class="cal" aria-hidden="true">
-            <span class="d">14</span>
-            <span class="w">Samedi</span>
-            <span class="m">novembre 2026</span>
-            <span class="h">14:00 → 18:00</span>
-          </div>
-          <div>
-            <button class="pendule" type="button" data-pendule data-date="14/11/2026" data-label="Portes ouvertes dans" aria-label="Pendule d'échecs : temps restant avant la journée portes ouvertes et heure à Étréchy. Appuyez pour changer de côté.">
-              <span class="knobs"><span class="knob down"></span><span class="knob"></span></span>
-              <span class="case">
-                <span class="face run"><span class="l" data-p="cdl">Portes ouvertes dans</span><span class="n" data-p="cd">--:--</span><span class="s" data-p="cds"></span></span>
-                <span class="face"><span class="l">À Étréchy, il est</span><span class="n" data-p="now">--:--:--</span><span class="s" data-p="nows"></span></span>
-              </span>
-            </button>
-            <p class="pendule-hint">Appuyez sur la pendule, comme après un coup.</p>
-          </div>
-        </div>
-      </div>
-      <!-- ANNIVERSAIRE : le club a 1 an (15/11/2026) ; la carte est visible dès le 14/11 et disparaît le 22/11 -->
-      <div class="ag-card anniv" data-until="2026-11-22T00:00:00+01:00">
-        <canvas class="confetti" aria-hidden="true"></canvas>
-        <div class="ag-cal">
-          <span class="flamme" aria-hidden="true"></span>
-          <span class="d">1</span>
-          <span class="m">an</span>
-        </div>
-        <div class="ag-txt">
-          <p class="k">Le club a un an · 15 novembre 2026</p>
-          <h3>Joyeux anniversaire, <em>les Fous</em> !</h3>
-          <p>Le 15 novembre 2026, le club fête sa première année. Merci à tous ceux qui font vivre les Fous d'Étréchy, partie après partie. Rendez-vous chaque samedi, de 14 h à 18 h, à la Maison des Associations.</p>
-        </div>
-        <div class="anniv-acts">
-          <button type="button" class="btn ghost" data-confetti>Lancer les confettis</button>
-          <a class="btn ghost" href="Lesfousdetrechy.html#agenda">Voir l'agenda</a>
-        </div>
-      </div>
-      <!-- FILM D'ANNIVERSAIRE : sous la carte, jusqu'au 22/11. Vidéo : assets/video/anniversaire.mp4, affiche : assets/img/anniversaire-poster.webp -->
-      <figure class="anniv-film" data-until="2026-11-22T00:00:00+01:00">
-        <video controls playsinline preload="none" poster="assets/img/anniversaire-poster.webp" src="assets/video/anniversaire.mp4" aria-label="Film d'anniversaire des Fous d'Étréchy : le Bureau en tenue de soirée trinque, souffle la bougie du gâteau d'anniversaire du club et coupe la première part"></video>
-        <figcaption>Film · 1 an des Fous d'Étréchy · vidéo générée par IA</figcaption>
-      </figure>
       <!-- JOURNÉE PORTES OUVERTES DU NOUVEL AN : samedi 9/01/2027 ; visible dès le 19/12/2026, disparaît le 9/01/2027 à 18 h -->
       <div class="actu-card nouvel-an" data-from="2026-12-19T00:00:00+01:00" data-until="2027-01-09T18:00:00+01:00">
         <div class="actu-copy">
@@ -889,53 +856,14 @@ s.hidden=!1}();</script>
 </script>
 
 <script>
-/* Anniversaire : confettis (pièces d'échecs et papier doré) quand la carte entre à l'écran, ou sur le bouton. Rien si « réduire les animations ». */
-(function(){
-  /* si plus aucune carte d'actualité n'est visible (ex. le 14/11 au soir), on masque toute la section */
-  var sec=document.getElementById("actu");
-  if(sec && !sec.hidden && !sec.querySelector(".actu-card:not([hidden]), .ag-card:not([hidden])")) sec.hidden=true;
-  var card=document.querySelector(".ag-card.anniv"); if(!card||card.hidden) return;
-  var cv=card.querySelector(".confetti"), cx=cv.getContext("2d"), btn=card.querySelector("[data-confetti]");
-  var calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(calm){ if(btn) btn.hidden=true; return; }
-  var COL=["#120D0A","#F5EBD8","#7a3b1d","#b3261e","#ffffff","#3b2a1a"], GLY=["\u265F","\u265E","\u265D","\u265C","\u265B","\u265A"];
-  var P=[], run=false, W=0, H=0, dpr=1;
-  function size(){ dpr=Math.min(devicePixelRatio||1,2); W=card.clientWidth; H=card.clientHeight; cv.width=W*dpr; cv.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0); }
-  function burst(){
-    size(); P=[];
-    for(var i=0;i<110;i++){
-      var left=i%2===0, ang=-Math.PI/2+(left?1:-1)*(.15+Math.random()*.6), sp=9+Math.random()*9;
-      P.push({x:left?W*.06:W*.94,y:H*.98,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,
-        w:6+Math.random()*7,h:3+Math.random()*5,r:Math.random()*6,vr:(Math.random()-.5)*.35,c:COL[i%COL.length],
-        g:i%5===0?GLY[i%GLY.length]:null,s:16+Math.random()*12});
-    }
-    if(!run){ run=true; requestAnimationFrame(step); }
-  }
-  function step(){
-    cx.clearRect(0,0,W,H); var alive=0;
-    for(var i=0;i<P.length;i++){
-      var p=P[i]; p.vy+=.28; p.vx*=.992; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr;
-      if(p.y>H+20) continue; alive++;
-      cx.save(); cx.translate(p.x,p.y); cx.rotate(p.r); cx.fillStyle=p.c;
-      if(p.g){ cx.font=p.s+"px serif"; cx.textAlign="center"; cx.fillText(p.g,0,0); }
-      else cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-      cx.restore();
-    }
-    if(alive){ requestAnimationFrame(step); } else { run=false; cx.clearRect(0,0,W,H); }
-  }
-  if(btn) btn.addEventListener("click",burst);
-  var done=false;
-  if("IntersectionObserver" in window){
-    new IntersectionObserver(function(en,ob){ en.forEach(function(e){ if(e.isIntersecting&&!done){ done=true; setTimeout(burst,350); ob.disconnect(); } }); },{threshold:.55}).observe(card);
-  }
-  addEventListener("resize",function(){ if(!run) size(); });
-})();
+/* si plus aucune carte d'actualité n'est visible, on masque toute la section */
+(function(){var sec=document.getElementById("actu");if(sec&&!sec.hidden&&!sec.querySelector(".actu-card:not([hidden])"))sec.hidden=true})();
 </script>
 
 <!-- Agrandissement de l'affiche de la journée portes ouvertes -->
 <div class="affiche-zoom" id="afficheZoom" role="dialog" aria-modal="true" aria-label="Affiche de la journée portes ouvertes" hidden>
   <div class="zoom-fig">
-    <img src="assets/img/affiche-portes-ouvertes.webp" alt="Affiche de la journée portes ouvertes du club d'échecs Les Fous d'Étréchy : samedi 14 novembre 2026, de 14 h à 18 h, Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus." width="896" height="1200">
+    <img src="assets/img/affiche-nouvel-an.webp" alt="Affiche de la journée portes ouvertes du Nouvel An du club d'échecs Les Fous d'Étréchy : un cavalier moitié glace, moitié feu au centre d'un échiquier. Samedi 9 janvier 2027, de 14 h à 18 h, à la Maison des Associations, 1 rue du 11 Novembre 1918, Étréchy. Initiation gratuite, tous niveaux, enfants bienvenus. Relayé par Sud Essonne la Radio." width="896" height="1200">
     <a class="radio-hot" href="https://sudessonne.fr/" target="_blank" rel="noopener" aria-label="Sud Essonne la Radio : ouvrir sudessonne.fr dans un nouvel onglet" title="Sud Essonne la Radio · sudessonne.fr" hidden></a>
   </div>
   <button type="button" aria-label="Fermer">✕</button>
