@@ -43,6 +43,14 @@ niveau : Tous niveaux
 14 h 55 ; Conclusion
 à retenir : Prenez de l’espace, terminez votre développement, gardez vos options ouvertes et attendez que les Noirs montrent quelle rupture ils choisissent avant de passer à l’action.
 
+=== 19/12/2026
+titre : Jouez le pion dame !
+niveau : Tous niveaux
+14 h 00 ; Accueil
+14 h 05 ; 1.d4 d6 · Partie commentée
+14 h 55 ; Conclusion
+à retenir : Quand les Noirs répondent 1...d6, ils adoptent une attitude flexible et d’attente (cela peut mener à une défense Pirc, une Est-Indienne par transposition, une Old Indian, ou même un système de type Hippopotame).
+
 # === 12/12/2026
 # titre : (à compléter)
 # 14 h 00 ; Accueil ; ...
