@@ -54,6 +54,9 @@ niveau : Tous niveaux
 14 h 55 ; Conclusion
 à retenir : Quand les Noirs répondent 1...d6, ils adoptent une attitude flexible et d’attente (cela peut mener à une défense Pirc, une Est-Indienne par transposition, une Old Indian, ou même un système de type Hippopotame).
 
+=== 09/01/2027
+titre : Pas de cours
+
 # === 12/12/2026
 # titre : (à compléter)
 # 14 h 00 ; Accueil ; ...
