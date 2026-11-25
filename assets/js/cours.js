@@ -100,8 +100,11 @@
     $("#csScreen").style.setProperty("--tt", titre.length <= 24 ? 4.5 : titre.length <= 34 ? 3.8 : titre.length <= 46 ? 3.2 : 2.7);
     $("#csDate").textContent = item ? maj(item.label) : "Les prochaines dates arrivent";
     riche($("#csFTitre"), titre);
+    /* Jour sans cours (titre « Pas de cours ») : on masque niveau, horaire, bouton de projection et rappel de la Salle 1 */
+    var pas = !!(data && /^pas de cours/i.test(data.titre || ""));
+    [".cs-kick span", ".cs-bar", ".cs-note"].forEach(function(s){ var n = $(s); if (n) n.style.display = pas ? "none" : ""; });
     var niv = (data && data.niveau) || "Tous niveaux";
-    $("#csFKick").textContent = item ? "Programme du " + item.label + " · " + niv : "Programme de la séance";
+    $("#csFKick").textContent = item ? "Programme du " + item.label + (pas ? "" : " · " + niv) : "Programme de la séance";
     var obj = $("#csFObj");
     if (data && data.objectif) { obj.textContent = typo(data.objectif); obj.hidden = false; }
     else if (!data) { obj.textContent = "Le programme de ce samedi sera publié très bientôt. Le cours a lieu de 14 h à 15 h, ouvert à tous les niveaux."; obj.hidden = false; }

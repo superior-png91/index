@@ -43,6 +43,9 @@ niveau : Tous niveaux
 14 h 55 ; Conclusion
 à retenir : Prenez de l’espace, terminez votre développement, gardez vos options ouvertes et attendez que les Noirs montrent quelle rupture ils choisissent avant de passer à l’action.
 
+=== 12/12/2026
+titre : Pas de cours
+
 === 19/12/2026
 titre : Jouez le pion dame !
 niveau : Tous niveaux
