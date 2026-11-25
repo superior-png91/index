@@ -1,0 +1,42 @@
+COURS_CLUB = `
+
+=====================================================================
+  COURS DU SAMEDI DES FOUS D'ÉTRÉCHY  (14 h – 15 h, tous niveaux)
+  Ce fichier se lit avec l'agenda : un cours par samedi ouvert.
+=====================================================================
+
+  COMMENT AJOUTER UN COURS : copiez un bloc ci-dessous, changez la
+  date et les textes. Un bloc commence par une ligne  === jj/mm/aaaa
+
+  - La date doit être un jour d'ouverture de l'agenda (agenda.txt).
+  - Une date sans bloc affiche « Programme à venir ».
+  - titre     : le thème du cours (obligatoire)
+  - niveau    : facultatif (« Tous niveaux » par défaut)
+  - objectif  : une ou deux phrases, facultatif
+  - étapes    : une ligne par étape  →  heure ; titre ; détail
+                (le détail est facultatif : peu de texte = lisible de loin.
+                L'étape en cours est mise en valeur sur l'écran de
+                projection, selon l'heure)
+  - à retenir : facultatif, une phrase affichée en fin de programme
+
+  Les lignes qui commencent par # sont ignorées.
+  Évitez l'accent grave isolé et le signe dollar suivi d'une accolade.
+  Après modification : enregistrez (Ctrl + S), puis rechargez la page.
+  Ne touchez pas à la première ni à la dernière ligne du fichier.
+
+=====================================================================
+
+=== 28/11/2026
+titre : Gagner avec la sicilienne !
+niveau : Tous niveaux
+objectif : Les idées clés de la Sicilienne, pour jouer les Noirs et gagner.
+14 h 00 ; Accueil
+14 h 05 ; 1.e4 c5 · Partie commentée
+14 h 55 ; Conclusion
+à retenir : Dans la Sicilienne, les Noirs jouent pour gagner.
+
+# === 12/12/2026
+# titre : (à compléter)
+# 14 h 00 ; Accueil ; ...
+
+`

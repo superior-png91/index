@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cours du samedi (14 h – 15 h) – Tous niveaux · Les Fous d&#x27;Étréchy</title>
+<meta name="description" content="Chaque samedi de 14 h à 15 h, un cours d'échecs pour tous les niveaux, dans une ambiance conviviale : thème du jour, programme et prochaines dates.">
+<link rel="canonical" href="https://lesfousdetrechy.fr/Coursdusamedi.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Les Fous d'Étréchy">
+<meta property="og:title" content="Cours du samedi (14 h – 15 h) – Tous niveaux · Les Fous d&#x27;Étréchy">
+<meta property="og:description" content="Chaque samedi de 14 h à 15 h, un cours d'échecs pour tous les niveaux, dans une ambiance conviviale : thème du jour, programme et prochaines dates.">
+<meta property="og:url" content="https://lesfousdetrechy.fr/Coursdusamedi.html">
+<meta property="og:image" content="https://lesfousdetrechy.fr/assets/img/partage-club.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&family=Noto+Sans+Symbols+2&display=swap">
+<link rel="preload" href="assets/fonts/fjalla-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/img/cours-salle.webp" as="image" media="(min-width:1000px)">
+<link rel="stylesheet" href="assets/css/site.css?v=4">
+<link rel="stylesheet" href="assets/css/entete.css">
+<link rel="stylesheet" href="assets/css/cours.css?v=1">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav data-site="nav"></nav>
+
+<main id="cs">
+
+  <!-- ===== LA SALLE DE PROJECTION : le thème du jour s'affiche sur l'écran ===== -->
+  <section class="cs-hero" aria-labelledby="csT">
+    <div class="cs-room">
+      <img class="cs-img" src="assets/img/cours-salle.webp" srcset="assets/img/cours-salle-m.webp 900w, assets/img/cours-salle.webp 1600w" sizes="(min-width:1400px) 1360px, 100vw" width="1600" height="1067" alt="Un joueur concentré devant un échiquier, face à l'écran de projection de la salle" fetchpriority="high">
+      <div class="cs-film" aria-hidden="true"><i class="g"></i><i class="r"></i></div>
+      <div class="cs-screen" id="csScreen">
+        <h1 class="cs-kick" id="csT">Cours du samedi <span>14&nbsp;h – 15&nbsp;h · Tous niveaux</span></h1>
+        <p class="cs-titre" id="csTitre">Programme à venir</p>
+        <p class="cs-date" id="csDate">Prochain cours</p>
+      </div>
+    </div>
+    <div class="cs-bar">
+      <button type="button" class="btn solid" id="csProj" aria-haspopup="dialog">
+        <span aria-hidden="true">▶</span> Projeter la séance
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== ACCUEIL ET PROGRAMME ===== -->
+  <section class="cs-prog">
+    <div class="wrap">
+      <p class="eyebrow"><span class="sq">c5</span> Chaque samedi, de 14&nbsp;h à 15&nbsp;h</p>
+      <p class="cs-accueil">Venez progresser dans une ambiance conviviale autour d'un format dynamique.</p>
+
+      <div class="cs-fiche" id="csFiche">
+        <div class="cs-fiche-in paper">
+          <p class="cs-f-kick" id="csFKick">Programme de la séance</p>
+          <h2 id="csFTitre">Programme à venir</h2>
+          <p class="cs-f-obj" id="csFObj"></p>
+          <ol class="cs-f-etapes" id="csFEtapes"></ol>
+          <p class="cs-f-retenir" id="csFRetenir" hidden></p>
+        </div>
+      </div>
+      <p class="cs-note">Le cours se tient en Salle&nbsp;1, de 14&nbsp;h à 15&nbsp;h. La Salle&nbsp;2 reste disponible pour disputer des parties. Dès 15&nbsp;h, la Salle&nbsp;1 redevient libre pour son activité de jeux jusqu'à 18&nbsp;h.</p>
+    </div>
+  </section>
+
+  <!-- ===== LES PROCHAINS COURS (lus dans l'agenda et dans cours.txt) ===== -->
+  <section class="cs-next" aria-labelledby="csNT">
+    <div class="wrap">
+      <p class="eyebrow"><span class="sq">d4</span> Au calendrier</p>
+      <h2 id="csNT">Les prochains samedis</h2>
+      <ul class="cs-liste" id="csListe"></ul>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== ÉCRAN DE PROJECTION (plein écran) ===== -->
+<div class="pj paper" id="pj" role="dialog" aria-modal="true" aria-label="Projection du cours" hidden>
+  <button type="button" class="pj-x" id="pjX">Quitter la projection <kbd>Échap</kbd></button>
+  <div class="pj-grid">
+    <header class="pj-head">
+      <p class="pj-kick">Cours du samedi · 14&nbsp;h – 15&nbsp;h</p>
+      <h2 class="pj-titre" id="pjTitre"></h2>
+      <p class="pj-niv" id="pjNiv"></p>
+      <div class="pj-temps" aria-live="off">
+        <p class="pj-horloge" id="pjHorloge">--:--</p>
+        <p class="pj-compte" id="pjCompte"></p>
+      </div>
+    </header>
+    <div class="pj-corps">
+      <ol class="pj-etapes" id="pjEtapes"></ol>
+      <p class="pj-retenir" id="pjRetenir" hidden></p>
+    </div>
+  </div>
+</div>
+
+<footer data-site="foot"></footer>
+<script src="agenda.txt"></script>
+<script src="cours.txt"></script>
+<script src="assets/js/site.js?v=9"></script>
+<script src="assets/js/cours.js?v=1"></script>
+</body>
+</html>

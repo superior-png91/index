@@ -16,6 +16,7 @@ var MENU = [
   ]],
   ["Jouer & apprendre", [
     ["d4", "Activités",     "Une séance, trois façons d'y jouer",   "Lesfousdetrechy.html#activites"],
+    ["c5", "Cours du samedi", "14 h – 15 h, tous niveaux",         "Coursdusamedi.html"],
     ["e5", "Apprendre",     "Les bases et les ouvertures",          "Lesfousdetrechy.html#apprendre"],
     ["f6", "Applications",  "Dix outils pour s'entraîner",          "Lesfousdetrechy.html#applications"],
     ["e4", "Le local & le matériel", "Nos deux salles, échiquiers, pendule", "Materiel.html"]
@@ -102,7 +103,7 @@ var CLUB = {
     }
     return out;
   }
-  window.Fous = {upcoming: upcoming};
+  window.Fous = {upcoming: upcoming, parisTime: parisTime, parisParts: parisParts};
 
   /* ------------------------------------------------------------------
      EN-TÊTE (menus déroulants) + MENU DES PETITS ÉCRANS + PIED DE PAGE
