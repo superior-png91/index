@@ -124,7 +124,7 @@
     var pa = F.parisParts(Date.now()), auj = pad(pa.d) + "/" + pad(pa.m) + "/" + pa.y;
     up.slice(0, 4).forEach(function(o, i){
       var d = COURS[o.key], li = el("li", "cs-it");
-      li.appendChild(el("p", "jr", (i === 0 ? (o.key === auj ? "Aujourd'hui · " : "Prochain · ") : "") + maj(o.label)));
+      li.appendChild(el("p", "jr", (i === 0 ? (o.key === auj ? "Aujourd'hui · " : "À venir · ") : "") + maj(o.label)));
       li.appendChild(el("p", d && d.titre ? "th" : "th vide", d && d.titre ? typo(d.titre) : "Programme à venir"));
       if (o.note) li.appendChild(el("p", "nt", "À l'agenda : " + o.note));
       ul.appendChild(li);
