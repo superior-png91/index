@@ -80,6 +80,8 @@
 .sf-links{display:flex;flex-wrap:wrap;gap:8px 20px}
 .sf-links a{color:inherit;text-decoration:none}
 .sf-links a:hover{color:var(--sn-or-pale)}
+/* écrans tactiles : zone de toucher de 44 px de haut autour de chaque lien (le texte ne change pas) */
+@media (pointer:coarse){.sf-links{row-gap:0}.sf-links a{display:inline-flex;align-items:center;min-height:44px}}
 .sf-diag{width:100%;text-align:right;font-family:var(--sn-mono);font-size:.8rem;color:var(--sn-or)}
 @media (prefers-reduced-motion:reduce){.site-nav *,.site-menu,.site-menu *{transition:none!important}}
 
