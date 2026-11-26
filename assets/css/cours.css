@@ -148,7 +148,7 @@
 /* ouverture de la projection : fondu progressif de deux secondes, comme une lampe qui s'allume */
 .pj.pj-attente{opacity:0}   /* noir le temps que le navigateur passe en plein écran */
 .pj.pj-in{animation:pjFondu 2s linear both}
-@keyframes pjFondu{0%{opacity:0}30%{opacity:.1}60%{opacity:.4}85%{opacity:.8}100%{opacity:1}}   /* départ lent, comme une lampe qui chauffe */
+@keyframes pjFondu{0%{opacity:0}30%{opacity:.2}60%{opacity:.4}85%{opacity:.8}100%{opacity:1}}   /* départ lent, comme une lampe qui chauffe */
 @media (prefers-reduced-motion:reduce){.pj.pj-in{animation:none}}
 html.pj-on,html.pj-on body{overflow:hidden}
 .pj-x{
