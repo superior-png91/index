@@ -10,7 +10,12 @@
 
   var DEBUT = [14, 0], FIN = [15, 0];
   var COURS = lire();
-  var up = F.upcoming(120).filter(function(o){ return o.open; });
+  /* samedis ouverts dont le cours (14 h – 15 h) n'est pas encore terminé : dès 15 h, on passe au samedi suivant */
+  var up = F.upcoming(120).filter(function(o){
+    if (!o.open) return false;
+    var d = o.key.split("/").map(Number);
+    return F.parisTime(d[2], d[1], d[0], FIN[0], FIN[1]) > Date.now();
+  });
   var item = up[0] || null;
   var data = item ? COURS[item.key] || null : null;
 
@@ -116,9 +121,10 @@
     var ul = $("#csListe");
     ul.textContent = "";
     if (!up.length) { var li0 = el("li", "cs-it"); li0.appendChild(el("p", "th vide", "Les prochains samedis seront annoncés prochainement.")); ul.appendChild(li0); }
+    var pa = F.parisParts(Date.now()), auj = pad(pa.d) + "/" + pad(pa.m) + "/" + pa.y;
     up.slice(0, 4).forEach(function(o, i){
       var d = COURS[o.key], li = el("li", "cs-it");
-      li.appendChild(el("p", "jr", (i === 0 ? "Prochain · " : "") + maj(o.label)));
+      li.appendChild(el("p", "jr", (i === 0 ? (o.key === auj ? "Aujourd'hui · " : "Prochain · ") : "") + maj(o.label)));
       li.appendChild(el("p", d && d.titre ? "th" : "th vide", d && d.titre ? typo(d.titre) : "Programme à venir"));
       if (o.note) li.appendChild(el("p", "nt", "À l'agenda : " + o.note));
       ul.appendChild(li);
