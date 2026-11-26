@@ -71,6 +71,8 @@
 .tz-dots button[aria-current="true"]{background:var(--or)}
 .fi-skip{position:absolute;top:calc(var(--nav-h,64px) + 20px + env(safe-area-inset-top,0px));right:max(clamp(16px,5vw,80px),env(safe-area-inset-right,0px));z-index:7;font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or-pale);text-decoration:none;padding:10px 18px;border:1px solid color-mix(in srgb,var(--or) 60%,transparent);border-radius:999px;background:rgba(18,13,10,.5)}
 .fi-skip:hover{background:var(--or);color:var(--ebene)}
+/* second bouton, juste sous « Passer au club » : renvoi vers la page du cours du samedi */
+.fi-skip.fi-cours{top:calc(var(--nav-h,64px) + 20px + 52px + env(safe-area-inset-top,0px))}
 @media (max-width:760px){
   .tz{--tzw:min(70vw,calc((100svh - 400px) * 16 / 9))}
   .tz-film.l{transform:translateX(-64%) translateZ(-420px) rotateY(40deg)}
@@ -516,6 +518,7 @@ for(i=0;i<F.length;i++){s=F[i];c=s.k;s.el.style.transform=tr;s.el.style.opacity=
     <div class="op-stage">
       <p class="num op-eyebrow"><span class="g">a1</span>Club d'échecs de loisirs · Étréchy (91580)</p>
       <a class="fi-skip" href="#dates">Passer au club ↓</a>
+      <a class="fi-skip fi-cours" href="Coursdusamedi.html">Venez au cours →</a>
       <div class="op-in" id="opIn">
         <div class="op-left">
           <div class="op-card" id="opCard">
