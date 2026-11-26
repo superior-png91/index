@@ -145,6 +145,10 @@
   --u:min(1vh,.5625vw);
 }
 .pj[hidden]{display:none}
+/* ouverture de la projection : fondu progressif d'une seconde, comme une lampe qui s'allume */
+.pj:not([hidden]){animation:pjFondu 1s ease-out both}
+@keyframes pjFondu{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.pj:not([hidden]){animation:none}}
 html.pj-on,html.pj-on body{overflow:hidden}
 .pj-x{
   position:fixed;z-index:3;top:calc(10 * var(--s));left:50%;transform:translateX(-50%);white-space:nowrap;

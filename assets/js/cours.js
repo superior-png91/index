@@ -170,7 +170,7 @@
       var p = F.parisParts(now);
       $("#pjHorloge").textContent = pad(p.h) + ":" + pad(p.mi);
       var txt = "";
-      if (st.k === "avant" && joursAvant(now) > 0) txt = "Prochain cours : " + item.label;
+      if (st.k === "avant" && joursAvant(now) > 0) txt = "À venir · " + maj(item.label);
       else if (st.k === "aucun") txt = "Les prochains cours seront annoncés bientôt";
       $("#pjCompte").textContent = typo(txt);
       var cur = $("#pjEtapes .is-now");
