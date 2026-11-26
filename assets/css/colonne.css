@@ -7,6 +7,11 @@
 .mo-txt .eyebrow{margin-bottom:14px}
 .mo-txt h2{font-size:clamp(2.2rem,4.6vw,4.2rem);line-height:.98;letter-spacing:-.02em}
 .mo-txt p.side{margin-top:clamp(14px,2.4vh,26px);max-width:26em}
+/* plaque en laiton du club, sous le titre : les bords du bois se fondent dans le fond */
+.mo-plaque{margin:clamp(12px,2.2vh,24px) 0 0}
+.mo-plaque img{display:block;width:min(100%,26rem,calc(30svh * 1.424));height:auto;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent),linear-gradient(to bottom,transparent,#000 8%,#000 90%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent),linear-gradient(to bottom,transparent,#000 8%,#000 90%,transparent);mask-composite:intersect}
 .mo-help{margin-top:clamp(14px,2.4vh,24px);font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or)}
 /* boîte du cadre : sa taille décide, le cadre y tient toujours entier en gardant ses proportions 3/4 */
 .mo-fbox{container-type:size;display:grid;place-items:center;height:calc(100svh - var(--nav-h,64px) - clamp(24px,5vh,64px));
@@ -40,6 +45,8 @@
   .mo-txt h2{font-size:clamp(1.8rem,7vw,3.2rem)}
   .mo-txt p.side{margin:clamp(6px,1.2vh,14px) auto 0;font-size:clamp(.9rem,2.4vw,1.1rem);line-height:1.45}
   .mo-help{margin-top:clamp(6px,1.2vh,12px);font-size:.66rem;letter-spacing:.12em}
+  .mo-plaque{margin:clamp(4px,1vh,10px) auto 0}
+  .mo-plaque img{width:min(70vw,calc(15svh * 1.424));margin:0 auto}
   .mo-fbox{flex:1 1 auto;min-height:0;width:100%;height:auto}
 }
 
@@ -51,6 +58,7 @@
  .mo-txt h2{font-size:clamp(1.4rem,7vh,2.4rem)}
  .mo-txt p.side{margin-top:8px;font-size:clamp(.78rem,3.6vh,.98rem);line-height:1.4}
  .mo-help{margin-top:8px;font-size:.58rem}
+ .mo-plaque{display:none}   /* pas la place en paysage court */
  .mo-fbox{container-type:normal;position:relative;overflow:hidden;border-radius:10px;width:var(--fw);height:calc(var(--fw) * 1.187);box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(215,170,90,.25)}
  .mo-frame{position:absolute;left:0;top:calc(var(--fw) * -.0533);width:var(--fw);border-radius:0;box-shadow:none}
  .mo-snd{top:calc(4% + 8px);right:8px;height:34px}
