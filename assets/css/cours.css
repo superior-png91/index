@@ -75,7 +75,7 @@
 .cs-f-etapes li.is-past{opacity:.5}
 .cs-f-retenir{margin-top:22px;padding:14px 4px 0;border-top:3px double var(--trait);font:400 1.22rem/1.35 var(--fj);letter-spacing:.02em}
 .cs-f-retenir b{display:block;font-weight:400;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--encre-2);margin-bottom:4px}
-.cs-note{margin-top:18px;color:var(--sepia);font-size:.92rem}
+.cs-note{margin-top:18px;padding:14px 18px;border-left:3px solid var(--or);border-radius:0 8px 8px 0;background:rgba(236,201,127,.08);color:var(--ivoire);font-size:1.02rem;line-height:1.6}
 
 /* ---------- 3. les prochains samedis ---------- */
 .cs-next{padding-block:clamp(30px,4vw,56px) clamp(60px,8vw,112px)}
