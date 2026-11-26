@@ -182,19 +182,32 @@
   function ouvrir(){
     remplirProjection();
     bruitage();
+    pj.classList.remove("pj-in");
+    pj.classList.add("pj-attente");
     pj.hidden = false;
     document.documentElement.classList.add("pj-on");
     hidden = [].slice.call(document.body.children).filter(function(n){ return n !== pj && n.tagName !== "SCRIPT"; });
     hidden.forEach(function(n){ n.inert = true; });
     tick();
     var rq = pj.requestFullscreen || pj.webkitRequestFullscreen;
-    if (rq) { try { var r = rq.call(pj); if (r && r.catch) r.catch(function(){}); } catch (e) {} }
+    var ok = false;
+    if (rq) { try { var r = rq.call(pj); if (r && r.then) { ok = true; r.then(function(){ setTimeout(fondu, 200); }, fondu); } } catch (e) {} }
+    if (!ok) fondu();                         // pas de plein écran (iPhone…) : le fondu part tout de suite
+    setTimeout(fondu, 1500);                  // sécurité : le fondu part au plus tard après 1,5 s
     if (navigator.wakeLock && navigator.wakeLock.request) { navigator.wakeLock.request("screen").then(function(l){ verrou = l; }).catch(function(){}); }
     $("#pjX").focus({preventScroll: true});
+  }
+  /* fondu de l'écran de projection : lancé une fois le plein écran installé, pour ne pas être masqué par l'animation du navigateur */
+  function fondu(){
+    if (pj.hidden || !pj.classList.contains("pj-attente")) return;
+    pj.classList.remove("pj-attente");
+    void pj.offsetWidth;
+    pj.classList.add("pj-in");
   }
   function fermer(){
     if (pj.hidden) return;
     pj.hidden = true;
+    pj.classList.remove("pj-attente", "pj-in");
     if (son) { try { son.pause(); } catch (e) {} }
     document.documentElement.classList.remove("pj-on");
     hidden.forEach(function(n){ n.inert = false; });

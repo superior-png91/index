@@ -146,9 +146,10 @@
 }
 .pj[hidden]{display:none}
 /* ouverture de la projection : fondu progressif de deux secondes, comme une lampe qui s'allume */
-.pj:not([hidden]){animation:pjFondu 2s ease-out both}
+.pj.pj-attente{opacity:0}   /* noir le temps que le navigateur passe en plein écran */
+.pj.pj-in{animation:pjFondu 2s ease-out both}
 @keyframes pjFondu{from{opacity:0}to{opacity:1}}
-@media (prefers-reduced-motion:reduce){.pj:not([hidden]){animation:none}}
+@media (prefers-reduced-motion:reduce){.pj.pj-in{animation:none}}
 html.pj-on,html.pj-on body{overflow:hidden}
 .pj-x{
   position:fixed;z-index:3;top:calc(10 * var(--s));left:50%;transform:translateX(-50%);white-space:nowrap;
