@@ -133,6 +133,10 @@
 
   /* ---------- écran de projection ---------- */
   var pj = $("#pj"), btn = $("#csProj"), fsOK = false, verrou = null, hidden = [];
+  /* bruitage du projecteur (3 s, puis silence) : joué seulement à l'ouverture de la projection */
+  var son = null;
+  function sonPret(){ if (!son) { try { son = new Audio("assets/audio/projecteur.mp3"); son.preload = "auto"; son.volume = .8; } catch (e) { son = null; } } }
+  function bruitage(){ sonPret(); if (!son) return; try { son.currentTime = 0; var r = son.play(); if (r && r.catch) r.catch(function(){}); } catch (e) {} }
   function remplirProjection(){
     var titre = data && data.titre ? data.titre : "Programme à venir";
     riche($("#pjTitre"), titre);
@@ -177,6 +181,7 @@
   /* ---------- ouverture / fermeture de la projection ---------- */
   function ouvrir(){
     remplirProjection();
+    bruitage();
     pj.hidden = false;
     document.documentElement.classList.add("pj-on");
     hidden = [].slice.call(document.body.children).filter(function(n){ return n !== pj && n.tagName !== "SCRIPT"; });
@@ -190,6 +195,7 @@
   function fermer(){
     if (pj.hidden) return;
     pj.hidden = true;
+    if (son) { try { son.pause(); } catch (e) {} }
     document.documentElement.classList.remove("pj-on");
     hidden.forEach(function(n){ n.inert = false; });
     if (verrou) { try { verrou.release(); } catch (e) {} verrou = null; }
@@ -214,6 +220,7 @@
     }
   });
   btn.addEventListener("click", ouvrir);
+  ["pointerenter", "focus", "touchstart"].forEach(function(ev){ btn.addEventListener(ev, sonPret, {once: true, passive: true}); });   // le son se charge à l'approche du bouton
   $("#pjX").addEventListener("click", fermer);
 
   remplirPage();
