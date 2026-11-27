@@ -103,7 +103,20 @@ var CLUB = {
     }
     return out;
   }
-  window.Fous = {upcoming: upcoming, parisTime: parisTime, parisParts: parisParts};
+  /* Cours du samedi : thèmes lus dans cours.txt (si la page le charge). Clé « jj/mm/aaaa » → {titre}.
+     Un titre commençant par « Pas de cours » signale un samedi sans cours. */
+  function coursClub(){
+    var out = {}, cur = null;
+    String(window.COURS_CLUB || "").split(/\r?\n/).forEach(function(l){
+      l = l.trim(); if (!l || l.charAt(0) === "#") return;
+      var m = l.match(/^=+\s*(\d{1,2})\/(\d{1,2})\/(\d{4})\s*$/);
+      if (m) { cur = {}; out[("0" + m[1]).slice(-2) + "/" + ("0" + m[2]).slice(-2) + "/" + m[3]] = cur; return; }
+      m = l.match(/^titre\s*:\s*(.*)$/i); if (m && cur) cur.titre = m[1].trim();
+    });
+    Object.keys(out).forEach(function(k){ var t = out[k].titre || ""; out[k].pas = /^pas de cours/i.test(t); out[k].a = !!t && !out[k].pas; });
+    return out;
+  }
+  window.Fous = {upcoming: upcoming, parisTime: parisTime, parisParts: parisParts, cours: coursClub};
 
   /* ------------------------------------------------------------------
      EN-TÊTE (menus déroulants) + MENU DES PETITS ÉCRANS + PIED DE PAGE
@@ -238,11 +251,15 @@ var CLUB = {
      ------------------------------------------------------------------ */
   $$("[data-ticker]").forEach(function(box){
     var track = $(".ticker-track", box), list = upcoming(70).slice(0, 6);
+    var COURS = coursClub();
     var html = list.map(function(s){
       var what = !s.open ? (s.note || "Club fermé") : (s.note || (s.hours.txt === "14 h – 18 h" ? "Séance du club, 14 h – 18 h" : "Séance du club, " + s.hours.txt));
-      return '<span class="tk' + (s.open || s.note ? "" : " off") + '"><small>' + esc(s.label) + '</small><span>' + esc(what) + '</span></span><span class="tk-sep">\u265D\uFE0E</span>';
+      var c = s.open && COURS[s.key] && COURS[s.key].a ? COURS[s.key].titre : "";
+      // avec un cours : la séance et, juste dessous, le thème du cours (2 lignes, sans rallonger le bandeau)
+      var txt = c ? '<span class="tk-pile"><span>' + esc(what) + '</span><em class="tk-c"><b>Cours 14\u00a0h – 15\u00a0h</b>' + esc(c.replace(/ +([!?:;])/g, "\u00a0$1")) + '</em></span>' : '<span>' + esc(what) + '</span>';
+      return '<span class="tk' + (s.open || s.note ? "" : " off") + '"><small>' + esc(s.label) + '</small>' + txt + '</span><span class="tk-sep">\u265D\uFE0E</span>';
     }).join("");
-    box.setAttribute("aria-label", "Prochaines dates : " + list.map(function(s){ return s.label + (s.open ? (s.note ? ", " + s.note : ", séance") : ", fermé"); }).join(" ; "));
+    box.setAttribute("aria-label", "Prochaines dates : " + list.map(function(s){ var c = s.open && COURS[s.key] && COURS[s.key].a ? ", cours de 14 h à 15 h : " + COURS[s.key].titre : ""; return s.label + (s.open ? (s.note ? ", " + s.note : ", séance") : ", fermé") + c; }).join(" ; "));
     track.innerHTML = "";
     for (var n = 0; n < 4; n++) { var set = document.createElement("div"); set.className = "ticker-set"; set.innerHTML = html; track.appendChild(set); }
     // RÉGLETTE PILOTÉE PAR LA MOLETTE

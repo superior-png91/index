@@ -225,6 +225,11 @@
 #dates .tk span{font-family:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;font-style:normal;font-weight:800;text-transform:uppercase;letter-spacing:0;color:var(--band-ink);font-size:clamp(1.7rem,3.4vw,2.9rem);line-height:1}
 #dates .tk.off span{color:rgba(11,10,8,.5)}
 #dates .tk-sep{color:var(--band-ink);font-size:1.2rem}
+/* thème du cours du samedi (cours.txt), en pastille vert canard : la couleur des cours sur tout le site */
+#dates .tk .tk-pile{display:inline-flex;flex-direction:column;align-items:flex-start;gap:7px}
+#dates .ticker-set{align-items:baseline}   /* toutes les dates sur la même ligne, le cours pend dessous */
+#dates .tk-c{display:inline-flex;align-items:baseline;gap:10px;padding:4px 10px;text-transform:none;letter-spacing:0;border-radius:8px;background:#17625C;color:#F5EBD8;font-style:normal;font-family:"IBM Plex Mono",var(--mono);font-size:.74rem;font-weight:500;line-height:1.2;white-space:nowrap}
+#dates .tk-c b{font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#9FE0D4}
 
 /* bandeau plus bas : logo et dates réduits dans le sens de la hauteur */
 #dates{padding-block:clamp(6px,.9vw,10px) clamp(8px,1vw,12px)}
@@ -785,7 +790,8 @@ a.slice(0,2).forEach(function(c){var e=document.createElement("article");e.class
 s.hidden=!1}();</script>
 <!-- L'agenda (à modifier dans agenda.txt), puis le script commun -->
 <script src="agenda.txt"></script>
-<script src="assets/js/site.js?v=10"></script>
+<script src="cours.txt"></script>
+<script src="assets/js/site.js?v=12"></script>
 <script src="assets/js/opera.js?v=6"></script>
 <script src="assets/js/colonne.js?v=14"></script>
 <script>
