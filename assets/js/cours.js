@@ -16,7 +16,14 @@
     var d = o.key.split("/").map(Number);
     return F.parisTime(d[2], d[1], d[0], FIN[0], FIN[1]) > Date.now();
   });
-  var item = up[0] || null;
+  /* lien direct vers un cours précis (depuis l'agenda) : Coursdusamedi.html?cours=jj-mm-aaaa.
+     Sans paramètre, ou si la date est passée ou inconnue, on affiche le prochain cours. */
+  var demande = /[?&]cours=(\d{1,2})-(\d{1,2})-(\d{4})/.exec(location.search), choisi = null;
+  if (demande) {
+    var cle = ("0" + demande[1]).slice(-2) + "/" + ("0" + demande[2]).slice(-2) + "/" + demande[3];
+    choisi = up.filter(function(o){ return o.key === cle; })[0] || null;
+  }
+  var item = choisi || up[0] || null;
   var data = item ? COURS[item.key] || null : null;
 
   function $(s, c){ return (c || document).querySelector(s); }

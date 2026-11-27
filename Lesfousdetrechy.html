@@ -1697,7 +1697,7 @@ window.FOUS_TITRE = function(ch, host){
       bloc.appendChild(k); bloc.appendChild(t);
     } else {
       k.textContent = "Cours du samedi · 14\u00a0h – 15\u00a0h\u00a0· Salle\u00a01";
-      var a = document.createElement("a"); a.href = "Coursdusamedi.html";
+      var a = document.createElement("a"); a.href = "Coursdusamedi.html?cours=" + cle.replace(/\//g, "-");   // lien vers CE cours-là
       a.textContent = (titre ? "« " + titre + " »" : "Programme à venir") + " →";
       bloc.appendChild(k); bloc.appendChild(a);
     }
