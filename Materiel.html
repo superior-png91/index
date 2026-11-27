@@ -174,7 +174,7 @@ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000
 /* surface brillante : reflet qui suit le doigt / la souris */
 .carte3d .face::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:soft-light;
 background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.7) 0,rgba(255,255,255,.22) 22%,rgba(255,255,255,0) 52%),linear-gradient(115deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.4) 46%,rgba(255,255,255,0) 62%);background-size:100% 100%,260% 100%;background-position:0 0,calc(var(--mx) * -1 + 100%) 0}
-.carte3d .liens a{position:absolute;z-index:4;display:block;border-radius:6px;outline-offset:2px}
+.carte3d .liens a{position:absolute;z-index:4;display:block;border-radius:6px;outline-offset:2px}@media (pointer:coarse){.liens a:nth-child(1){left:3%!important;top:26%!important;width:58%!important;height:15.5%!important}.liens a:nth-child(2){left:3%!important;top:42.5%!important;width:50%!important;height:15.5%!important}}
 .carte3d .liens a:hover,.carte3d .liens a:focus-visible{background:rgba(48,200,184,.16);box-shadow:0 0 0 1px rgba(48,200,184,.6)}
 .carte3d:not(.retournee) .liens a{pointer-events:none}
 .carte-incl.eveil{animation:eveil 1.6s ease-in-out 1}

@@ -95,6 +95,7 @@
 #dates .top-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
 #dates .top-row a{font-family:var(--mono);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--or-pale);text-decoration:none;white-space:nowrap}
 #dates .top-row a:hover{color:var(--ivoire)}
+@media (pointer:coarse){#dates .top-row a:not(.relais){display:inline-flex;align-items:center;min-height:44px}}   /* écrans tactiles : zone de toucher de 44 px */
 
 /* ---------- c3 · le club ---------- */
 #club{background:var(--noyer)}
