@@ -57,6 +57,14 @@ niveau : Tous niveaux
 === 09/01/2027
 titre : Pas de cours
 
+=== 16/01/2027
+titre : La dame, une pièce forte si vulnérable !
+niveau : Tous niveaux
+14 h 00 ; Accueil
+14 h 05 ; 1.e4 e5 · Parties commentées
+14 h 55 ; Conclusion
+à retenir : Ne sortez pas la dame prématurément sans objectif précis : elle deviendrait une cible facile pour les pièces mineures adverses.
+
 # === 12/12/2026
 # titre : (à compléter)
 # 14 h 00 ; Accueil ; ...
